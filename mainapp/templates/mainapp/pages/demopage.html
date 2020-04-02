@@ -1,0 +1,35 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    {% for daily_case in all_cases_today %}
+    <h1>Cases Recorded Today in {{daily_case.province}}</h1>
+    <hr>
+    <h2>total_suspected: {{daily_case.total_suspected}}</h2>
+    <h2>total_tested: {{daily_case.total_tested}}</h2>
+    <h2>total_tested_positive: {{daily_case.total_tested_positive}}</h2>
+    <h2>total_tested_negative: {{daily_case.total_tested_negative}}</h2>
+    <h2>total_admitted: {{daily_case.total_admitted}}</h2>
+    <h2>total_discharged: {{daily_case.total_discharged}}</h2>
+    <h2>total_died: {{daily_case.total_died}}</h2>
+    {% endfor %}
+
+    <hr> {% for province, case in total_cases.items %}
+    <h1>Total Cases Recorded in {{province}}</h1>
+    <hr>
+    <h2>total_suspected: {{case.total_suspected}}</h2>
+    <h2>total_tested: {{case.total_tested}}</h2>
+    <h2>total_tested_positive: {{case.total_tested_positive}}</h2>
+    <h2>total_tested_negative: {{case.total_tested_negative}}</h2>
+    <h2>total_admitted: {{case.total_admitted}}</h2>
+    <h2>total_discharged: {{case.total_discharged}}</h2>
+    <h2>total_died: {{case.total_died}}</h2>
+    {% endfor %}
+</body>
+
+</html>

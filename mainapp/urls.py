@@ -3,6 +3,7 @@ from .views import *
 
 app_name = "mainapp"
 urlpatterns = [
-    path("", index)
+    path("", index),
+    path("index", dashboard)
 ]
 
