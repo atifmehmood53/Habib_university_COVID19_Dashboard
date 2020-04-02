@@ -1,7 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Sum
+from django.contrib import messages
 from .models import *
 import datetime
+import csv , io
 
 # Create your views here.
 
@@ -25,3 +27,46 @@ def index(request):
 
 def dashboard(request):
     return render(request, "mainapp/base.html")
+
+def dashboard_data(request):
+    template = 'data.html'
+
+    prompt = {
+       'order': 'Order of the csv should be date , province , suspected , tested , tested positive , admitted, discharged , death'
+    }
+
+    if request.method == 'GET':
+        return render(request, template, prompt)
+    
+    csv_file = request.FILES['file']
+
+    # if not csv_file.names.endswith('.csv'):
+    #     messages.error(request,'file not supported. Please upload a csv file')
+
+    data_set = csv_file.read().decode('utf-8')
+    io_string = io.StringIO(data_set)
+    next(io_string)
+
+    for col in csv.reader(io_string, delimiter = ','):
+        _, created = Daily_Cases.objects.update_or_create(
+            date = col[0],
+            province = col[1],
+            total_suspected = col[2],
+            total_tested = col[3],
+            total_tested_positive = col[4],
+            total_admitted = col[5],
+            total_discharged = col[6],
+            total_diesel = col[7]
+        )
+
+    context = {}
+
+    return render(request, template, context)
+
+    
+
+
+
+
+    
+
