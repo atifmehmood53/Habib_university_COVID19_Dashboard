@@ -10,8 +10,8 @@ import datetime
 def index(request):
     all_cases_today = Daily_Cases.objects.filter(date=datetime.date.today())
     total_cases = {}
-    for case in all_cases_today:
-       total_cases[case.province]=  Daily_Cases.objects.filter(province=case.province).aggregate(
+    for province,_  in province_choices:
+       total_cases[province]=  Daily_Cases.objects.filter(province=province).aggregate(
             total_suspected=Sum("total_suspected"),
             total_tested=Sum("total_tested"),
             total_tested_positive=Sum("total_tested_positive"),
