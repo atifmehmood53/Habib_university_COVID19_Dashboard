@@ -23,7 +23,7 @@ def index(request):
             total_died=Sum("total_died")
         )
 
-    return render(request, "mainapp/pages/demopage.html", context={"all_cases_today": all_cases_today, "total_cases":total_cases})
+    return render(request, "mainapp/pages/index.html", context={"all_cases_today": all_cases_today, "total_cases":total_cases})
 
 def dashboard(request):
     return render(request, "mainapp/base.html")
