@@ -53,6 +53,7 @@ window.onload = function () {
 		animationEnabled: true,
 		width: 650,
 		height: 250,
+		backgroundColor: "white",
 		title: {
 			text: "Time Series Graph for Confirmed Cases",
 			fontFamily: "Rockwell"
@@ -71,6 +72,8 @@ window.onload = function () {
 		},
 		data: [{
 			name: "Date",
+			lineColor: "#8C0618",
+			markerColor: "#8C0618",
 			type: "spline",
 			dataPoints: [
 				{ x: new Date(2020, 6, 24), y: 1 },
@@ -107,7 +110,7 @@ function popup(e) {
 		province = "Sindh";
 	}
 	else if (e.target.id === "PK-TA") {
-		province = "FATA";
+		province = "Tribal Areas";
 	}
 	else if (e.target.id === "PK-KP") {
 		province = "Khyber Pakhtunkhwa";
