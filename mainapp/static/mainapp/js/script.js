@@ -1,95 +1,106 @@
+var ctx1 = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx1, {
+    type: 'line',
+    data: {
+        datasets: [{
+            label: '# Of Cases All Over Pakistan',
+            pointBackgroundColor: '#F0CB69',
+            pointBorderColor: '#F0CB69',
+            pointRadius: 5,
+            fill: true,
+            backgroundColor: '#8C0618',
+            data: [
+                {
+                    x: new Date(2019, 11, 25),
+                    y: 20
+                },{
+                    x: new Date(2020, 0, 25),
+                    y: 50
+                },{
+                    x: new Date(2020, 1, 25),
+                    y: 249
+                },{
+                    x: new Date(2020, 2, 25),
+                    y: 500
+                },{
+                    x: new Date(),
+                    y: 2650
+                }
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            xAxes: [{
+                type: 'time',
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Date'
+                },
+                ticks: {
+                    source: 'data'
+                }
+            }],
+            yAxes: [{
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: '# of people'
+                }
+            }]
+        }
+    }
+});
 
-window.onload = function () {
 
-	//var a = document.getElementById("PK-PB");
-	//a.addEventListener("click", myFunction(e), true);
+var ctx2 = document.getElementById('chart2').getContext('2d');
 
-	CanvasJS.addColorSet("shades", [//colorSet Array
-		"#CC2314",
-		"#F2561D",
-		"#F28729",
-		"#F2C53D",
-		"#F2E641"]);
+var cities = ['Karachi', 'Lahore', 'Islamabad', 'Peshawar', 'Quetta'];
+var dataset = [500, 600, 100, 50, 40];
 
-	var chart = new CanvasJS.Chart("chartContainer", {
-		animationEnabled: true,
-		colorSet: "shades",
-		backgroundColor: "#f4f0ec",
-		//backgroundColor: "#400606",
-		width: 650,
-		height: 250,
+var options = {
+    type: 'horizontalBar',
+    data: {
+        labels: cities,
+        datasets: [{
+            label: '# Of Cases All Over Pakistan',
+            fill: true,
+            backgroundColor: '#8C0618',
+            data: dataset,
+            borderWidth: 1,
+            offset: true
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            xAxes: [{
 
-		title: {
-			fontFamily: "Rockwell",
-			text: "Growth Rate",
-			//fontColor: "#FFFFFF"
-		},
-		axisX: {
-			interval: 1,
-			//labelFontColor: "#FFFFFF"
-		},
-		axisY: {
-			//labelFontColor: "#FFFFFF",
-		},
-		axisY2: {
-			//titleFontColor: "#FFFFFF",
-			title: "COVID-19 Cases across different cities in Pakistan"
-		},
-		data: [{
-			type: "bar",
-			name: "cities",
-			axisYType: "secondary",
-			dataPoints: [
-				{ y: 20, label: "Sukkur" },
-				{ y: 7, label: "Karachi" },
-				{ y: 5, label: "Lahore" },
-				{ y: 9, label: "Quetta" },
-				{ y: 7, label: "Peshawar" }
-			]
-		}]
-	});
+            }],
+            yAxes: [{
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: '# of people'
+                },
+                gridLines: {
+                    display: false
+                },
+            }]
+        }
+    }
+};
 
-	var linechart = new CanvasJS.Chart("lineChartContainer", {
-		animationEnabled: true,
-		width: 650,
-		height: 250,
-		backgroundColor: "white",
-		title: {
-			text: "Time Series Graph for Confirmed Cases",
-			fontFamily: "Rockwell"
-		},
-		axisX: {
-			title: "Date",
-			valueFormatString: "DD MMM,YY"
-		},
-		axisY: {
-			title: "Number of Cases",
-			//includeZero: false,
-			//suffix: " °C"
-		},
-		toolTip: {
-			shared: true
-		},
-		data: [{
-			name: "Date",
-			lineColor: "#8C0618",
-			markerColor: "#8C0618",
-			type: "spline",
-			dataPoints: [
-				{ x: new Date(2020, 6, 24), y: 1 },
-				{ x: new Date(2020, 6, 25), y: 5 },
-				{ x: new Date(2020, 6, 26), y: 10 },
-				{ x: new Date(2020, 6, 27), y: 50 },
-				{ x: new Date(2020, 6, 28), y: 100 },
-				{ x: new Date(2020, 6, 29), y: 200 },
-				{ x: new Date(2020, 6, 30), y: 500 }
-			]
-		}]
-	});
+var chart2 = new Chart(ctx2, options);
 
-	chart.render();
-	linechart.render();
-
+function clear_tooltip(e) {
+    var tooltip = document.getElementById("tooltip");
+    tooltip.style.display = 'none';
 }
 
 function popup(e) {
@@ -131,6 +142,6 @@ function popup(e) {
 	tooltip.innerHTML = "<span class='heading'>" + province + "</span> <br /> Total cases: <span style='color: blue; font-weight: bold;'> 500 </span> <br /> Recovered: <span style='color: green; font-weight: bold;'> 300 </span> <br /> Deaths: <span style='color: red; font-weight: bold;'> 30 </span>"
 
 	tooltip.style.left = e.pageX - 50 + 'px';
-	tooltip.style.top = e.pageY - 50 + 'px';
+	tooltip.style.top = e.pageY - 100 + 'px';
 	
 }
