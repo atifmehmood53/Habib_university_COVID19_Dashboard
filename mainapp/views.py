@@ -7,8 +7,6 @@ import csv , io
 
 # Create your views here.
 
-
-
 def index(request):
     all_cases_today = Daily_Cases.objects.filter(date=datetime.date.today())
     total_cases = {}
