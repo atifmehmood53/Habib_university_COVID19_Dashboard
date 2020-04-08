@@ -28,7 +28,9 @@ path {
 }
 
 #PK-SD:hover, #PK-BA:hover, #PK-GB:hover, #PK-IS:hover, #PK-JK:hover, #PK-KP:hover, #PK-PB:hover, #PK-TA:hover {
-    fill: #8C0618;
+    /* fill: #8C0618; */
+    /* fill: #DC5356; */
+    fill: #F0CB69;
 }
 
 .popup {
