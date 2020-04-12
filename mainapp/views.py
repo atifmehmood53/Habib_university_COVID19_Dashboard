@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Sum
 from django.contrib import messages
+import json as simplejson
 from .models import *
 import datetime
 import csv , io
@@ -10,6 +11,7 @@ import csv , io
 
 
 def index(request):
+    
     all_cases_today = Daily_Cases.objects.filter(date=datetime.date.today())
     total_cases = {}
     for case in all_cases_today:
@@ -22,8 +24,13 @@ def index(request):
             total_discharged=Sum("total_discharged"),
             total_died=Sum("total_died")
         )
+    Prediction  = Prediction_model.objects()
 
-    return render(request, "mainapp/pages/index.html", context={"all_cases_today": all_cases_today, "total_cases":total_cases})
+    context={"all_cases_today": all_cases_today, "total_cases":total_cases , "Predictions" : Prediction}
+    js_data = simplejson.dumps(context)
+
+
+    return render(request, "mainapp/pages/index.html", {"my_data": js_data})
 
 def dashboard(request):
     return render(request, "mainapp/base.html")
@@ -49,14 +56,14 @@ def dashboard_data(request):
 
     for col in csv.reader(io_string, delimiter = ','):
         _, created = Daily_Cases.objects.update_or_create(
-            date = col[0],
-            province = col[1],
-            total_suspected = col[2],
-            total_tested = col[3],
-            total_tested_positive = col[4],
-            total_admitted = col[5],
-            total_discharged = col[6],
-            total_diesel = col[7]
+            date = col[1],
+            province = col[2],
+            total_suspected = col[3],
+            total_tested = col[4],
+            total_tested_positive = col[5],
+            total_admitted = col[6],
+            total_discharged = col[7],
+            total_died = col[8]
         )
 
     context = {}
@@ -64,7 +71,6 @@ def dashboard_data(request):
     return render(request, template, context)
 
     
-
 
 
 

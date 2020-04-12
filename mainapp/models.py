@@ -12,7 +12,7 @@ class Daily_Cases(models.Model):
     total_tested_positive = models.IntegerField(default=0)
     total_admitted = models.IntegerField(default=0)
     total_discharged = models.IntegerField(default=0)
-    total_died = models.IntegerField(default=0)
+    total_died = models.FloatField(default=0)
 
 
     class Meta:
@@ -25,3 +25,6 @@ class Daily_Cases(models.Model):
         return f"Record of {self.province} on {self.date}"
 
 
+class Prediction_model(models.Model):
+    day_offset = models.IntegerField(default=0)
+    no_of_cases = models.IntegerField(default=0)
