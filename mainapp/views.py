@@ -1,17 +1,22 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render
 from django.db.models import Sum
-from django.contrib import messages
 from .models import *
 import datetime
-import csv , io
 
 # Create your views here.
 
 def index(request):
-    all_cases_today = Daily_Cases.objects.filter(date=datetime.date.today())
-    total_cases = {}
-    for case in all_cases_today:
-       total_cases[case.province]=  Daily_Cases.objects.filter(province=case.province).aggregate(
+    # context of this page
+    context = {
+        "total_cases_today":{},
+        "total_cases": {}
+    }
+
+    for province,_  in province_choices:
+       context["total_cases_today"][province]=  Daily_Cases.objects.filter(province=province, date=datetime.date.today()).first()
+
+    for province,_  in province_choices:
+       context["total_cases"][province]=  Daily_Cases.objects.filter(province=province).aggregate(
             total_suspected=Sum("total_suspected"),
             total_tested=Sum("total_tested"),
             total_tested_positive=Sum("total_tested_positive"),
@@ -21,7 +26,8 @@ def index(request):
             total_died=Sum("total_died")
         )
 
-    return render(request, "mainapp/pages/index.html", context={"all_cases_today": all_cases_today, "total_cases":total_cases})
+    return render(request, "mainapp/pages/demopage.html", context=context)
+
 
 def dashboard(request):
     return render(request, "mainapp/base.html")

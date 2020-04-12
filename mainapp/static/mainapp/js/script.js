@@ -128,7 +128,8 @@ function popup(e) {
 		province = "Balochistan";
 	}
 
-	tooltip.innerHTML = "<span class='heading'>" + province + "</span> <br /> Total cases: <span style='color: blue; font-weight: bold;'> 500 </span> <br /> Recovered: <span style='color: green; font-weight: bold;'> 300 </span> <br /> Deaths: <span style='color: red; font-weight: bold;'> 30 </span>"
+	tooltip.innerHTML = "<span class='heading'>" + province +
+	"</span> <br /> Total cases: <span style='color: blue; font-weight: bold;'> 500 </span> <br /> Recovered: <span style='color: green; font-weight: bold;'> 300 </span> <br /> Deaths: <span style='color: red; font-weight: bold;'> 30 </span>"
 
 	tooltip.style.left = e.pageX - 50 + 'px';
 	tooltip.style.top = e.pageY - 50 + 'px';
