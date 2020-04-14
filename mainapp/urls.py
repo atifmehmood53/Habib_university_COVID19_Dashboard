@@ -7,6 +7,6 @@ app_name = "mainapp"
 urlpatterns = [
     path("", index),
     path("index", dashboard),
-    path("upload-data/" ,dashboard_data)
+    path("admin/upload-data/" ,dashboard_data)
 ]
 

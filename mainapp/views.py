@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from django.db.models import Sum
 from django.contrib import messages
+from django.contrib.auth.decorators import permission_required
 import json as simplejson
 from .models import *
 import datetime
+from .forms import feedback_form
 
 # Create your views here.
 
@@ -16,7 +18,7 @@ def index(request):
         "Predictions" : Prediction
     }
 
-    for province,_  in province_choices:
+    for province,_  in (province_choices):
        context["total_cases_today"][province]=  Daily_Cases.objects.filter(province=province, date=datetime.date.today()).first()
 
     for province,_  in province_choices:
@@ -24,12 +26,12 @@ def index(request):
             total_suspected=Sum("total_suspected"),
             total_tested=Sum("total_tested"),
             total_tested_positive=Sum("total_tested_positive"),
-            total_tested_negative=Sum("total_tested_negative"),
             total_admitted=Sum("total_admitted"),
             total_discharged=Sum("total_discharged"),
             total_died=Sum("total_died")
         )
     
+    context = list(context)
     js_data = simplejson.dumps(context)
 
 
@@ -38,6 +40,8 @@ def index(request):
 def dashboard(request):
     return render(request, "mainapp/base.html")
 
+
+@permission_required('admin.can_add_log_entry')
 def dashboard_data(request):
     template = 'data.html'
 
@@ -50,8 +54,8 @@ def dashboard_data(request):
     
     csv_file = request.FILES['file']
 
-    # if not csv_file.names.endswith('.csv'):
-    #     messages.error(request,'file not supported. Please upload a csv file')
+    if not csv_file.names.endswith('.csv'):
+        messages.error(request,'file not supported. Please upload a csv file')
 
     data_set = csv_file.read().decode('utf-8')
     io_string = io.StringIO(data_set)

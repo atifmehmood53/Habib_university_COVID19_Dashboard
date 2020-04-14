@@ -10,7 +10,6 @@ class Daily_Cases(models.Model):
     total_suspected = models.IntegerField(default=0)
     total_tested = models.IntegerField(default=0)
     total_tested_positive = models.IntegerField(default=0)
-    total_tested_negative = models.IntegerField(default=0)
     total_admitted = models.IntegerField(default=0)
     total_discharged = models.IntegerField(default=0)
     total_died = models.FloatField(default=0)
@@ -29,3 +28,8 @@ class Daily_Cases(models.Model):
 class Prediction_model(models.Model):
     day_offset = models.DateField(auto_now=False, auto_now_add=False)
     no_of_cases = models.IntegerField(default=0)
+
+class feedback(models.Model):
+    email = models.EmailField(default=None)
+    feedback = models.TextField()
+
