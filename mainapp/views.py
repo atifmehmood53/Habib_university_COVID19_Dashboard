@@ -1,11 +1,14 @@
 from django.shortcuts import render
+import csv , io
+from django.http import JsonResponse
 from django.db.models import Sum
 from django.contrib import messages
 from django.contrib.auth.decorators import permission_required
-import json as simplejson
+from rest_framework.renderers import JSONRenderer
+from .serializer import *
 from .models import *
 import datetime
-from .forms import feedback_form
+
 
 # Create your views here.
 
@@ -31,11 +34,23 @@ def index(request):
             total_died=Sum("total_died")
         )
     
-    context = list(context)
-    js_data = simplejson.dumps(context)
+    lst = []
+    for province in context['total_cases_today'].keys():
+        lst.append(dataSerializer(context['total_cases_today'][province]))
+        lst.append(totalSerializer(context['total_cases'][province]))
 
 
-    return render(request, "mainapp/pages/index.html", {"my_data": js_data})
+    #lst.append(PredictionSerializer(context['Predictions']))
+    key =0
+    data = dict()
+    for obj in lst:
+        data[key] = JSONRenderer().render(obj.data)
+        key +=1
+
+
+
+    
+    return render(request, "mainapp/pages/index.html", data)
 
 def dashboard(request):
     return render(request, "mainapp/base.html")
@@ -54,12 +69,12 @@ def dashboard_data(request):
     
     csv_file = request.FILES['file']
 
-    if not csv_file.names.endswith('.csv'):
-        messages.error(request,'file not supported. Please upload a csv file')
+    # if not csv_file.names.endswith('.csv'):
+    #     messages.error(request,'file not supported. Please upload a csv file')
 
     data_set = csv_file.read().decode('utf-8')
     io_string = io.StringIO(data_set)
-    next(io_string)
+    #next(io_string)
 
     for col in csv.reader(io_string, delimiter = ','):
         _, created = Daily_Cases.objects.update_or_create(
@@ -70,7 +85,8 @@ def dashboard_data(request):
             total_tested_positive = col[5],
             total_admitted = col[6],
             total_discharged = col[7],
-            total_died = col[8]
+            
+            total_died = int(col[8])
         )
 
     context = {}

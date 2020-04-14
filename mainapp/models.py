@@ -12,7 +12,7 @@ class Daily_Cases(models.Model):
     total_tested_positive = models.IntegerField(default=0)
     total_admitted = models.IntegerField(default=0)
     total_discharged = models.IntegerField(default=0)
-    total_died = models.FloatField(default=0)
+    total_died = models.IntegerField(default=0)
 
 
     class Meta:
@@ -33,3 +33,6 @@ class feedback(models.Model):
     email = models.EmailField(default=None)
     feedback = models.TextField()
 
+
+
+    
