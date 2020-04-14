@@ -10,6 +10,7 @@ class Daily_Cases(models.Model):
     total_suspected = models.IntegerField(default=0)
     total_tested = models.IntegerField(default=0)
     total_tested_positive = models.IntegerField(default=0)
+    total_tested_negative = models.IntegerField(default=0)
     total_admitted = models.IntegerField(default=0)
     total_discharged = models.IntegerField(default=0)
     total_died = models.FloatField(default=0)

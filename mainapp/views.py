@@ -1,21 +1,26 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render
 from django.db.models import Sum
 from django.contrib import messages
 import json as simplejson
 from .models import *
 import datetime
-import csv , io
 
 # Create your views here.
 
-
-
 def index(request):
-    
-    all_cases_today = Daily_Cases.objects.filter(date=datetime.date.today())
-    total_cases = {}
-    for case in all_cases_today:
-       total_cases[case.province]=  Daily_Cases.objects.filter(province=case.province).aggregate(
+    # context of this page
+    Prediction  = Prediction_model.objects.all()
+    context = {
+        "total_cases_today":{},
+        "total_cases": {},
+        "Predictions" : Prediction
+    }
+
+    for province,_  in province_choices:
+       context["total_cases_today"][province]=  Daily_Cases.objects.filter(province=province, date=datetime.date.today()).first()
+
+    for province,_  in province_choices:
+       context["total_cases"][province]=  Daily_Cases.objects.filter(province=province).aggregate(
             total_suspected=Sum("total_suspected"),
             total_tested=Sum("total_tested"),
             total_tested_positive=Sum("total_tested_positive"),
@@ -24,9 +29,7 @@ def index(request):
             total_discharged=Sum("total_discharged"),
             total_died=Sum("total_died")
         )
-    Prediction  = Prediction_model.objects()
-
-    context={"all_cases_today": all_cases_today, "total_cases":total_cases , "Predictions" : Prediction}
+    
     js_data = simplejson.dumps(context)
 
 
