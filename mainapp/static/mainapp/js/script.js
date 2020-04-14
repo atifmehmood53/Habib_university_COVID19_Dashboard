@@ -565,11 +565,6 @@ center_1.textContent = "";
 center_2.textContent = "";
 center_3.textContent = "";
 
-<<<<<<< HEAD
-=======
-	tooltip.innerHTML = "<span class='heading'>" + province +
-	"</span> <br /> Total cases: <span style='color: blue; font-weight: bold;'> 500 </span> <br /> Recovered: <span style='color: green; font-weight: bold;'> 300 </span> <br /> Deaths: <span style='color: red; font-weight: bold;'> 30 </span>"
->>>>>>> bda43afd8601f9f35fafe809af183ce1a18042f7
 
 setInterval(update_tip_text, 5000);
 
