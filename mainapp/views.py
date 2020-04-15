@@ -39,15 +39,17 @@ def index(request):
         lst.append(JSONRenderer().render(dataSerializer(context['total_cases_today'][province])))
         lst.append(JSONRenderer().render(totalSerializer(context['total_cases'][province])))
 
-
+    # for province in context['total_cases_today'].keys():
+    #     lst.append(dataSerializer(context['total_cases_today'][province]))
+    #     lst.append(totalSerializer(context['total_cases'][province]))
     #lst.append(predictionSerializer(context['Predictions']))
     
     # key = 'a'
     # data = dict()
     # for obj in lst:
     #     data[key] = [data[key] , JSONRenderer().render(obj.data)]
-    #     print(data[key])
-    #     key +=1
+
+    
         
 
 
