@@ -10,6 +10,7 @@ from .models import *
 import datetime
 
 
+
 # Create your views here.
 
 def index(request):
@@ -53,10 +54,7 @@ def index(request):
         data[key_] =  JSONRenderer().render(obj.data)
         key2 +=1     
 
-
-
-    
-    return render(request, "mainapp/pages/index.html",{'my_data':data})
+    return render(request, "mainapp/pages/index.html",{'my_data': data})
 
 def dashboard(request):
     return render(request, "mainapp/base.html")
