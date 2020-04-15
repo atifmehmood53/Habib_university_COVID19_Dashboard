@@ -26,7 +26,7 @@ class Daily_Cases(models.Model):
 
 
 class Prediction_model(models.Model):
-    day_offset = models.DateField(auto_now=False, auto_now_add=False)
+    date = models.DateField(auto_now=False, auto_now_add=False)
     no_of_cases = models.IntegerField(default=0)
 
 class feedback(models.Model):

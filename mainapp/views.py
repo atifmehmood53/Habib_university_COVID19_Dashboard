@@ -14,7 +14,7 @@ import datetime
 
 def index(request):
     # context of this page
-    Prediction  = Prediction_model.objects.all()
+    Prediction  = Prediction_model.objects.filter()
     context = {
         "total_cases_today":{},
         "total_cases": {},
@@ -36,21 +36,24 @@ def index(request):
     
     lst = []
     for province in context['total_cases_today'].keys():
-        lst.append(dataSerializer(context['total_cases_today'][province]))
-        lst.append(totalSerializer(context['total_cases'][province]))
+        lst.append(JSONRenderer().render(dataSerializer(context['total_cases_today'][province])))
+        lst.append(JSONRenderer().render(totalSerializer(context['total_cases'][province])))
 
 
-    #lst.append(PredictionSerializer(context['Predictions']))
-    key =0
-    data = dict()
-    for obj in lst:
-        data[key] = JSONRenderer().render(obj.data)
-        key +=1
+    #lst.append(predictionSerializer(context['Predictions']))
+    
+    # key = 'a'
+    # data = dict()
+    # for obj in lst:
+    #     data[key] = [data[key] , JSONRenderer().render(obj.data)]
+    #     print(data[key])
+    #     key +=1
+        
 
 
 
     
-    return render(request, "mainapp/pages/index.html", data)
+    return render(request, "mainapp/pages/index.html", lst)
 
 def dashboard(request):
     return render(request, "mainapp/base.html")

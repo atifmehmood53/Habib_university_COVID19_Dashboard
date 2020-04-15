@@ -18,9 +18,13 @@ class totalSerializer(serializers.Serializer):
 
 
 
-class PredictionSerializer(serializers.ModelSerializer):
+
+        
+
+class predictionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Prediction_model
-        field = ['day_offset','no_of_cases']
+        fields = ['date', 'no_of_cases']
+
 
     
