@@ -51,18 +51,12 @@ def index(request):
     for obj in lst:
         key_  = key + str(key2)        
         data[key_] =  JSONRenderer().render(obj.data)
-        key2 +=1
-    
-    
-
-
-    
-        
+        key2 +=1     
 
 
 
     
-    return render(request, "mainapp/pages/index.html", data)
+    return render(request, "mainapp/pages/index.html",{'my_data':data})
 
 def dashboard(request):
     return render(request, "mainapp/base.html")
