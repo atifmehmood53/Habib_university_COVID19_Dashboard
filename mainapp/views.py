@@ -9,6 +9,7 @@ from .serializer import *
 from .models import *
 import datetime
 import json
+from rest_framework import serializers
 
 
 
@@ -16,47 +17,36 @@ import json
 
 def index(request):
     # context of this page
-    Prediction  = Prediction_model.objects.filter()
+    
     context = {
-        "total_cases_today":{},
-        "total_cases": {},
-        "Predictions" : Prediction
+        "total_cases_today":{}
     }
+    data1 = dict()
+
+    data1['Predictions'] = (predictionSerializer(Prediction_model.objects.all(), many = True)).data
 
     for province,_  in (province_choices):
-       context["total_cases_today"][province]=  Daily_Cases.objects.filter(province=province, date=datetime.date.today()).first()
+       context["total_cases_today"][province]= ((Daily_Cases.objects.filter(province=province)))
 
-    for province,_  in province_choices:
-       context["total_cases"][province]=  Daily_Cases.objects.filter(province=province).aggregate(
-            total_suspected=Sum("total_suspected"),
-            total_tested=Sum("total_tested"),
-            total_tested_positive=Sum("total_tested_positive"),
-            total_admitted=Sum("total_admitted"),
-            total_discharged=Sum("total_discharged"),
-            total_died=Sum("total_died")
-        )
+    # for province,_  in province_choices:
+    #    context["total_cases"][province]=  Daily_Cases.objects.filter(province=province).aggregate(
+    #         total_suspected=Sum("total_suspected"),
+    #         total_tested=Sum("total_tested"),
+    #         total_tested_positive=Sum("total_tested_positive"),
+    #         total_admitted=Sum("total_admitted"),
+    #         total_discharged=Sum("total_discharged"),
+    #         total_died=Sum("total_died")
+    #     )
     
     
-    lst = []
-    # for province in context['total_cases_today'].keys():
-    #     lst.append(JSONRenderer().render(dataSerializer(context['total_cases_today'][province])))
-    #     lst.append(JSONRenderer().render(totalSerializer(context['total_cases'][province])))
-
     for province in context['total_cases_today'].keys():
-        lst.append(dataSerializer(context['total_cases_today'][province]))
-        lst.append(totalSerializer(context['total_cases'][province]))
-    #lst.append(predictionSerializer(context['Predictions']))
-    
-    key = 'a'
-    key2 = 0
-    data = dict()
-    for obj in lst:
-        key_  = key + str(key2)        
-        data[key_] =  obj.data
-        key2 +=1     
-    data = json.dumps(data)
+        data = dataSerializer(context['total_cases_today'][province] , many = True)
+        data1[province] = data.data
+ 
+    data1 = json.dumps(data1)
 
-    return render(request, "mainapp/pages/index.html",{'my_data': data})
+
+    return render(request, "mainapp/pages/index.html",{'my_data': data1})
 
 def dashboard(request):
     return render(request, "mainapp/base.html")
