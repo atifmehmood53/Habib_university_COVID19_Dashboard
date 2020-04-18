@@ -23,7 +23,6 @@ const zones = {
 
 Object.freeze(zones);
 
-
 // Global selectors
 var last_selected_zone;
 var selected_expansion_button;
@@ -269,7 +268,7 @@ function popup(e) {
 
 	//var tooltip = document.getElementById("tooltip");
     var province;
-
+	var province_data;
     
     console.log(last_selected_zone)
 
@@ -307,8 +306,10 @@ function popup(e) {
             center_1.textContent = "Benazir Bhutto Hospital, Rawalpindi [(051) 9290301]";
             center_2.textContent = "Services Hospital, Lahore [(042) 99203402]";
             center_3.textContent = "Allied Teaching Hospital, Faisalabad [(041) 9210082]";
-
-            updateData(donut_chart, zone_wise_donut_data[zones.PB]);
+			province_data = global_data.PUNJAB;
+			new_data = updated_cases(province_data);
+			updateData(donut_chart, new_data);
+            //updateData(donut_chart, zone_wise_donut_data[zones.PB]);
         }
         
         else if (e.target.id === "PK-SD") {
@@ -320,8 +321,10 @@ function popup(e) {
             center_1.textContent = "Aga Khan University Hospital, Karachi [021-111-911-911]";
             center_2.textContent = "LUMHS hospital, Hyderabad [+92 322 9213305]";
             center_3.textContent = "Jinnah Postgraduate Medical Centre, Karachi";
-
-            updateData(donut_chart, zone_wise_donut_data[zones.SD]);
+			province_data = global_data.SINDH;
+			new_data = updated_cases(province_data);
+			updateData(donut_chart, new_data);
+            //updateData(donut_chart, zone_wise_donut_data[zones.SD]);
         }
         
         /* else if (e.target.id === "PK-TA") {
@@ -344,8 +347,10 @@ function popup(e) {
             center_1.textContent = "Bacha Khan Medical Complex, Swabi [(0938) 280214]";
             center_2.textContent = "Ayub Teaching Hospital, Abbotabad [(0992) 381907]";
             center_3.textContent = "Lady Reading Hospital, Peshawar [(091) 9211441, (091) 9211430]";
-
-            updateData(donut_chart, zone_wise_donut_data[zones.KP]);
+			province_data = global_data.KPK;
+			new_data = updated_cases(province_data);
+			updateData(donut_chart, new_data);
+            //updateData(donut_chart, zone_wise_donut_data[zones.KP]);
         }
         
         else if (e.target.id === "PK-AK") {
@@ -357,8 +362,12 @@ function popup(e) {
             center_1.textContent = "Abbas Institute of Medical Sciences, Muzzaffarabad [(058224) 39306]";
             center_2.textContent = "DHQ Hospital, Mirpur";
             center_3.textContent = "Sheikh Khalifa Bin Zaid (SKBZ) Hospital, Rawalakot";
-
-            updateData(donut_chart, zone_wise_donut_data[zones.AK]);
+			province_data = global_data.AJK;
+			new_data = updated_cases(province_data);
+			updateData(donut_chart, new_data);
+            //updateData(donut_chart, zone_wise_donut_data[zones.AK]);
+			
+			
         }
         
         else if (e.target.id === "PK-IS") {
@@ -370,8 +379,10 @@ function popup(e) {
             center_1.textContent = "Pakistan Institute of Medical Sciences (PIMS), Islamabad [(051) 9261170]";
             center_2.textContent = "";
             center_3.textContent = "";
-
-            updateData(donut_chart, zone_wise_donut_data[zones.IS]);
+			province_data = global_data.ICT;
+			new_data = updated_cases(province_data);
+			updateData(donut_chart, new_data);
+            //updateData(donut_chart, zone_wise_donut_data[zones.IS]);
         }
         
         else if (e.target.id === "PK-GB") {
@@ -383,8 +394,10 @@ function popup(e) {
             center_1.textContent = "Civil Hospital, Hunza [(051) 3920187]";
             center_2.textContent = "DHQ Hospital, Gilgit [(058119) 20253]";
             center_3.textContent = "DHQ Hospital, Skardu";
-
-            updateData(donut_chart, zone_wise_donut_data[zones.GB]);
+			province_data = global_data.GB;
+			new_data = updated_cases(province_data);
+			updateData(donut_chart, new_data);
+            //updateData(donut_chart, zone_wise_donut_data[zones.GB]);
         }
         
         else if (e.target.id === "PK-BA") {
@@ -396,8 +409,10 @@ function popup(e) {
             center_1.textContent = "Red Crescent Hospital, Gwadar [(021) 35833973]";
             center_2.textContent = "Fatima Jinnah General and Chest Hospital, Quetta";
             center_3.textContent = "DHQ Teaching Hospital, Turbat";
-
-            updateData(donut_chart, zone_wise_donut_data[zones.BA]);
+			province_data = global_data.BALOCHISTAN;
+			new_data = updated_cases(province_data);
+			updateData(donut_chart, new_data);
+            //updateData(donut_chart, zone_wise_donut_data[zones.BA]);
         }
 
         //tooltip.innerHTML = "<span class='heading'>" + province + "</span> <br /> Total cases: <span style='color: blue; font-weight: bold;'> 500 </span> <br /> Recovered: <span style='color: green; font-weight: bold;'> 300 </span> <br /> Deaths: <span style='color: red; font-weight: bold;'> 30 </span>"
@@ -448,9 +463,19 @@ function update_tip_text() {
     tip_text.style.fontStyle = 'italic';
 }
 
+function updated_cases(province){
+	recent_data = [];
+	recent_data.push(province[province.length - 1].total_tested_positive);
+	recent_data.push(province[province.length - 1].total_suspected);
+	recent_data.push(province[province.length - 1].total_discharged);
+	recent_data.push(province[province.length - 1].total_died);
+	return recent_data;
+}
+
 
 function updateData(chart, data) {
     console.log("Updating chart")
+	console.log(data)
     chart.data.datasets[0].data = data;
     chart.update();
 }
@@ -523,6 +548,8 @@ function highlight_release(e) {
 function expand_buttons(e){
     console.log("EXPAND BUTTONS CALLED");
     console.log(e.target.id);
+	console.log(global_variable.a);
+	console.log(data);
     selected_expansion_button = document.getElementById(e.target.id);
 
 	var emergency_content = document.getElementById("emergency_content");
@@ -645,5 +672,4 @@ var trend_slider = document.getElementById('trend_slider');
 trend_slider.oninput = function() {
     console.log(this.value);
 }
-
 $('#tutorial_modal').modal();
