@@ -6,7 +6,7 @@ from .models import *
 class dataSerializer(serializers.ModelSerializer):
     class Meta:
         model = Daily_Cases
-        exclude = ['province']
+        exclude = ['province','entry_id']
 
 class totalSerializer(serializers.Serializer):
     total_suspected = serializers.IntegerField(required = False , allow_null=True)

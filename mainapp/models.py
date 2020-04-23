@@ -1,10 +1,10 @@
 from django.db import models
-province_choices = [("SINDH", "Sindh"), ("PUNJAB", "Punjab"),("KPK",'KPK'),("KPTD",'KPTD'),
-                        ('GB','GB'),('AJK','AJK'),('ICT','ICT'),('TAFTAN_MOBILE_LAB','Taftan_mobile_lab'),('BALOCHISTAN','Balochistan')]
+province_choices = [("Sindh", "Sindh"), ("Punjab", "Punjab"),("KPK",'KPK'),("KPTD",'KPTD'),
+                        ('GB','GB'),('AJK','AJK'),('ICT','ICT'),('Taftan_mobile_lab','Taftan_mobile_lab'),('Balochistan','Balochistan')]
 
 # Create your models here.
 class Daily_Cases(models.Model):
-    
+    entry_id = models.IntegerField(default=0, primary_key=True)
     date = models.DateField( auto_now=False, auto_now_add=False)
     province = models.CharField(choices=province_choices, max_length=20)
     total_suspected = models.IntegerField(default=0)
@@ -26,6 +26,7 @@ class Daily_Cases(models.Model):
 
 
 class Prediction_model(models.Model):
+    entry_id = models.IntegerField(default=0, primary_key=True)
     date = models.DateField(auto_now=False, auto_now_add=False)
     no_of_cases = models.IntegerField(default=0)
 
