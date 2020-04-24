@@ -769,28 +769,37 @@ function startIntro(){
       intro.setOption('showProgress', true);
       intro.start();
 }
-
+var copy_b = JSON.parse(JSON.stringify(b));
+var prev_val = 0;
 var trend_slider = document.getElementById('trend_slider');
 trend_slider.oninput = function() {
-    console.log(this.value);
-	/*var today = new Date();
+    var today = new Date();
 	var weekAgo = new Date(today.setDate(today.getDate()-7))
+	var len = b[0].length;
+	var lastDate = new Date(b[0][len-1].x)
+	var weekBefore = new Date(lastDate.setDate(lastDate.getDate()-7))
 	var temp = false;
-	var copy_b = jQuery.extend({}, b);
-	//console.log(b[0])
+	var val = parseInt(this.value);
+	
 	for (var i = 0; i < b.length; i++){ 
-		for (var j = 0; j < b[i].length; j++){
-			//console.log(this.value, j)
-			if (this.value == j && j > 0){
+		for (var j = 0; j < copy_b[i].length; j++){
+			console.log(this.value, prev_val)
+			date = new Date(copy_b[i][j].x)
+			if (val < prev_val && val < (len - 7)){
+				copy_b[i].unshift(b[i][this.value])
+				updateData(myChart, copy_b, 'time series');
+				break;
+			}
+			else if (date.getTime() <= weekBefore.getTime()){
+				console.log('here')
 				copy_b[i].splice(0, 1);
 				temp = true;
+				updateData(myChart, copy_b, 'time series');
 				break;
 			}
 		}
 	}
-	//if (temp == false){
-	//	copy_b = [[],[],[],[]]
-	//}
-	updateData(myChart, copy_b, 'time series');*/
+	prev_val = val;
+	
 }
 $('#tutorial_modal').modal();
