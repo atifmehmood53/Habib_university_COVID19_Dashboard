@@ -202,7 +202,7 @@ var prediction_graph_config = {
     type: 'line',
     data: {
         datasets: [{
-            label: 'Prediction of Cases',
+            label: 'Prediction of Nationwide Cases',
             pointBackgroundColor: '#c96044',
             pointBorderColor: '#c96044',
             pointRadius: 5,
@@ -750,9 +750,19 @@ function startIntro(){
               position: 'top'
           },
           {
+              element: '#feedback-button',
+              intro: 'You can give feedback about this dashboard by clicking here.',
+              position: 'bottom'
+          },
+          {
+              element: '#tutorial-button',
+              intro: 'Click here to start the tutorial again at any time!.',
+              position: 'bottom'
+          },
+          {
               element: '#navbar',
               intro: 'And that is all you need to know to use this dashboard. Stay safe, stay in-doors! Click on Done to finish the tutorial.',
-              position: 'top'
+              position: 'bottom'
           }
         ]
       });
