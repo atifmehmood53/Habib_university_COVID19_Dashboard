@@ -693,7 +693,7 @@ function startIntro(){
         steps: [
           { 
             element: '#navbar',
-            intro: "Welcome to the COVID19 Dashboard. Click on Next to start the tutorial."
+            intro: "Welcome to Pakistan COVID-19 Resource Center. Click on Next to start the tutorial."
           },
           {
             element: '#navbar',
