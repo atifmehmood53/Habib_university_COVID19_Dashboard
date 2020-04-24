@@ -1,5 +1,5 @@
 from django.db import models
-province_choices = [("Sindh", "Sindh"), ("Punjab", "Punjab"),("KPK",'KPK'),("KPTD",'KPTD'),
+province_choices = [("Sindh", "Sindh"), ("Punjab", "Punjab"),("KP",'KP'),("KPTD",'KPTD'),
                         ('GB','GB'),('AJK','AJK'),('ICT','ICT'),('Taftan_mobile_lab','Taftan_mobile_lab'),('Balochistan','Balochistan')]
 
 # Create your models here.
