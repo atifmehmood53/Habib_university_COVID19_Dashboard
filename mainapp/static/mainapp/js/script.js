@@ -789,9 +789,9 @@ var copy_b = JSON.parse(JSON.stringify(b));
 var prev_val = 0;
 var len = b[0].length;
 console.log('length', len)
-trend_slider.max = len-7;
+trend_slider.max = len;
 trend_slider.oninput = function() {
-    var len = b[0].length;
+    //var len = b[0].length;
 	//var lastDate = new Date(b[0][len-1].x)
 	//var weekBefore = new Date(lastDate.setDate(lastDate.getDate()-7))
 	//var temp = false;
@@ -799,32 +799,24 @@ trend_slider.oninput = function() {
 	
 	for (var i = 0; i < b.length; i++){ 
 		console.log(i, this.value, prev_val)
-		if (val < prev_val && val <= (len - 5)){
-			if (prev_val !== val + 1){
-				for (var k = prev_val; k > val; k--){
-					copy_b[i].unshift(b[i][k])
-				}
-				copy_b[i].unshift(b[i][val])
+		if (val < prev_val && val <= (len-7)){
+			for (var k = prev_val; k > val; k--){
+				copy_b[i].unshift(b[i][k])
 			}
-			else{
-				copy_b[i].unshift(b[i][val])
-			}
-			updateData(myChart, copy_b, 'time series');
+			//copy_b[i].unshift(b[i][val])
+			
+			//updateData(myChart, copy_b, 'time series');
 		}
-		else if (val <= (len - 7)){
+		else if (val <= (len-7)){
 		//else if (date.getTime() <= weekBefore.getTime()){
-			if (prev_val !== val - 1){
-				for (var k = prev_val; k < val; k++){
-					copy_b[i].splice(0, 1);
-				}
+			for (var k = prev_val; k < val; k++){
 				copy_b[i].splice(0, 1);
 			}
-			else{
-				copy_b[i].splice(0, 1);
-			}
-			updateData(myChart, copy_b, 'time series');
+			//copy_b[i].splice(0, 1);
+			//updateData(myChart, copy_b, 'time series');
 		}
 	}
+	updateData(myChart, copy_b, 'time series');
 	prev_val = val;
 	
 }
