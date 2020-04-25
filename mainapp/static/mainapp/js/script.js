@@ -406,8 +406,22 @@ function popup(e) {
         } */
         
         else if (e.target.id === "PK-KP" || e.target.id == "PK-TA") {
+			new_data = [[], [], [], []];
             province = "Khyber Pakhtunkhwa";
 			province_data = global_data.KP;
+			province_data2 = global_data.KPTD;
+			for (var key in province_data){
+				for (var i = 0; i < province_data[key].length; i++){
+					d = new Date(province_data[key][i].date)
+					if (province_data[0][i].x.getTime() === d.getTime()){
+						province_data[0][i].y += province_data2[key][i].total_discharged;
+						province_data[1][i].y += province_data2[key][i].total_admitted;
+						province_data[2][i].y += province_data2[key][i].total_died;
+						province_data[3][i].y += province_data2[key][i].total_tested_positive;
+					}
+				}
+			}
+			//console.log(province_data)
             total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in KPK till now.";
             most_infected_city.textContent = "Peshawar has the most number of cases.";
 
@@ -773,32 +787,42 @@ function startIntro(){
 }
 var copy_b = JSON.parse(JSON.stringify(b));
 var prev_val = 0;
-
+var len = b[0].length;
+console.log('length', len)
+trend_slider.max = len-7;
 trend_slider.oninput = function() {
-    var today = new Date();
-	var weekAgo = new Date(today.setDate(today.getDate()-7))
-	var len = b[0].length;
-	var lastDate = new Date(b[0][len-1].x)
-	var weekBefore = new Date(lastDate.setDate(lastDate.getDate()-7))
-	var temp = false;
+    var len = b[0].length;
+	//var lastDate = new Date(b[0][len-1].x)
+	//var weekBefore = new Date(lastDate.setDate(lastDate.getDate()-7))
+	//var temp = false;
 	var val = parseInt(this.value);
 	
 	for (var i = 0; i < b.length; i++){ 
-		for (var j = 0; j < copy_b[i].length; j++){
-			console.log(this.value, prev_val)
-			date = new Date(copy_b[i][j].x)
-			if (val < prev_val && val < (len - 7)){
-				copy_b[i].unshift(b[i][this.value])
-				updateData(myChart, copy_b, 'time series');
-				break;
+		console.log(i, this.value, prev_val)
+		if (val < prev_val && val <= (len - 5)){
+			if (prev_val !== val + 1){
+				for (var k = prev_val; k > val; k--){
+					copy_b[i].unshift(b[i][k])
+				}
+				copy_b[i].unshift(b[i][val])
 			}
-			else if (date.getTime() <= weekBefore.getTime()){
-				console.log('here')
+			else{
+				copy_b[i].unshift(b[i][val])
+			}
+			updateData(myChart, copy_b, 'time series');
+		}
+		else if (val <= (len - 7)){
+		//else if (date.getTime() <= weekBefore.getTime()){
+			if (prev_val !== val - 1){
+				for (var k = prev_val; k < val; k++){
+					copy_b[i].splice(0, 1);
+				}
 				copy_b[i].splice(0, 1);
-				temp = true;
-				updateData(myChart, copy_b, 'time series');
-				break;
 			}
+			else{
+				copy_b[i].splice(0, 1);
+			}
+			updateData(myChart, copy_b, 'time series');
 		}
 	}
 	prev_val = val;
