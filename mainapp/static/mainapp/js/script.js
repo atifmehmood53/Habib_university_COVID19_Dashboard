@@ -32,6 +32,7 @@ var center_1 = document.getElementById("center-1");
 var center_2 = document.getElementById("center-2");
 var center_3 = document.getElementById("center-3");
 var center_list = document.getElementById("center-list");
+var trend_slider = document.getElementById('trend_slider');
 
 var all_provinces = [
     document.getElementById('PK-PB'),
@@ -329,6 +330,7 @@ function clear_tooltip(e) {
 
 
 function popup(e) {
+    trend_slider.value = "0";
 
 	//var tooltip = document.getElementById("tooltip");
     var province;
@@ -771,7 +773,7 @@ function startIntro(){
 }
 var copy_b = JSON.parse(JSON.stringify(b));
 var prev_val = 0;
-var trend_slider = document.getElementById('trend_slider');
+
 trend_slider.oninput = function() {
     var today = new Date();
 	var weekAgo = new Date(today.setDate(today.getDate()-7))
