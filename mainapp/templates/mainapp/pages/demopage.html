@@ -3,33 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
     <title>Document</title>
 </head>
 
 <body>
-    {% for daily_case in all_cases_today %}
-    <h1>Cases Recorded Today in {{daily_case.province}}</h1>
-    <hr>
-    <h2>total_suspected: {{daily_case.total_suspected}}</h2>
-    <h2>total_tested: {{daily_case.total_tested}}</h2>
-    <h2>total_tested_positive: {{daily_case.total_tested_positive}}</h2>
-    <h2>total_tested_negative: {{daily_case.total_tested_negative}}</h2>
-    <h2>total_admitted: {{daily_case.total_admitted}}</h2>
-    <h2>total_discharged: {{daily_case.total_discharged}}</h2>
-    <h2>total_died: {{daily_case.total_died}}</h2>
-    {% endfor %}
-
-    <hr> {% for province, case in total_cases.items %}
-    <h1>Total Cases Recorded in {{province}}</h1>
-    <hr>
-    <h2>total_suspected: {{case.total_suspected}}</h2>
-    <h2>total_tested: {{case.total_tested}}</h2>
-    <h2>total_tested_positive: {{case.total_tested_positive}}</h2>
-    <h2>total_tested_negative: {{case.total_tested_negative}}</h2>
-    <h2>total_admitted: {{case.total_admitted}}</h2>
-    <h2>total_discharged: {{case.total_discharged}}</h2>
-    <h2>total_died: {{case.total_died}}</h2>
-    {% endfor %}
+    <div class="row bg-light px-5">
+        <div class="col-6">
+            {% for province, daily_case in total_cases_today.items %}
+            <hr>
+            <h4>Cases Recorded Today in {{province}}</h4>
+            <hr>
+            <h6>Total Suspected: {% if daily_case %} {{daily_case.total_suspected}} {% else %} 0 {% endif %}</h6>
+            <h6>Total Tested: {% if daily_case %} {{daily_case.total_tested}} {% else %} 0 {% endif %} </h6>
+            <h6>Total Tested Positive: {% if daily_case %} {{daily_case.total_tested_positive}} {% else %} 0 {% endif %}</h6>
+            <h6>Total Tested Negative: {% if daily_case %} {{daily_case.total_tested_negative}} {% else %} 0 {% endif %}</h6>
+            <h6>Total Admitted: {% if daily_case %} {{daily_case.total_admitted}} {% else %} 0 {% endif %} </h6>
+            <h6>Total Tischarged: {% if daily_case %} {{daily_case.total_discharged}} {% else %} 0 {% endif %} </h6>
+            <h6>Total Died: {% if daily_case %} {{daily_case.total_died}} {% else %} 0 {% endif %} </h6>
+            {% endfor %}
+        </div>
+        <div class="col-6">
+            {% for province, case in total_cases.items %}
+            <hr>
+            <h4>Total Cases Recorded in {{province}}</h4>
+            <hr>
+            <h6>Total Suspected: {% if case.total_suspected %} {{case.total_suspected}} {% else %} 0 {% endif %}</h6>
+            <h6>Total Tested: {% if case.total_tested %} {{case.total_tested}} {% else %} 0 {% endif %} </h6>
+            <h6>Total Tested Positive: {% if case.total_tested_positive %} {{case.total_tested_positive}} {% else %} 0 {% endif %}</h6>
+            <h6>Total Tested Pegative: {% if case.total_tested_negative %} {{case.total_tested_positive}} {% else %} 0 {% endif %}</h6>
+            <h6>Total Admitted: {% if case.total_admitted %} {{case.total_tested_positive}} {% else %} 0 {% endif %} </h6>
+            <h6>Total Discharged: {% if case.total_discharged %} {{case.total_discharged} {% else %} 0 {% endif %}</h6>
+            <h6>Total Died:{% if case.total_died %} {{case.total_discharged} {% else %} 0 {% endif %}</h6>
+            {% endfor %}
+        </div>
+    </div>
 </body>
 
 </html>
