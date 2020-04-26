@@ -3,5 +3,5 @@ from .models import *
 
 # Register your models here.
 admin.site.register([
-    Daily_Cases, Prediction_model
+    Daily_Cases, Prediction_model, feedback , most_infected_city
 ])

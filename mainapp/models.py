@@ -1,5 +1,5 @@
 from django.db import models
-province_choices = [("Sindh", "Sindh"), ("Punjab", "Punjab"),("KPK",'KPK'),("KPTD",'KPTD'),
+province_choices = [("Sindh", "Sindh"), ("Punjab", "Punjab"),("KP","KP"),("KPTD",'KPTD'),
                         ('GB','GB'),('AJK','AJK'),('ICT','ICT'),('Taftan_mobile_lab','Taftan_mobile_lab'),('Balochistan','Balochistan')]
 
 # Create your models here.
@@ -13,6 +13,9 @@ class Daily_Cases(models.Model):
     total_admitted = models.IntegerField(default=0)
     total_discharged = models.IntegerField(default=0)
     total_died = models.IntegerField(default=0)
+    datetime_of_entry = models.DateTimeField(default = None , auto_now=False, auto_now_add=False)
+    
+
 
 
     class Meta:
@@ -28,12 +31,18 @@ class Daily_Cases(models.Model):
 class Prediction_model(models.Model):
     entry_id = models.IntegerField(default=0, primary_key=True)
     date = models.DateField(auto_now=False, auto_now_add=False)
-    no_of_cases = models.IntegerField(default=0)
+    Predictions = models.FloatField(default=0.0)
+    Upper_confidence_interval = models.FloatField(default=0.0)
+    Lower_confidence_interval = models.FloatField(default=0.0)
 
 class feedback(models.Model):
+    name = models.CharField(max_length=255, default = None)
     email = models.EmailField(default=None)
-    feedback = models.TextField()
+    feedback = models.CharField(max_length= 1000)
 
 
 
-    
+class most_infected_city(models.Model):
+    entry_id = models.IntegerField(default=0, primary_key=True)
+    province = models.CharField(choices=province_choices, max_length=20)
+    city = models.CharField(max_length=100)  

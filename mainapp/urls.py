@@ -6,7 +6,6 @@ from django.conf.urls.static import static
 app_name = "mainapp"
 urlpatterns = [
     path("", index),
-    path("index", dashboard),
     path("admin/upload-data/" ,dashboard_data),
     path("admin/predictions-upload", prediction_data)
 ]
