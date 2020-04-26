@@ -63,11 +63,17 @@
           <!--sara's code-->
           <form method="post">
             {% csrf_token %}
-            <table>
-            {{ form.as_table }}
-            </table>
-            <button type="button" id="submit-form" class="btn btn-primary"data-dismiss="modal">Submit</button>
+            
+            <label>Name</label>
+            <table>{{ form.name }}</table>
+            <label>Email</label>
+            <table>{{ form.email }}</table>
+            <label>Feedback</label>
+            <table>{{ form.feedback }}</table>
+            
+            <button  id="submit-form" class="btn btn-primary">Submit</button>
           </form>
+
           <!-- ends here -->
         
 
@@ -85,7 +91,7 @@
 					</div>
 				</div>
 				<div class="modal-footer border-top-0 d-flex justify-content-center" >
-					<button type="button" id="submit-form" class="btn btn-primary"data-dismiss="modal">Submit</button>
+          <button>Submit</button>	
       
         </div>
       
@@ -382,6 +388,8 @@
 			<span id="footer-text">© 2020 Habib University</span>
 		</div>
     </footer>
+
+
 
 
 
