@@ -46,6 +46,7 @@ var all_provinces = [
 ];
 var a = national_donut_data()
 var b = national_timeSeries_data()
+var c = prediction_data()
 //console.log(a)
 
 // Donut Chart
@@ -203,40 +204,40 @@ var prediction_graph_config = {
     type: 'line',
     data: {
         datasets: [{
-            label: 'Prediction of Nationwide Cases',
-            pointBackgroundColor: '#c96044',
-            pointBorderColor: '#c96044',
-            pointRadius: 5,
-            fill: false,
-            borderColor: '#c96044',
-            backgroundColor: '#c96044',
-            data: [
-                {
-                    x: today.setDate(today.getDate() + 2),
-                    y: 4000
-                },{
-                    x: today.setDate(today.getDate() + 2),
-                    y: 4100
-                },{
-                    x: today.setDate(today.getDate() + 2),
-                    y: 4300
-                },{
-                    x: today.setDate(today.getDate() + 2),
-                    y: 4400
-                },{
-                    x: today.setDate(today.getDate() + 2),
-                    y: 4500
-                },{
-                    x: today.setDate(today.getDate() + 2),
-                    y: 4700
-                },{
-                    x: today.setDate(today.getDate() + 2),
-                    y: 4800
-                }
-            ],
-            borderWidth: 3
-        }]
-    },
+                label: 'Upper Confidence Interval',
+                pointBackgroundColor: '#b74e65',
+				pointBorderColor: '#b74e65',
+				pointRadius: 5,
+				fill: false,
+				borderColor: '#b74e65',
+				backgroundColor: '#b74e65',
+				data: c[2],
+				borderWidth: 3
+            },  
+			{
+				label: 'Prediction of Nationwide Cases',
+				pointBackgroundColor: '#c96044',
+				pointBorderColor: '#c96044',
+				pointRadius: 5,
+				fill: false,
+				borderColor: '#c96044',
+				backgroundColor: '#c96044',
+				data: c[1],
+				borderWidth: 3
+			},
+			{
+				label: 'Lower Confidence Interval',
+				pointBackgroundColor: '#908834',
+                pointBorderColor: '#908834',
+                pointRadius: 4,
+                fill: false,
+				borderColor: '#908834',
+                backgroundColor: '#908834',
+                data: c[0],
+                borderWidth: 3
+			}
+		]
+	},	
     options: {
         responsive: true,
         maintainAspectRatio: false,
@@ -320,6 +321,18 @@ function national_timeSeries_data(){
 		}
 	}
 	return new_data
+}
+
+function prediction_data(){
+	data = global_data.Predictions;
+	new_data = [[], [], []];
+	for (var i = 0; i < data.length; i++){
+		new_data[0].push({x: new Date(data[i].date), y: data[i].Lower_confidence_interval})
+		new_data[1].push({x: new Date(data[i].date), y: data[i].Predictions})
+		new_data[2].push({x: new Date(data[i].date), y: data[i].Upper_confidence_interval})
+	}
+	return new_data;
+	
 }
 
 
@@ -656,7 +669,7 @@ function highlight_release(e) {
 function expand_buttons(e){
     console.log("EXPAND BUTTONS CALLED");
     console.log(e.target.id);
-	console.log(global_variable.a);
+	//console.log(global_variable.a);
 	console.log(data);
     selected_expansion_button = document.getElementById(e.target.id);
 
@@ -789,35 +802,29 @@ var copy_b = JSON.parse(JSON.stringify(b));
 var prev_val = 0;
 var len = b[0].length;
 console.log('length', len)
-trend_slider.max = len;
+trend_slider.max = len-7;
 trend_slider.oninput = function() {
-    //var len = b[0].length;
-	//var lastDate = new Date(b[0][len-1].x)
-	//var weekBefore = new Date(lastDate.setDate(lastDate.getDate()-7))
-	//var temp = false;
-	var val = parseInt(this.value);
-	
-	for (var i = 0; i < b.length; i++){ 
-		console.log(i, this.value, prev_val)
-		if (val < prev_val && val <= (len-7)){
-			for (var k = prev_val; k > val; k--){
-				copy_b[i].unshift(b[i][k])
+    var val = parseInt(this.value);
+	console.log(val)
+	new_data = [[], [], [], []]
+	if (val > prev_val){
+		for (var i = 0; i < b.length; i++){ 
+			for (var j = prev_val; j < val; j++){
+				copy_b[i].splice(0,1);
 			}
-			//copy_b[i].unshift(b[i][val])
-			
-			//updateData(myChart, copy_b, 'time series');
 		}
-		else if (val <= (len-7)){
-		//else if (date.getTime() <= weekBefore.getTime()){
-			for (var k = prev_val; k < val; k++){
-				copy_b[i].splice(0, 1);
+	}
+	else if (val < prev_val){
+		console.log(prev_val, val);
+		for (var i = 0; i < b.length; i++){ 
+			for (var j = prev_val; j > val; j--){
+				copy_b[i].unshift(b[i][j])
 			}
-			//copy_b[i].splice(0, 1);
-			//updateData(myChart, copy_b, 'time series');
 		}
 	}
 	updateData(myChart, copy_b, 'time series');
 	prev_val = val;
 	
 }
+	
 $('#tutorial_modal').modal();
