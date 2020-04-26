@@ -7,6 +7,7 @@ class Daily_Cases(models.Model):
     entry_id = models.IntegerField(default=0, primary_key=True)
     date = models.DateField( auto_now=False, auto_now_add=False)
     province = models.CharField(choices=province_choices, max_length=20)
+    most_infected_city = models.CharField(default = None , max_length=50)
     total_suspected = models.IntegerField(default=0)
     total_tested = models.IntegerField(default=0)
     total_tested_positive = models.IntegerField(default=0)
@@ -42,7 +43,3 @@ class feedback(models.Model):
 
 
 
-class most_infected_city(models.Model):
-    entry_id = models.IntegerField(default=0, primary_key=True)
-    province = models.CharField(choices=province_choices, max_length=20)
-    city = models.CharField(max_length=100)  

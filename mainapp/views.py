@@ -1,17 +1,14 @@
 from django.shortcuts import render
 import csv , io
-#from django.http import JsonResponse
 from django.db.models import Sum
 from django.contrib import messages
 from django.contrib.auth.decorators import permission_required
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-#from rest_framework.renderers import JSONRenderer
 from .serializer import *
 from .models import *
 import datetime
 import json
-#from rest_framework import serializers
 from .forms import * 
 from datetime import datetime
 
@@ -80,12 +77,12 @@ def dashboard_data(request):
             entry_id =int(col[0]),
             date = (col[1]),
             province = (col[2]),
+            most_infected_city = (col[9]),
             total_suspected = int(col[3]),
             total_tested = int(col[4]),
             total_tested_positive = int(col[5]),
             total_admitted = int(col[6]),
-            total_discharged = int(col[7]),
-            
+            total_discharged = int(col[7]),            
             total_died = int(col[8]),
             datetime_of_entry = datetime.now()
 
@@ -124,40 +121,6 @@ def prediction_data(request):
             Predictions = col[2],
             Upper_confidence_interval = col[3],
             Lower_confidence_interval = col[4]
-           
-        )
-
-
-    context = {}
-
-    return render(request, template, context)
-
-
-
-@permission_required('admin.can_add_log_entry')
-def city_data(request):
-    template = 'data.html'
-
-    prompt = {
-       'order': 'Order of the csv should be date , no_of_predicted_ceses'
-    }
-
-    if request.method == 'GET':
-        return render(request, template, prompt)
-    
-    csv_file = request.FILES['file']
-
-
-
-    data_set = csv_file.read().decode('utf-8')
-    io_string = io.StringIO(data_set)
-    next(io_string)
-
-    for col in csv.reader(io_string, delimiter=','):
-        _, created = most_infected_city.objects.update_or_create(
-            entry_id =int(col[0]),
-            province = col[1],
-            city = col[2]
            
         )
 
