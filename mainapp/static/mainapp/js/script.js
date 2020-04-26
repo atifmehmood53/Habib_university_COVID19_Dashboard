@@ -23,7 +23,6 @@ const zones = {
 
 Object.freeze(zones);
 
-
 // Global selectors
 var last_selected_zone;
 var selected_expansion_button;
@@ -33,6 +32,7 @@ var center_1 = document.getElementById("center-1");
 var center_2 = document.getElementById("center-2");
 var center_3 = document.getElementById("center-3");
 var center_list = document.getElementById("center-list");
+var trend_slider = document.getElementById('trend_slider');
 
 var all_provinces = [
     document.getElementById('PK-PB'),
@@ -44,7 +44,9 @@ var all_provinces = [
     document.getElementById('PK-AK'),
     document.getElementById('PK-TA')
 ];
-
+var a = national_donut_data()
+var b = national_timeSeries_data()
+//console.log(a)
 
 // Donut Chart
 var donut_ctx = document.getElementById('donut-chart').getContext('2d');
@@ -52,7 +54,8 @@ var donut_config = {
     type: 'doughnut',
     data: {
         datasets: [{
-            data: zone_wise_donut_data[zones.PK], // Displays Pakistan wide info by default.
+            //data: zone_wise_donut_data[zones.PK], // Displays Pakistan wide info by default.
+			data: a,
             backgroundColor: [
                 //'#ff482b', peach
                 /*'#f57200',
@@ -124,7 +127,8 @@ var trend_chart_config = {
                 fill: false,
                 backgroundColor: '#908834',
                 borderColor: '#908834',
-                data: trend_data[0],
+                //data: trend_data[0],
+				data: b[0],
                 borderWidth: 3
             },  
             {
@@ -135,7 +139,8 @@ var trend_chart_config = {
                 fill: false,
                 backgroundColor: '#b74e65',
                 borderColor: '#b74e65',
-                data: trend_data[1],
+                data: b[1],
+				//data: trend_data[1],
                 borderWidth: 3
             },
             {
@@ -146,7 +151,8 @@ var trend_chart_config = {
                 fill: false,
                 backgroundColor: '#c84533',
                 borderColor: '#c84533',
-                data: trend_data[2],
+                //data: trend_data[2],
+				data: b[2],
                 borderWidth: 3
             },
             {
@@ -157,7 +163,7 @@ var trend_chart_config = {
             fill: false,
             backgroundColor: '#d56f28',
             borderColor: '#d56f28',
-            data: trend_data[3],
+            data: b[3],
             borderWidth: 3
         }]
     },
@@ -197,7 +203,7 @@ var prediction_graph_config = {
     type: 'line',
     data: {
         datasets: [{
-            label: 'Prediction of Cases',
+            label: 'Prediction of Nationwide Cases',
             pointBackgroundColor: '#c96044',
             pointBorderColor: '#c96044',
             pointRadius: 5,
@@ -258,6 +264,64 @@ var prediction_graph_config = {
 };
 var prediction_graph = new Chart(prediction_graph_canvas, prediction_graph_config);
 
+function national_donut_data(){
+	data = Object.assign(global_data); //copying global data for safety purposes, can be removed later
+	
+	new_data = [];
+	confirmed_sum = 0, active_sum = 0, recovered_sum = 0, deceased_sum = 0;
+	
+	for (var key in data){
+		if (key === 'Sindh' || key === "Punjab" || key === "AJK" || key === "Balochistan" || key === "GB" || key === "KPTD" || key === "Taftan_mobile_lab" || key === "KP"){
+			confirmed_sum += data[key][data[key].length - 1].total_tested_positive;
+			active_sum += data[key][data[key].length - 1].total_admitted;
+			recovered_sum += data[key][data[key].length - 1].total_discharged;
+			deceased_sum += data[key][data[key].length - 1].total_died;
+		}
+		
+	}
+	new_data.push(confirmed_sum);
+	new_data.push(active_sum);
+	new_data.push(recovered_sum);
+	new_data.push(deceased_sum);
+	
+	document.getElementById('total-cases').innerHTML = confirmed_sum;
+	document.getElementById('total-recoveries').innerHTML = recovered_sum;
+	document.getElementById('total-deaths').innerHTML = deceased_sum;
+	
+	return new_data
+}
+
+function national_timeSeries_data(){
+	data = Object.assign(global_data); //copying global data for safety purposes, can be removed later
+	
+	new_data = [[], [], [], []];
+	confirmed_sum = 0, active_sum = 0, recovered_sum = 0, deceased_sum = 0;
+	
+	for (var key in data){
+		if (key === 'Sindh' || key === "Punjab" || key === "AJK" || key === "Balochistan" || key === "GB" || key === "KPTD" || key === "Taftan_mobile_lab" || key === "KP"){
+			for (var i = 0; i < data[key].length; i++){
+				d = new Date(data[key][i].date)
+				if (new_data[0].length !== 0 && new_data[0][i] !== undefined){
+					if (new_data[0][i].x.getTime() === d.getTime()){
+						new_data[0][i].y += data[key][i].total_discharged;
+						new_data[1][i].y += data[key][i].total_admitted;
+						new_data[2][i].y += data[key][i].total_died;
+						new_data[3][i].y += data[key][i].total_tested_positive;
+					}
+				}
+				else{
+					new_data[0].push({x: new Date(data[key][i].date), y: data[key][i].total_discharged})
+					new_data[1].push({x: new Date(data[key][i].date), y: data[key][i].total_admitted})
+					new_data[2].push({x: new Date(data[key][i].date), y: data[key][i].total_died})
+					new_data[3].push({x: new Date(data[key][i].date), y: data[key][i].total_tested_positive})
+					
+				}
+			}
+		}
+	}
+	return new_data
+}
+
 
 function clear_tooltip(e) {
     var tooltip = document.getElementById("tooltip");
@@ -266,10 +330,11 @@ function clear_tooltip(e) {
 
 
 function popup(e) {
+    trend_slider.value = "0";
 
 	//var tooltip = document.getElementById("tooltip");
     var province;
-
+	var province_data;
     
     console.log(last_selected_zone)
 
@@ -300,35 +365,40 @@ function popup(e) {
         last_selected_zone = e.target.id;
         if (e.target.id === "PK-PB") {
             province = "Punjab";
-            total_infected.textContent = "2171 people have been infected in Punjab till now.";
+			province_data = global_data.Punjab;
+            total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in Punjab till now.";
             most_infected_city.textContent = "Lahore has the most number of cases.";
 
             center_list.style.listStyleType = 'disc';
             center_1.textContent = "Benazir Bhutto Hospital, Rawalpindi [(051) 9290301]";
             center_2.textContent = "Services Hospital, Lahore [(042) 99203402]";
             center_3.textContent = "Allied Teaching Hospital, Faisalabad [(041) 9210082]";
-
-            updateData(donut_chart, zone_wise_donut_data[zones.PB]);
+			
+			update_donutData(donut_chart, province_data);
+			update_timeSeries(myChart, province_data);
+			//updateData(donut_chart, zone_wise_donut_data[zones.PB]);
         }
         
         else if (e.target.id === "PK-SD") {
             province = "Sindh";
-            total_infected.textContent = "1036 people have been infected in Sindh till now.";
+			province_data = global_data.Sindh;
+            total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in Sindh till now.";
             most_infected_city.textContent = "Karachi has the most number of cases.";
 
             center_list.style.listStyleType = 'disc';
             center_1.textContent = "Aga Khan University Hospital, Karachi [021-111-911-911]";
             center_2.textContent = "LUMHS hospital, Hyderabad [+92 322 9213305]";
             center_3.textContent = "Jinnah Postgraduate Medical Centre, Karachi";
-
-            updateData(donut_chart, zone_wise_donut_data[zones.SD]);
+			
+			update_donutData(donut_chart, province_data);
+			update_timeSeries(myChart, province_data);
+            //updateData(donut_chart, zone_wise_donut_data[zones.SD]);
         }
         
         /* else if (e.target.id === "PK-TA") {
             province = "Tribal Areas";
             total_infected.textContent = "750 people have been infected in Tribal Areas till now.";
             most_infected_city.textContent = "Parachinar has the most number of cases.";
-
             center_list.style.listStyleType = 'none';
             center_1.textContent = "";
             center_2.textContent = "";
@@ -336,60 +406,89 @@ function popup(e) {
         } */
         
         else if (e.target.id === "PK-KP" || e.target.id == "PK-TA") {
+			new_data = [[], [], [], []];
             province = "Khyber Pakhtunkhwa";
-            total_infected.textContent = "560 people have been infected in KPK till now.";
+			province_data = global_data.KP;
+			province_data2 = global_data.KPTD;
+			for (var key in province_data){
+				for (var i = 0; i < province_data[key].length; i++){
+					d = new Date(province_data[key][i].date)
+					if (province_data[0][i].x.getTime() === d.getTime()){
+						province_data[0][i].y += province_data2[key][i].total_discharged;
+						province_data[1][i].y += province_data2[key][i].total_admitted;
+						province_data[2][i].y += province_data2[key][i].total_died;
+						province_data[3][i].y += province_data2[key][i].total_tested_positive;
+					}
+				}
+			}
+			//console.log(province_data)
+            total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in KPK till now.";
             most_infected_city.textContent = "Peshawar has the most number of cases.";
 
             center_list.style.listStyleType = 'disc';
             center_1.textContent = "Bacha Khan Medical Complex, Swabi [(0938) 280214]";
             center_2.textContent = "Ayub Teaching Hospital, Abbotabad [(0992) 381907]";
             center_3.textContent = "Lady Reading Hospital, Peshawar [(091) 9211441, (091) 9211430]";
-
-            updateData(donut_chart, zone_wise_donut_data[zones.KP]);
+			
+			update_donutData(donut_chart, province_data);
+			update_timeSeries(myChart, province_data);
+            //updateData(donut_chart, zone_wise_donut_data[zones.KP]);
         }
         
         else if (e.target.id === "PK-AK") {
             province = "Azad Kashmir";
-            total_infected.textContent = "28 people have been infected in Azad Kashmir till now.";
+			province_data = global_data.AJK;
+            total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in Azad Kashmir till now.";
             most_infected_city.textContent = "Muzaffarabad has the most number of cases.";
 
             center_list.style.listStyleType = 'disc';
             center_1.textContent = "Abbas Institute of Medical Sciences, Muzzaffarabad [(058224) 39306]";
             center_2.textContent = "DHQ Hospital, Mirpur";
             center_3.textContent = "Sheikh Khalifa Bin Zaid (SKBZ) Hospital, Rawalakot";
-
-            updateData(donut_chart, zone_wise_donut_data[zones.AK]);
+			
+			update_donutData(donut_chart, province_data);
+			update_timeSeries(myChart, province_data);
+            //updateData(donut_chart, zone_wise_donut_data[zones.AK]);
+			
+			
         }
         
         else if (e.target.id === "PK-IS") {
             province = "Islamabad";
-            total_infected.textContent = "102 people have been infected in Islamabad till now.";
+			province_data = global_data.ICT;
+            total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in Islamabad till now.";
             most_infected_city.textContent = "Islamabad has the most number of cases.";
 
             center_list.style.listStyleType = 'none';
             center_1.textContent = "Pakistan Institute of Medical Sciences (PIMS), Islamabad [(051) 9261170]";
             center_2.textContent = "";
             center_3.textContent = "";
-
-            updateData(donut_chart, zone_wise_donut_data[zones.IS]);
+			
+			update_donutData(donut_chart, province_data);
+			update_timeSeries(myChart, province_data);
+            //updateData(donut_chart, zone_wise_donut_data[zones.IS]);
         }
         
         else if (e.target.id === "PK-GB") {
             province = "Gilgit-Baltistan";
-            total_infected.textContent = "213 people have been infected in Gilgit-Baltistan till now.";
+			province_data = global_data.GB;
+            total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in Gilgit-Baltistan till now.";
             most_infected_city.textContent = "Gilgit has the most number of cases.";
 
             center_list.style.listStyleType = 'disc';
             center_1.textContent = "Civil Hospital, Hunza [(051) 3920187]";
             center_2.textContent = "DHQ Hospital, Gilgit [(058119) 20253]";
             center_3.textContent = "DHQ Hospital, Skardu";
-
-            updateData(donut_chart, zone_wise_donut_data[zones.GB]);
+			
+			update_donutData(donut_chart, province_data);
+			update_timeSeries(myChart, province_data);
+            //updateData(donut_chart, zone_wise_donut_data[zones.GB]);
         }
         
         else if (e.target.id === "PK-BA") {
             province = "Balochistan";
-            total_infected.textContent = "212 people have been infected in Balochistan till now.";
+			province_data = global_data.Balochistan;
+            total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in Balochistan till now.";
             most_infected_city.textContent = "Quetta has the most number of cases.";
 
             center_list.style.listStyleType = 'disc';
@@ -397,14 +496,11 @@ function popup(e) {
             center_2.textContent = "Fatima Jinnah General and Chest Hospital, Quetta";
             center_3.textContent = "DHQ Teaching Hospital, Turbat";
 
-            updateData(donut_chart, zone_wise_donut_data[zones.BA]);
+			update_donutData(donut_chart, province_data);
+			update_timeSeries(myChart, province_data);
+            //updateData(donut_chart, zone_wise_donut_data[zones.BA]);
         }
 
-        //tooltip.innerHTML = "<span class='heading'>" + province + "</span> <br /> Total cases: <span style='color: blue; font-weight: bold;'> 500 </span> <br /> Recovered: <span style='color: green; font-weight: bold;'> 300 </span> <br /> Deaths: <span style='color: red; font-weight: bold;'> 30 </span>"
-        //tooltip.style.display = 'none';
-        
-        //tooltip.style.left = e.pageX + 'px';
-        //tooltip.style.top = e.pageY + 'px';
         console.log("Clicked! X: "+e.pageX+" Y: "+e.pageY);
         
         var selected_province = document.getElementById(e.target.id);
@@ -448,10 +544,46 @@ function update_tip_text() {
     tip_text.style.fontStyle = 'italic';
 }
 
+function update_timeSeries(chart, data){
+	new_data = [[], [], [], []]
+	for (var i = 0; i < data.length; i++){
+		//var [year, month, day] = data[i].date.split("-")
+		new_data[0].push({x: new Date(data[i].date), y: data[i].total_discharged})
+		new_data[1].push({x: new Date(data[i].date), y: data[i].total_admitted})
+		new_data[2].push({x: new Date(data[i].date), y: data[i].total_died})
+		new_data[3].push({x: new Date(data[i].date), y: data[i].total_tested_positive})
+	}
+	chart.data.datasets[0].data = new_data[0];
+	chart.data.datasets[1].data = new_data[1];
+	chart.data.datasets[2].data = new_data[2];
+	chart.data.datasets[3].data = new_data[3];
+	
+	chart.update();
+}
 
-function updateData(chart, data) {
+function update_donutData(chart, data) {
+    console.log("Updating donut chart")
+	//console.log(data)
+	new_data = [];
+	new_data.push(data[data.length - 1].total_tested_positive);
+	new_data.push(data[data.length - 1].total_admitted);
+	new_data.push(data[data.length - 1].total_discharged);
+	new_data.push(data[data.length - 1].total_died);
+    chart.data.datasets[0].data = new_data;
+    chart.update();
+}
+
+function updateData(chart, data, type) {
     console.log("Updating chart")
-    chart.data.datasets[0].data = data;
+	if (type === 'donut'){
+		chart.data.datasets[0].data = data;
+	}
+	else if (type === 'time series'){
+		chart.data.datasets[0].data = data[0];
+		chart.data.datasets[1].data = data[1];
+		chart.data.datasets[2].data = data[2];
+		chart.data.datasets[3].data = data[3];
+	}
     chart.update();
 }
 
@@ -466,7 +598,8 @@ function reset_to_default() {
     center_2.textContent = "";
     center_3.textContent = "";
     
-    updateData(donut_chart, zone_wise_donut_data[zones.PK]);
+    updateData(donut_chart, a, 'donut');
+	updateData(myChart, b, 'time series');
     
     var x;
     for (x of all_provinces) {
@@ -523,6 +656,8 @@ function highlight_release(e) {
 function expand_buttons(e){
     console.log("EXPAND BUTTONS CALLED");
     console.log(e.target.id);
+	console.log(global_variable.a);
+	console.log(data);
     selected_expansion_button = document.getElementById(e.target.id);
 
 	var emergency_content = document.getElementById("emergency_content");
@@ -574,7 +709,7 @@ function startIntro(){
         steps: [
           { 
             element: '#navbar',
-            intro: "Welcome to the COVID19 Dashboard. Click on Next to start the tutorial."
+            intro: "Welcome to Pakistan COVID-19 Resource Center. Click on Next to start the tutorial."
           },
           {
             element: '#navbar',
@@ -631,19 +766,58 @@ function startIntro(){
               position: 'top'
           },
           {
+              element: '#feedback-button',
+              intro: 'You can give feedback about this dashboard by clicking here.',
+              position: 'bottom'
+          },
+          {
+              element: '#tutorial-button',
+              intro: 'Click here to start the tutorial again at any time!.',
+              position: 'bottom'
+          },
+          {
               element: '#navbar',
               intro: 'And that is all you need to know to use this dashboard. Stay safe, stay in-doors! Click on Done to finish the tutorial.',
-              position: 'top'
+              position: 'bottom'
           }
         ]
       });
       intro.setOption('showProgress', true);
       intro.start();
 }
-
-var trend_slider = document.getElementById('trend_slider');
+var copy_b = JSON.parse(JSON.stringify(b));
+var prev_val = 0;
+var len = b[0].length;
+console.log('length', len)
+trend_slider.max = len;
 trend_slider.oninput = function() {
-    console.log(this.value);
+    //var len = b[0].length;
+	//var lastDate = new Date(b[0][len-1].x)
+	//var weekBefore = new Date(lastDate.setDate(lastDate.getDate()-7))
+	//var temp = false;
+	var val = parseInt(this.value);
+	
+	for (var i = 0; i < b.length; i++){ 
+		console.log(i, this.value, prev_val)
+		if (val < prev_val && val <= (len-7)){
+			for (var k = prev_val; k > val; k--){
+				copy_b[i].unshift(b[i][k])
+			}
+			//copy_b[i].unshift(b[i][val])
+			
+			//updateData(myChart, copy_b, 'time series');
+		}
+		else if (val <= (len-7)){
+		//else if (date.getTime() <= weekBefore.getTime()){
+			for (var k = prev_val; k < val; k++){
+				copy_b[i].splice(0, 1);
+			}
+			//copy_b[i].splice(0, 1);
+			//updateData(myChart, copy_b, 'time series');
+		}
+	}
+	updateData(myChart, copy_b, 'time series');
+	prev_val = val;
+	
 }
-
 $('#tutorial_modal').modal();

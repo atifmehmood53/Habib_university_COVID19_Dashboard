@@ -380,3 +380,7 @@ input[type=checkbox] {
 .tutorial-modal-button:hover {
   background-color: #fcc149;
 }
+
+.margin-row{
+	margin-bottom: 10% !important;
+}
