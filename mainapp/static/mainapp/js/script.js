@@ -33,6 +33,7 @@ var center_2 = document.getElementById("center-2");
 var center_3 = document.getElementById("center-3");
 var center_list = document.getElementById("center-list");
 var trend_slider = document.getElementById('trend_slider');
+var update_text = document.getElementById("update-text");
 
 var all_provinces = [
     document.getElementById('PK-PB'),
@@ -47,6 +48,7 @@ var all_provinces = [
 var a = national_donut_data()
 var b = national_timeSeries_data()
 var c = prediction_data()
+updated_time();
 //console.log(a)
 
 // Donut Chart
@@ -288,6 +290,8 @@ function national_donut_data(){
 	document.getElementById('total-cases').innerHTML = confirmed_sum;
 	document.getElementById('total-recoveries').innerHTML = recovered_sum;
 	document.getElementById('total-deaths').innerHTML = deceased_sum;
+	total_infected.textContent = new_data[0] + " people have been infected in Pakistan till now.";
+    most_infected_city.textContent = "Lahore has the most number of cases.";
 	
 	return new_data
 }
@@ -380,7 +384,7 @@ function popup(e) {
             province = "Punjab";
 			province_data = global_data.Punjab;
             total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in Punjab till now.";
-            most_infected_city.textContent = "Lahore has the most number of cases.";
+            most_infected_city.textContent = province_data[province_data.length - 1].most_infected_city + " has the most number of cases.";
 
             center_list.style.listStyleType = 'disc';
             center_1.textContent = "Benazir Bhutto Hospital, Rawalpindi [(051) 9290301]";
@@ -396,7 +400,7 @@ function popup(e) {
             province = "Sindh";
 			province_data = global_data.Sindh;
             total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in Sindh till now.";
-            most_infected_city.textContent = "Karachi has the most number of cases.";
+            most_infected_city.textContent = province_data[province_data.length - 1].most_infected_city + " has the most number of cases.";
 
             center_list.style.listStyleType = 'disc';
             center_1.textContent = "Aga Khan University Hospital, Karachi [021-111-911-911]";
@@ -436,7 +440,7 @@ function popup(e) {
 			}
 			//console.log(province_data)
             total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in KPK till now.";
-            most_infected_city.textContent = "Peshawar has the most number of cases.";
+            most_infected_city.textContent = province_data[province_data.length - 1].most_infected_city + " has the most number of cases.";
 
             center_list.style.listStyleType = 'disc';
             center_1.textContent = "Bacha Khan Medical Complex, Swabi [(0938) 280214]";
@@ -452,7 +456,7 @@ function popup(e) {
             province = "Azad Kashmir";
 			province_data = global_data.AJK;
             total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in Azad Kashmir till now.";
-            most_infected_city.textContent = "Muzaffarabad has the most number of cases.";
+            most_infected_city.textContent = province_data[province_data.length - 1].most_infected_city + " has the most number of cases.";
 
             center_list.style.listStyleType = 'disc';
             center_1.textContent = "Abbas Institute of Medical Sciences, Muzzaffarabad [(058224) 39306]";
@@ -470,7 +474,7 @@ function popup(e) {
             province = "Islamabad";
 			province_data = global_data.ICT;
             total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in Islamabad till now.";
-            most_infected_city.textContent = "Islamabad has the most number of cases.";
+            most_infected_city.textContent = province_data[province_data.length - 1].most_infected_city + " has the most number of cases.";
 
             center_list.style.listStyleType = 'none';
             center_1.textContent = "Pakistan Institute of Medical Sciences (PIMS), Islamabad [(051) 9261170]";
@@ -486,7 +490,7 @@ function popup(e) {
             province = "Gilgit-Baltistan";
 			province_data = global_data.GB;
             total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in Gilgit-Baltistan till now.";
-            most_infected_city.textContent = "Gilgit has the most number of cases.";
+            most_infected_city.textContent = province_data[province_data.length - 1].most_infected_city + " has the most number of cases.";
 
             center_list.style.listStyleType = 'disc';
             center_1.textContent = "Civil Hospital, Hunza [(051) 3920187]";
@@ -502,7 +506,7 @@ function popup(e) {
             province = "Balochistan";
 			province_data = global_data.Balochistan;
             total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in Balochistan till now.";
-            most_infected_city.textContent = "Quetta has the most number of cases.";
+            most_infected_city.textContent = province_data[province_data.length - 1].most_infected_city + " has the most number of cases.";
 
             center_list.style.listStyleType = 'disc';
             center_1.textContent = "Red Crescent Hospital, Gwadar [(021) 35833973]";
@@ -603,7 +607,8 @@ function updateData(chart, data, type) {
 function reset_to_default() {
     console.log("resetting...")
 
-    total_infected.textContent = zone_wise_donut_data[zones.PK][0] + " people have been infected in Pakistan till now.";
+    total_infected.textContent = a[0] + " people have been infected in Pakistan till now.";
+	
     most_infected_city.textContent = "Lahore has the most number of cases.";
 
     center_list.style.listStyleType = 'none';
@@ -801,12 +806,11 @@ function startIntro(){
 var copy_b = JSON.parse(JSON.stringify(b));
 var prev_val = 0;
 var len = b[0].length;
-console.log('length', len)
+//console.log('length', len)
 trend_slider.max = len-7;
 trend_slider.oninput = function() {
     var val = parseInt(this.value);
-	console.log(val)
-	new_data = [[], [], [], []]
+	//console.log(val)
 	if (val > prev_val){
 		for (var i = 0; i < b.length; i++){ 
 			for (var j = prev_val; j < val; j++){
@@ -823,8 +827,21 @@ trend_slider.oninput = function() {
 		}
 	}
 	updateData(myChart, copy_b, 'time series');
-	prev_val = val;
-	
+	prev_val = val;	
+}
+
+function updated_time(){
+	var current = new Date(2020, 1, 1);
+	for (var key in global_data){
+		for (var i = 0; i < global_data[key].length; i++){
+			d = new Date(global_data[key][i].date)
+			if (d > current){
+				//console.log([d.getDate(), d.getMonth(), d.getFullYear], [current.getDate(), current.getMonth(), current.getFullYear()])
+				current = d;
+			}
+		}
+	}
+	update_text.textContent = "Last updated on: " + current.getDate() + "/" + current.getMonth() + "/" + current.getFullYear();
 }
 	
 $('#tutorial_modal').modal();
