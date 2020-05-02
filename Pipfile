@@ -7,6 +7,13 @@ verify_ssl = true
 
 [packages]
 django = "*"
+django-tracking-analyzer = "*"
+djangorestframework = "*"
+python-dotenv = "*"
+gunicorn = "*"
+dj-database-url = "*"
+django-user-agents = "*"
+whitenoise = "*"
 
 [requires]
 python_version = "3.7"
