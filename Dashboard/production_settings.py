@@ -12,3 +12,5 @@ SECRET_KEY = 'v@467_p0za*-!+^2(97g374adasyyjhsyjfsdj733858345snsqg5+safh@aijflh7
 # import dj_database_url
 # db_from_env = dj_database_url.config(conn_max_age=500)
 # DATABASES['default'].update(db_from_env)
+
+print("Using production environment...")

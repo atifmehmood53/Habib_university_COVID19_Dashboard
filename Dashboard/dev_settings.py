@@ -14,3 +14,4 @@ ALLOWED_HOSTS = ['*']
 # use for production only
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+print("Using development environment...")
