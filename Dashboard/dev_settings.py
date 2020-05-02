@@ -9,3 +9,6 @@ SECRET_KEY = 'v@467_p0za*-!+^2(97g374733858345snsqg5+du0xvap@aijflh7x1zs5@y6l'
 # SECURITY WARNING: define the correct hosts in production!
 ALLOWED_HOSTS = ['*'] 
 
+# use for production only
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
