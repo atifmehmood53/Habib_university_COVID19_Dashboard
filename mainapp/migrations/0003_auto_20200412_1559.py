@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
             name='Prediction_model',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('day_offset', models.IntegerField(default=0)),
+                ('day_offset', models.DateField()),
                 ('no_of_cases', models.IntegerField(default=0)),
             ],
         ),
