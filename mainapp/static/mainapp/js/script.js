@@ -290,7 +290,7 @@ function national_donut_data(){
 	document.getElementById('total-recoveries').innerHTML = recovered_sum;
 	document.getElementById('total-deaths').innerHTML = deceased_sum;
 	total_infected.textContent = new_data[0] + " people have been infected in Pakistan till now.";
-    most_infected_city.textContent = "Lahore has the most number of cases.";
+    most_infected_city.textContent = "Lahore is the city with most number of new cases.";
 	
 	return new_data
 }
@@ -351,7 +351,7 @@ function popup(e) {
     var province;
 	var province_data;
     
-    console.log(last_selected_zone)
+    //console.log(last_selected_zone)
 
 	/* if (tooltip.style.display == "block") {
 		tooltip.style.display = "none"
@@ -371,7 +371,7 @@ function popup(e) {
     }
     
     if (last_selected_zone == e.target.id) {
-        console.log("Deselecting " + last_selected_zone);
+        //console.log("Deselecting " + last_selected_zone);
         reset_to_default();
     }
 
@@ -382,7 +382,7 @@ function popup(e) {
             province = "Punjab";
 			province_data = global_data.Punjab;
             total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in Punjab till now.";
-            most_infected_city.textContent = province_data[province_data.length - 1].most_infected_city + " has the most number of cases.";
+            most_infected_city.textContent = province_data[province_data.length - 1].most_infected_city + " is the city with most number of new cases.";
             center_list.style.listStyleType = 'disc';
             center_1.textContent = "Benazir Bhutto Hospital, Rawalpindi [(051) 9290301]";
             center_2.textContent = "Services Hospital, Lahore [(042) 99203402]";
@@ -396,7 +396,7 @@ function popup(e) {
             province = "Sindh";
 			province_data = global_data.Sindh;
             total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in Sindh till now.";
-            most_infected_city.textContent = province_data[province_data.length - 1].most_infected_city + " has the most number of cases.";
+            most_infected_city.textContent = province_data[province_data.length - 1].most_infected_city + " is the city with most number of new cases.";
 
             center_list.style.listStyleType = 'disc';
             center_1.textContent = "Aga Khan University Hospital, Karachi [021-111-911-911]";
@@ -436,7 +436,7 @@ function popup(e) {
 			}
 			//console.log(province_data)
             total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in KPK till now.";
-            most_infected_city.textContent = province_data[province_data.length - 1].most_infected_city + " has the most number of cases.";
+            most_infected_city.textContent = province_data[province_data.length - 1].most_infected_city + " is the city with most number of new cases.";
 
             center_list.style.listStyleType = 'disc';
             center_1.textContent = "Bacha Khan Medical Complex, Swabi [(0938) 280214]";
@@ -452,7 +452,7 @@ function popup(e) {
             province = "Azad Kashmir";
 			province_data = global_data.AJK;
             total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in Azad Kashmir till now.";
-            most_infected_city.textContent = province_data[province_data.length - 1].most_infected_city + " has the most number of cases.";
+            most_infected_city.textContent = province_data[province_data.length - 1].most_infected_city + " is the city with most number of new cases.";
 
             center_list.style.listStyleType = 'disc';
             center_1.textContent = "Abbas Institute of Medical Sciences, Muzzaffarabad [(058224) 39306]";
@@ -470,7 +470,7 @@ function popup(e) {
             province = "Islamabad";
 			province_data = global_data.ICT;
             total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in Islamabad till now.";
-            most_infected_city.textContent = province_data[province_data.length - 1].most_infected_city + " has the most number of cases.";
+            most_infected_city.textContent = province_data[province_data.length - 1].most_infected_city + " is the city with most number of new cases.";
 
             center_list.style.listStyleType = 'none';
             center_1.textContent = "Pakistan Institute of Medical Sciences (PIMS), Islamabad [(051) 9261170]";
@@ -486,7 +486,7 @@ function popup(e) {
             province = "Gilgit-Baltistan";
 			province_data = global_data.GB;
             total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in Gilgit-Baltistan till now.";
-            most_infected_city.textContent = province_data[province_data.length - 1].most_infected_city + " has the most number of cases.";
+            most_infected_city.textContent = province_data[province_data.length - 1].most_infected_city + " is the city with most number of new cases.";
 
             center_list.style.listStyleType = 'disc';
             center_1.textContent = "Civil Hospital, Hunza [(051) 3920187]";
@@ -502,7 +502,7 @@ function popup(e) {
             province = "Balochistan";
 			province_data = global_data.Balochistan;
             total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in Balochistan till now.";
-            most_infected_city.textContent = province_data[province_data.length - 1].most_infected_city + " has the most number of cases.";
+            most_infected_city.textContent = province_data[province_data.length - 1].most_infected_city + " is the city with most number of new cases.";
 
             center_list.style.listStyleType = 'disc';
             center_1.textContent = "Red Crescent Hospital, Gwadar [(021) 35833973]";
@@ -513,7 +513,7 @@ function popup(e) {
             //updateData(donut_chart, zone_wise_donut_data[zones.BA]);
         }
 
-        console.log("Clicked! X: "+e.pageX+" Y: "+e.pageY);
+        //console.log("Clicked! X: "+e.pageX+" Y: "+e.pageY);
         
         var selected_province = document.getElementById(e.target.id);
 
@@ -572,7 +572,7 @@ function update_timeSeries(chart, data){
 	chart.update();
 }
 function update_donutData(chart, data) {
-    console.log("Updating donut chart")
+    //console.log("Updating donut chart")
 	//console.log(data)
 	new_data = [];
 	new_data.push(data[data.length - 1].total_tested_positive);
@@ -584,7 +584,7 @@ function update_donutData(chart, data) {
 }
 
 function updateData(chart, data, type) {
-    console.log("Updating chart")
+    //console.log("Updating chart")
 	if (type === 'donut'){
 		chart.data.datasets[0].data = data;
 	}
@@ -598,11 +598,11 @@ function updateData(chart, data, type) {
 }
 
 function reset_to_default() {
-    console.log("resetting...")
+    //console.log("resetting...")
 
     total_infected.textContent = a[0] + " people have been infected in Pakistan till now.";
 	
-    most_infected_city.textContent = "Lahore has the most number of cases.";
+    most_infected_city.textContent = "Lahore is the city with most number of new cases.";
 
     center_list.style.listStyleType = 'none';
     center_1.textContent = "";
@@ -621,7 +621,7 @@ function reset_to_default() {
     document.getElementById('PK-AK').style.fill = '#585858';
     
     last_selected_zone = "PK";
-    console.log("Reset complete");
+    //console.log("Reset complete");
 }
 
 function highlight(e) {
@@ -665,9 +665,9 @@ function highlight_release(e) {
 }
 
 function expand_buttons(e){
-    console.log("EXPAND BUTTONS CALLED");
-    console.log(e.target.id);
-	console.log(data);
+    //console.log("EXPAND BUTTONS CALLED");
+    //console.log(e.target.id);
+	//console.log(data);
     selected_expansion_button = document.getElementById(e.target.id);
 
 	var emergency_content = document.getElementById("emergency_content");
@@ -811,7 +811,7 @@ trend_slider.oninput = function() {
 		}
 	}
 	else if (val < prev_val){
-		console.log(prev_val, val);
+		//console.log(prev_val, val);
 		for (var i = 0; i < b.length; i++){ 
 			for (var j = prev_val; j > val; j--){
 				copy_b[i].unshift(b[i][j])
