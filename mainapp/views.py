@@ -118,9 +118,9 @@ def prediction_data(request):
         _, created = Prediction_model.objects.update_or_create(
             entry_id =int(col[0]),
             date = col[1],
-            Predictions = col[2],
-            Upper_confidence_interval = col[3],
-            Lower_confidence_interval = col[4]
+            Predictions = float(col[2]),
+            Upper_confidence_interval = float(col[3]),
+            Lower_confidence_interval = float(col[4])
            
         )
 
