@@ -571,8 +571,6 @@ function update_timeSeries(chart, data){
 	
 	chart.update();
 }
-<<<<<<< HEAD
-
 function update_donutData(chart, data) {
     console.log("Updating donut chart")
 	//console.log(data)
