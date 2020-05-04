@@ -280,7 +280,6 @@ function national_donut_data(){
 			recovered_sum += data[key][data[key].length - 1].total_discharged;
 			deceased_sum += data[key][data[key].length - 1].total_died;
 		}
-		
 	}
 	new_data.push(confirmed_sum);
 	new_data.push(active_sum);
@@ -339,7 +338,6 @@ function prediction_data(){
 	
 }
 
-
 function clear_tooltip(e) {
     var tooltip = document.getElementById("tooltip");
     tooltip.style.display = 'none';
@@ -385,7 +383,6 @@ function popup(e) {
 			province_data = global_data.Punjab;
             total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in Punjab till now.";
             most_infected_city.textContent = province_data[province_data.length - 1].most_infected_city + " has the most number of cases.";
-
             center_list.style.listStyleType = 'disc';
             center_1.textContent = "Benazir Bhutto Hospital, Rawalpindi [(051) 9290301]";
             center_2.textContent = "Services Hospital, Lahore [(042) 99203402]";
@@ -393,7 +390,6 @@ function popup(e) {
 			
 			update_donutData(donut_chart, province_data);
 			update_timeSeries(myChart, province_data);
-			//updateData(donut_chart, zone_wise_donut_data[zones.PB]);
         }
         
         else if (e.target.id === "PK-SD") {
@@ -512,7 +508,6 @@ function popup(e) {
             center_1.textContent = "Red Crescent Hospital, Gwadar [(021) 35833973]";
             center_2.textContent = "Fatima Jinnah General and Chest Hospital, Quetta";
             center_3.textContent = "DHQ Teaching Hospital, Turbat";
-
 			update_donutData(donut_chart, province_data);
 			update_timeSeries(myChart, province_data);
             //updateData(donut_chart, zone_wise_donut_data[zones.BA]);
@@ -564,7 +559,6 @@ function update_tip_text() {
 function update_timeSeries(chart, data){
 	new_data = [[], [], [], []]
 	for (var i = 0; i < data.length; i++){
-		//var [year, month, day] = data[i].date.split("-")
 		new_data[0].push({x: new Date(data[i].date), y: data[i].total_discharged})
 		new_data[1].push({x: new Date(data[i].date), y: data[i].total_admitted})
 		new_data[2].push({x: new Date(data[i].date), y: data[i].total_died})
@@ -577,6 +571,7 @@ function update_timeSeries(chart, data){
 	
 	chart.update();
 }
+<<<<<<< HEAD
 
 function update_donutData(chart, data) {
     console.log("Updating donut chart")
@@ -674,7 +669,6 @@ function highlight_release(e) {
 function expand_buttons(e){
     console.log("EXPAND BUTTONS CALLED");
     console.log(e.target.id);
-	//console.log(global_variable.a);
 	console.log(data);
     selected_expansion_button = document.getElementById(e.target.id);
 
@@ -843,5 +837,4 @@ function updated_time(){
 	}
 	update_text.textContent = "Last updated on: " + current.getDate() + "/" + current.getMonth() + "/" + current.getFullYear();
 }
-	
 $('#tutorial_modal').modal();
