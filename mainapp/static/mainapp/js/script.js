@@ -174,7 +174,7 @@ var trend_chart_config = {
     type: 'line',
     data: {
         datasets: [{
-                label: 'Recovered Cases',
+                label: 'Recovered',
                 pointBackgroundColor: '#908834',
                 pointBorderColor: '#908834',
                 pointRadius: 4,
@@ -186,7 +186,7 @@ var trend_chart_config = {
                 borderWidth: 3
             },  
             {
-                label: 'Active Cases',
+                label: 'Active',
                 pointBackgroundColor: '#b74e65',
                 pointBorderColor: '#b74e65',
                 pointRadius: 4,
@@ -198,7 +198,7 @@ var trend_chart_config = {
                 borderWidth: 3
             },
             {
-                label: 'Deceased Cases',
+                label: 'Deceased',
                 pointBackgroundColor: '#c84533',
                 pointBorderColor: '#c84533',
                 pointRadius: 4,
@@ -210,7 +210,7 @@ var trend_chart_config = {
                 borderWidth: 3
             },
             {
-            label: 'Confirmed Cases',
+            label: 'Confirmed',
             pointBackgroundColor: '#d56f28',
             pointBorderColor: '#d56f28',
             pointRadius: 4,
@@ -226,8 +226,8 @@ var trend_chart_config = {
         maintainAspectRatio: false,
         scales: {
             xAxes: [{
+				display: true,
                 type: 'time',
-                display: true,
 				time:{
 					displayFormats: {
 						unit: 'day',
@@ -239,7 +239,7 @@ var trend_chart_config = {
                     labelString: 'Date'
                 },
                 ticks: {
-                    source: 'data',
+                    source: 'auto',
 					autoSkip: true,
 					maxTicksLimit: 20
                 }
@@ -319,6 +319,10 @@ var prediction_graph_config = {
             }],
             yAxes: [{
                 display: true,
+				ticks:{
+					max:40000,
+					min: 0
+				},
                 scaleLabel: {
                     display: true,
                     labelString: '# of people'
