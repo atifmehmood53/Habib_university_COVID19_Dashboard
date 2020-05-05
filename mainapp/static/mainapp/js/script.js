@@ -960,6 +960,6 @@ function updated_time(){
 			}
 		}
 	}
-	update_text.textContent = "Last updated on: " + current.getDate() + "/" + current.getMonth() + "/" + current.getFullYear();
+	update_text.textContent = "Last updated on: " + current.getDate() + "/" + (current.getMonth()+1) + "/" + current.getFullYear();
 }
 $('#tutorial_modal').modal();
