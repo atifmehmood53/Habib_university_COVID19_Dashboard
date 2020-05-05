@@ -230,6 +230,7 @@ var trend_chart_config = {
                 display: true,
 				time:{
 					displayFormats: {
+						unit: 'day',
 						day: 'MMM D'
 					}
 				},
