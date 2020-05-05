@@ -184,7 +184,7 @@ var trend_chart_config = {
                 ticks: {
                     source: 'data',
 					autoSkip: true,
-					maxTicksLimit: 25
+					maxTicksLimit: 15
                 }
             }],
             yAxes: [{
