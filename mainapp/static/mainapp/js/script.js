@@ -228,13 +228,18 @@ var trend_chart_config = {
             xAxes: [{
                 type: 'time',
                 display: true,
+				time:{
+					displayFormats: {
+						day: 'MMM D'
+					}
+				},
                 scaleLabel: {
                     display: true,
                     labelString: 'Date'
                 },
                 ticks: {
                     source: 'data',
-					//autoSkip: true,
+					autoSkip: true,
 					maxTicksLimit: 20
                 }
             }],
@@ -267,7 +272,7 @@ var prediction_graph_config = {
 				borderColor: '#b74e65',
 				backgroundColor: '#b74e65',
 				//data: c[2],
-				data: prediction[1],
+				data: predictions[1],
 				borderWidth: 3
             },  
 			{
@@ -279,7 +284,7 @@ var prediction_graph_config = {
 				borderColor: '#c96044',
 				backgroundColor: '#c96044',
 				//data: c[1],
-				data: prediction[0],
+				data: predictions[0],
 				borderWidth: 3
 			},
 			{
@@ -291,7 +296,7 @@ var prediction_graph_config = {
 				borderColor: '#908834',
                 backgroundColor: '#908834',
                 //data: c[0],
-                data: prediction[2],
+                data: predictions[2],
 				borderWidth: 3
 			}
 		]
