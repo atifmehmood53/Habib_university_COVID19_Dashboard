@@ -716,6 +716,7 @@ function updateData(chart, data, type) {
 		chart.data.datasets[2].data = data[2];
 		chart.data.datasets[3].data = data[3];
 	}
+	chart.clear();
     chart.update();
 }
 
