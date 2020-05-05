@@ -46,7 +46,8 @@ var all_provinces = [
     document.getElementById('PK-TA')
 ];
 var a = national_donut_data()
-var b = national_timeSeries_data()
+var national_timeSeries = national_timeSeries_data()
+var b = national_timeSeries;
 var c = prediction_data()
 updated_time();
 //console.log(a)
@@ -263,7 +264,15 @@ var trend_chart_config = {
 };
 var myChart = new Chart(ctx1, trend_chart_config);
 
+var slider_data = [[], [], [], []]
+slider_data[0] = myChart.data.datasets[0].data
+slider_data[1] = myChart.data.datasets[1].data
+slider_data[2] = myChart.data.datasets[2].data
+slider_data[3] = myChart.data.datasets[3].data
 
+var copy_b = JSON.parse(JSON.stringify(slider_data));
+var prev_val = 0;
+var len = slider_data[0].length;
 
 // Prediction Graph
 var today = new Date();
@@ -327,7 +336,7 @@ var prediction_graph_config = {
             yAxes: [{
                 display: true,
 				ticks:{
-					max:60000,
+					max:100000,
 					min: 0
 				},
                 scaleLabel: {
@@ -463,6 +472,11 @@ function popup(e) {
 			
 			update_donutData(donut_chart, province_data);
 			update_timeSeries(myChart, province_data);
+			slider_data[0] = myChart.data.datasets[0].data
+			slider_data[1] = myChart.data.datasets[1].data
+			slider_data[2] = myChart.data.datasets[2].data
+			slider_data[3] = myChart.data.datasets[3].data
+			copy_b = JSON.parse(JSON.stringify(slider_data));
         }
         
         else if (e.target.id === "PK-SD") {
@@ -478,6 +492,11 @@ function popup(e) {
 			
 			update_donutData(donut_chart, province_data);
 			update_timeSeries(myChart, province_data);
+			slider_data[0] = myChart.data.datasets[0].data
+			slider_data[1] = myChart.data.datasets[1].data
+			slider_data[2] = myChart.data.datasets[2].data
+			slider_data[3] = myChart.data.datasets[3].data
+			copy_b = JSON.parse(JSON.stringify(slider_data));
             //updateData(donut_chart, zone_wise_donut_data[zones.SD]);
         }
         
@@ -518,6 +537,11 @@ function popup(e) {
 			
 			update_donutData(donut_chart, province_data);
 			update_timeSeries(myChart, province_data);
+			slider_data[0] = myChart.data.datasets[0].data
+			slider_data[1] = myChart.data.datasets[1].data
+			slider_data[2] = myChart.data.datasets[2].data
+			slider_data[3] = myChart.data.datasets[3].data
+			copy_b = JSON.parse(JSON.stringify(slider_data));
             //updateData(donut_chart, zone_wise_donut_data[zones.KP]);
         }
         
@@ -534,6 +558,11 @@ function popup(e) {
 			
 			update_donutData(donut_chart, province_data);
 			update_timeSeries(myChart, province_data);
+			slider_data[0] = myChart.data.datasets[0].data
+			slider_data[1] = myChart.data.datasets[1].data
+			slider_data[2] = myChart.data.datasets[2].data
+			slider_data[3] = myChart.data.datasets[3].data
+			copy_b = JSON.parse(JSON.stringify(slider_data));
             //updateData(donut_chart, zone_wise_donut_data[zones.AK]);
 			
 			
@@ -552,6 +581,11 @@ function popup(e) {
 			
 			update_donutData(donut_chart, province_data);
 			update_timeSeries(myChart, province_data);
+			slider_data[0] = myChart.data.datasets[0].data
+			slider_data[1] = myChart.data.datasets[1].data
+			slider_data[2] = myChart.data.datasets[2].data
+			slider_data[3] = myChart.data.datasets[3].data
+			copy_b = JSON.parse(JSON.stringify(slider_data));
             //updateData(donut_chart, zone_wise_donut_data[zones.IS]);
         }
         
@@ -568,6 +602,11 @@ function popup(e) {
 			
 			update_donutData(donut_chart, province_data);
 			update_timeSeries(myChart, province_data);
+			slider_data[0] = myChart.data.datasets[0].data
+			slider_data[1] = myChart.data.datasets[1].data
+			slider_data[2] = myChart.data.datasets[2].data
+			slider_data[3] = myChart.data.datasets[3].data
+			copy_b = JSON.parse(JSON.stringify(slider_data));
             //updateData(donut_chart, zone_wise_donut_data[zones.GB]);
         }
         
@@ -583,6 +622,11 @@ function popup(e) {
             center_3.textContent = "DHQ Teaching Hospital, Turbat";
 			update_donutData(donut_chart, province_data);
 			update_timeSeries(myChart, province_data);
+			slider_data[0] = myChart.data.datasets[0].data
+			slider_data[1] = myChart.data.datasets[1].data
+			slider_data[2] = myChart.data.datasets[2].data
+			slider_data[3] = myChart.data.datasets[3].data
+			copy_b = JSON.parse(JSON.stringify(slider_data));
             //updateData(donut_chart, zone_wise_donut_data[zones.BA]);
         }
 
@@ -684,6 +728,11 @@ function reset_to_default() {
     
     updateData(donut_chart, a, 'donut');
 	updateData(myChart, b, 'time series');
+	slider_data[0] = myChart.data.datasets[0].data
+	slider_data[1] = myChart.data.datasets[1].data
+	slider_data[2] = myChart.data.datasets[2].data
+	slider_data[3] = myChart.data.datasets[3].data
+	copy_b = JSON.parse(JSON.stringify(slider_data));
     
     var x;
     for (x of all_provinces) {
@@ -868,16 +917,16 @@ function startIntro(){
       intro.setOption('showProgress', true);
       intro.start();
 }
-var copy_b = JSON.parse(JSON.stringify(b));
-var prev_val = 0;
-var len = b[0].length;
+//var copy_b = JSON.parse(JSON.stringify(b));
+//var prev_val = 0;
+//var len = b[0].length;
 //console.log('length', len)
 trend_slider.max = len-7;
 trend_slider.oninput = function() {
     var val = parseInt(this.value);
 	//console.log(val)
 	if (val > prev_val){
-		for (var i = 0; i < b.length; i++){ 
+		for (var i = 0; i < slider_data.length; i++){ 
 			for (var j = prev_val; j < val; j++){
 				copy_b[i].splice(0,1);
 			}
@@ -885,9 +934,9 @@ trend_slider.oninput = function() {
 	}
 	else if (val < prev_val){
 		//console.log(prev_val, val);
-		for (var i = 0; i < b.length; i++){ 
+		for (var i = 0; i < slider_data.length; i++){ 
 			for (var j = prev_val; j > val; j--){
-				copy_b[i].unshift(b[i][j])
+				copy_b[i].unshift(slider_data[i][j])
 			}
 		}
 	}
