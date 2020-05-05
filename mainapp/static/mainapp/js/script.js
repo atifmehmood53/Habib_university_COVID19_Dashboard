@@ -291,7 +291,7 @@ var prediction_graph_config = {
 				borderColor: '#908834',
                 backgroundColor: '#908834',
                 //data: c[0],
-                data: prediction[2]
+                data: prediction[2],
 				borderWidth: 3
 			}
 		]
