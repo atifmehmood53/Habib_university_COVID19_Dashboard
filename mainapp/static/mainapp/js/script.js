@@ -119,6 +119,57 @@ var trend_data = [
         {x: new Date(), y: 2650}
     ]   // Confirmed
 ];
+
+var predictions = [
+    [	//Prediction
+        {x: new Date(2020, 5, 5), y: 21443.5505530686}, 
+        {x: new Date(2020, 5, 6), y: 22744.4077759938}, 
+        {x: new Date(2020, 5, 7), y: 24124.1805455889}, 
+        {x: new Date(2020, 5, 8), y: 25587.6562154514}, 
+        {x: new Date(2020, 5, 9), y: 27139.912560464}, 
+        {x: new Date(2020, 5, 10), y: 28786.3353949879}, 
+        {x: new Date(2020, 5, 11), y: 30532.6372598514}, 
+        {x: new Date(2020, 5, 12), y: 32384.8772429708}, 
+        {x: new Date(2020, 5, 13), y: 34349.4820023742}, 
+        {x: new Date(2020, 5, 14), y: 36433.2680645726}, 
+        {x: new Date(2020, 5, 15), y: 38643.465475644}, 
+        {x: new Date(2020, 5, 16), y: 40987.7428870945}, 
+        {x: new Date(2020, 5, 17), y: 43474.2341635334}, 
+        {x: new Date(2020, 5, 18), y: 46111.5666044842}
+    ], 
+    [	//Upper Confidence Interval
+        {x: new Date(2020, 5, 5), y: 29151.3111168548}, 
+        {x: new Date(2020, 5, 6), y: 37234.2324940612}, 
+        {x: new Date(2020, 5, 7), y: 46788.6236857732}, 
+        {x: new Date(2020, 5, 8), y: 61184.9199870077}, 
+        {x: new Date(2020, 5, 9), y: 82409.3170801257}, 
+        {x: new Date(2020, 5, 10), y: 106359.112812027}, 
+        {x: new Date(2020, 5, 11), y: 149464.957484317}, 
+        {x: new Date(2020, 5, 12), y: 214271.301567264}, 
+        {x: new Date(2020, 5, 13), y: 298545.13952532}, 
+        {x: new Date(2020, 5, 14), y: 433862.800876074}, 
+        {x: new Date(2020, 5, 15), y: 617403.034420462}, 
+        {x: new Date(2020, 5, 16), y: 888553.408105456}, 
+        {x: new Date(2020, 5, 17), y: 1321668.28696126}, 
+        {x: new Date(2020, 5, 18), y: 1980675.13717109}
+    ], 
+    [	//Lower confidence interval
+        {x: new Date(2020, 5, 5), y: 13307.1208858524}, 
+        {x: new Date(2020, 5, 6), y: 11004.6147492879}, 
+        {x: new Date(2020, 5, 7), y: 8597.57697032841}, 
+        {x: new Date(2020, 5, 8), y: 6865.77380919728}, 
+        {x: new Date(2020, 5, 9), y: 5291.93838440162}, 
+        {x: new Date(2020, 5, 10), y: 3821.78207110513}, 
+        {x: new Date(2020, 5, 11), y: 2711.20968701526}, 
+        {x: new Date(2020, 5, 12), y: 1951.33814649287}, 
+        {x: new Date(2020, 5, 13), y: 1289.07103456547}, 
+        {x: new Date(2020, 5, 14), y: 828.875236721941}, 
+        {x: new Date(2020, 5, 15), y: 552.002828714799}, 
+        {x: new Date(2020, 5, 16), y: 362.027109888008}, 
+        {x: new Date(2020, 5, 17), y: 220.988398290525}, 
+        {x: new Date(2020, 5, 18), y: 143.570015272812}
+    ]
+];
 var trend_chart_config = {
     type: 'line',
     data: {
@@ -183,8 +234,8 @@ var trend_chart_config = {
                 },
                 ticks: {
                     source: 'data',
-					autoSkip: true,
-					maxTicksLimit: 15
+					//autoSkip: true,
+					maxTicksLimit: 20
                 }
             }],
             yAxes: [{
@@ -215,7 +266,8 @@ var prediction_graph_config = {
 				fill: false,
 				borderColor: '#b74e65',
 				backgroundColor: '#b74e65',
-				data: c[2],
+				//data: c[2],
+				data: prediction[1],
 				borderWidth: 3
             },  
 			{
@@ -226,7 +278,8 @@ var prediction_graph_config = {
 				fill: false,
 				borderColor: '#c96044',
 				backgroundColor: '#c96044',
-				data: c[1],
+				//data: c[1],
+				data: prediction[0],
 				borderWidth: 3
 			},
 			{
@@ -237,8 +290,9 @@ var prediction_graph_config = {
                 fill: false,
 				borderColor: '#908834',
                 backgroundColor: '#908834',
-                data: c[0],
-                borderWidth: 3
+                //data: c[0],
+                data: prediction[2]
+				borderWidth: 3
 			}
 		]
 	},	
