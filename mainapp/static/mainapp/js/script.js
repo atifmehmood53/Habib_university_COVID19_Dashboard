@@ -182,7 +182,9 @@ var trend_chart_config = {
                     labelString: 'Date'
                 },
                 ticks: {
-                    source: 'data'
+                    source: 'data',
+					autoSkip: true,
+					maxTicksLimit: 25
                 }
             }],
             yAxes: [{
