@@ -472,11 +472,11 @@ function popup(e) {
 			
 			update_donutData(donut_chart, province_data);
 			update_timeSeries(myChart, province_data);
-			slider_data[0] = myChart.data.datasets[0].data
+			/*slider_data[0] = myChart.data.datasets[0].data
 			slider_data[1] = myChart.data.datasets[1].data
 			slider_data[2] = myChart.data.datasets[2].data
 			slider_data[3] = myChart.data.datasets[3].data
-			copy_b = JSON.parse(JSON.stringify(slider_data));
+			copy_b = JSON.parse(JSON.stringify(slider_data));*/
         }
         
         else if (e.target.id === "PK-SD") {
@@ -492,11 +492,11 @@ function popup(e) {
 			
 			update_donutData(donut_chart, province_data);
 			update_timeSeries(myChart, province_data);
-			slider_data[0] = myChart.data.datasets[0].data
+			/*slider_data[0] = myChart.data.datasets[0].data
 			slider_data[1] = myChart.data.datasets[1].data
 			slider_data[2] = myChart.data.datasets[2].data
 			slider_data[3] = myChart.data.datasets[3].data
-			copy_b = JSON.parse(JSON.stringify(slider_data));
+			copy_b = JSON.parse(JSON.stringify(slider_data));*/
             //updateData(donut_chart, zone_wise_donut_data[zones.SD]);
         }
         
@@ -537,11 +537,11 @@ function popup(e) {
 			
 			update_donutData(donut_chart, province_data);
 			update_timeSeries(myChart, province_data);
-			slider_data[0] = myChart.data.datasets[0].data
+			/*slider_data[0] = myChart.data.datasets[0].data
 			slider_data[1] = myChart.data.datasets[1].data
 			slider_data[2] = myChart.data.datasets[2].data
 			slider_data[3] = myChart.data.datasets[3].data
-			copy_b = JSON.parse(JSON.stringify(slider_data));
+			copy_b = JSON.parse(JSON.stringify(slider_data));*/
             //updateData(donut_chart, zone_wise_donut_data[zones.KP]);
         }
         
@@ -558,11 +558,11 @@ function popup(e) {
 			
 			update_donutData(donut_chart, province_data);
 			update_timeSeries(myChart, province_data);
-			slider_data[0] = myChart.data.datasets[0].data
+			/*slider_data[0] = myChart.data.datasets[0].data
 			slider_data[1] = myChart.data.datasets[1].data
 			slider_data[2] = myChart.data.datasets[2].data
 			slider_data[3] = myChart.data.datasets[3].data
-			copy_b = JSON.parse(JSON.stringify(slider_data));
+			copy_b = JSON.parse(JSON.stringify(slider_data));*/
             //updateData(donut_chart, zone_wise_donut_data[zones.AK]);
 			
 			
@@ -581,11 +581,11 @@ function popup(e) {
 			
 			update_donutData(donut_chart, province_data);
 			update_timeSeries(myChart, province_data);
-			slider_data[0] = myChart.data.datasets[0].data
+			/*slider_data[0] = myChart.data.datasets[0].data
 			slider_data[1] = myChart.data.datasets[1].data
 			slider_data[2] = myChart.data.datasets[2].data
 			slider_data[3] = myChart.data.datasets[3].data
-			copy_b = JSON.parse(JSON.stringify(slider_data));
+			copy_b = JSON.parse(JSON.stringify(slider_data));*/
             //updateData(donut_chart, zone_wise_donut_data[zones.IS]);
         }
         
@@ -602,11 +602,11 @@ function popup(e) {
 			
 			update_donutData(donut_chart, province_data);
 			update_timeSeries(myChart, province_data);
-			slider_data[0] = myChart.data.datasets[0].data
+			/*slider_data[0] = myChart.data.datasets[0].data
 			slider_data[1] = myChart.data.datasets[1].data
 			slider_data[2] = myChart.data.datasets[2].data
 			slider_data[3] = myChart.data.datasets[3].data
-			copy_b = JSON.parse(JSON.stringify(slider_data));
+			copy_b = JSON.parse(JSON.stringify(slider_data));*/
             //updateData(donut_chart, zone_wise_donut_data[zones.GB]);
         }
         
@@ -622,11 +622,11 @@ function popup(e) {
             center_3.textContent = "DHQ Teaching Hospital, Turbat";
 			update_donutData(donut_chart, province_data);
 			update_timeSeries(myChart, province_data);
-			slider_data[0] = myChart.data.datasets[0].data
+			/*slider_data[0] = myChart.data.datasets[0].data
 			slider_data[1] = myChart.data.datasets[1].data
 			slider_data[2] = myChart.data.datasets[2].data
 			slider_data[3] = myChart.data.datasets[3].data
-			copy_b = JSON.parse(JSON.stringify(slider_data));
+			copy_b = JSON.parse(JSON.stringify(slider_data));*/
             //updateData(donut_chart, zone_wise_donut_data[zones.BA]);
         }
 
@@ -685,6 +685,11 @@ function update_timeSeries(chart, data){
 	chart.data.datasets[1].data = new_data[1];
 	chart.data.datasets[2].data = new_data[2];
 	chart.data.datasets[3].data = new_data[3];
+	slider_data[0] = new_data[0]
+	slider_data[1] = new_data[1]
+	slider_data[2] = new_data[2]
+	slider_data[3] = new_data[3]
+	copy_b = JSON.parse(JSON.stringify(slider_data));
 	
 	chart.update();
 }
@@ -948,7 +953,7 @@ function updated_time(){
 	var current = new Date(2020, 1, 1);
 	for (var key in global_data){
 		for (var i = 0; i < global_data[key].length; i++){
-			d = new Date(global_data[key][i].date)
+			d = new Date(global_data[key][i].datetime_of_entry)
 			if (d > current){
 				//console.log([d.getDate(), d.getMonth(), d.getFullYear], [current.getDate(), current.getMonth(), current.getFullYear()])
 				current = d;
