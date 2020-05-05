@@ -314,11 +314,12 @@ function national_timeSeries_data(){
 					}
 				}
 				else{
-					new_data[0].push({x: new Date(data[key][i].date), y: data[key][i].total_discharged})
-					new_data[1].push({x: new Date(data[key][i].date), y: data[key][i].total_admitted})
-					new_data[2].push({x: new Date(data[key][i].date), y: data[key][i].total_died})
-					new_data[3].push({x: new Date(data[key][i].date), y: data[key][i].total_tested_positive})
-					
+					if (i % 5 == 0){
+						new_data[0].push({x: new Date(data[key][i].date), y: data[key][i].total_discharged})
+						new_data[1].push({x: new Date(data[key][i].date), y: data[key][i].total_admitted})
+						new_data[2].push({x: new Date(data[key][i].date), y: data[key][i].total_died})
+						new_data[3].push({x: new Date(data[key][i].date), y: data[key][i].total_tested_positive})
+					}
 				}
 			}
 		}
