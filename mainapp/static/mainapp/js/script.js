@@ -926,7 +926,7 @@ function startIntro(){
 //var prev_val = 0;
 //var len = b[0].length;
 //console.log('length', len)
-trend_slider.max = len-7;
+trend_slider.max = len-6;
 trend_slider.oninput = function() {
     var val = parseInt(this.value);
 	//console.log(val)
