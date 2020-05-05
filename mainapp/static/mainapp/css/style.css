@@ -384,3 +384,9 @@ input[type=checkbox] {
 .margin-row{
 	margin-bottom: 10% !important;
 }
+
+@media only screen and (max-width: 768px) {
+	.stats{
+		width: 33%;
+	}
+}
