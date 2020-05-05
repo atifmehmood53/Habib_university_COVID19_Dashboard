@@ -685,10 +685,10 @@ function update_timeSeries(chart, data){
 	chart.data.datasets[1].data = new_data[1];
 	chart.data.datasets[2].data = new_data[2];
 	chart.data.datasets[3].data = new_data[3];
-	slider_data[0] = new_data[0]
-	slider_data[1] = new_data[1]
-	slider_data[2] = new_data[2]
-	slider_data[3] = new_data[3]
+	slider_data[0] = myChart.data.datasets[0].data
+	slider_data[1] = myChart.data.datasets[1].data
+	slider_data[2] = myChart.data.datasets[2].data
+	slider_data[3] = myChart.data.datasets[3].data
 	copy_b = JSON.parse(JSON.stringify(slider_data));
 	chart.clear()
 	chart.update();
