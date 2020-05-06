@@ -634,7 +634,7 @@ function popup(e) {
 			most_infected_city.style.display = "none";
 		}
 		else{
-			most_infected_city.style.display = "none";
+			most_infected_city.style.display = "block";
 		}
 
         //console.log("Clicked! X: "+e.pageX+" Y: "+e.pageY);
