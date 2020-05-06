@@ -949,12 +949,16 @@ trend_slider.oninput = function() {
 		//console.log(prev_val, val);
 		for (var i = 0; i < slider_data.length; i++){ 
 			for (var j = prev_val; j > val; j--){
-				copy_b[i].unshift(slider_data[i][j])
+				var d1 = new Date(copy_b[i][0].x)
+				var d2 = new Date(slider_data[i][j].x)
+				if (d1.getTime() !== d2.getTime()){
+					copy_b[i].unshift(slider_data[i][j])
+				}
 			}
 		}
 	}
-	console.log(slider_data);
-	console.log(copy_b)
+	//console.log(slider_data);
+	//console.log(copy_b)
 	updateData(myChart, copy_b, 'time series');
 	prev_val = val;	
 }
