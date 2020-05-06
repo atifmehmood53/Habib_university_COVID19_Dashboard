@@ -631,6 +631,10 @@ function popup(e) {
         }
 		if (province_data[province_data.length - 1].most_infected_city === "None"){
 			most_infected_city.textContent =  "";
+			most_infected_city.style.display = "none";
+		}
+		else{
+			most_infected_city.style.display = "none";
 		}
 
         //console.log("Clicked! X: "+e.pageX+" Y: "+e.pageY);
