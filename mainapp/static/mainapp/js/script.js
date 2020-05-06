@@ -466,9 +466,9 @@ function popup(e) {
             total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in Punjab till now.";
             most_infected_city.textContent = province_data[province_data.length - 1].most_infected_city + " is the city with most number of new cases.";
             center_list.style.listStyleType = 'disc';
-            center_1.textContent = "Benazir Bhutto Hospital, Rawalpindi [(051) 9290301]";
-            center_2.textContent = "Services Hospital, Lahore [(042) 99203402]";
-            center_3.textContent = "Allied Teaching Hospital, Faisalabad [(041) 9210082]";
+            center_1.textContent = "Benazir Bhutto Hospital, Rawalpindi";
+            center_2.textContent = "Services Hospital, Lahore";
+            center_3.textContent = "Allied Teaching Hospital, Faisalabad";
 			
 			update_donutData(donut_chart, province_data);
 			update_timeSeries(myChart, province_data);
@@ -486,8 +486,8 @@ function popup(e) {
             most_infected_city.textContent = province_data[province_data.length - 1].most_infected_city + " is the city with most number of new cases.";
 
             center_list.style.listStyleType = 'disc';
-            center_1.textContent = "Aga Khan University Hospital, Karachi [021-111-911-911]";
-            center_2.textContent = "LUMHS hospital, Hyderabad [+92 322 9213305]";
+            center_1.textContent = "Aga Khan University Hospital, Karachi";
+            center_2.textContent = "LUMHS hospital, Hyderabad";
             center_3.textContent = "Jinnah Postgraduate Medical Centre, Karachi";
 			
 			update_donutData(donut_chart, province_data);
@@ -531,9 +531,9 @@ function popup(e) {
             most_infected_city.textContent = province_data[province_data.length - 1].most_infected_city + " is the city with most number of new cases.";
 
             center_list.style.listStyleType = 'disc';
-            center_1.textContent = "Bacha Khan Medical Complex, Swabi [(0938) 280214]";
-            center_2.textContent = "Ayub Teaching Hospital, Abbotabad [(0992) 381907]";
-            center_3.textContent = "Lady Reading Hospital, Peshawar [(091) 9211441, (091) 9211430]";
+            center_1.textContent = "Bacha Khan Medical Complex, Swabi";
+            center_2.textContent = "Ayub Teaching Hospital, Abbotabad";
+            center_3.textContent = "Lady Reading Hospital, Peshawar";
 			
 			update_donutData(donut_chart, province_data);
 			update_timeSeries(myChart, province_data);
@@ -552,7 +552,7 @@ function popup(e) {
             most_infected_city.textContent = province_data[province_data.length - 1].most_infected_city + " is the city with most number of new cases.";
 
             center_list.style.listStyleType = 'disc';
-            center_1.textContent = "Abbas Institute of Medical Sciences, Muzzaffarabad [(058224) 39306]";
+            center_1.textContent = "Abbas Institute of Medical Sciences, Muzzaffarabad";
             center_2.textContent = "DHQ Hospital, Mirpur";
             center_3.textContent = "Sheikh Khalifa Bin Zaid (SKBZ) Hospital, Rawalakot";
 			
@@ -575,7 +575,7 @@ function popup(e) {
             most_infected_city.textContent = province_data[province_data.length - 1].most_infected_city + " is the city with most number of new cases.";
 
             center_list.style.listStyleType = 'none';
-            center_1.textContent = "Pakistan Institute of Medical Sciences (PIMS), Islamabad [(051) 9261170]";
+            center_1.textContent = "Pakistan Institute of Medical Sciences (PIMS), Islamabad";
             center_2.textContent = "";
             center_3.textContent = "";
 			
@@ -596,8 +596,8 @@ function popup(e) {
             most_infected_city.textContent = province_data[province_data.length - 1].most_infected_city + " is the city with most number of new cases.";
 
             center_list.style.listStyleType = 'disc';
-            center_1.textContent = "Civil Hospital, Hunza [(051) 3920187]";
-            center_2.textContent = "DHQ Hospital, Gilgit [(058119) 20253]";
+            center_1.textContent = "Civil Hospital, Hunza";
+            center_2.textContent = "DHQ Hospital, Gilgit";
             center_3.textContent = "DHQ Hospital, Skardu";
 			
 			update_donutData(donut_chart, province_data);
@@ -617,7 +617,7 @@ function popup(e) {
             most_infected_city.textContent = province_data[province_data.length - 1].most_infected_city + " is the city with most number of new cases.";
 
             center_list.style.listStyleType = 'disc';
-            center_1.textContent = "Red Crescent Hospital, Gwadar [(021) 35833973]";
+            center_1.textContent = "Red Crescent Hospital, Gwadar";
             center_2.textContent = "Fatima Jinnah General and Chest Hospital, Quetta";
             center_3.textContent = "DHQ Teaching Hospital, Turbat";
 			update_donutData(donut_chart, province_data);
@@ -629,6 +629,9 @@ function popup(e) {
 			copy_b = JSON.parse(JSON.stringify(slider_data));*/
             //updateData(donut_chart, zone_wise_donut_data[zones.BA]);
         }
+		if (province_data[province_data.length - 1].most_infected_city === "None"){
+			most_infected_city.textContent =  "";
+		}
 
         //console.log("Clicked! X: "+e.pageX+" Y: "+e.pageY);
         
