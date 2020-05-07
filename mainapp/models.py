@@ -32,9 +32,9 @@ class Daily_Cases(models.Model):
 class Prediction_model(models.Model):
     entry_id = models.IntegerField(default=0, primary_key=True)
     date = models.DateField(auto_now=False, auto_now_add=False)
-    Predictions = models.FloatField(default=0.0)
-    Upper_confidence_interval = models.FloatField(default=0.0)
-    Lower_confidence_interval = models.FloatField(default=0.0)
+    Predictions = models.FloatField(default= None )
+    Upper_confidence_interval = models.FloatField(default= None)
+    Lower_confidence_interval = models.FloatField(default= None)
 
 class feedback(models.Model):
     name = models.CharField(max_length=255, default = None)

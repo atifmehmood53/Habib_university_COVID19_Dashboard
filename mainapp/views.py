@@ -65,9 +65,6 @@ def dashboard_data(request):
     
     csv_file = request.FILES['file']
 
-    # if not csv_file.names.endswith('.csv'):
-    #     messages.error(request,'file not supported. Please upload a csv file')
-
     data_set = csv_file.read().decode('utf-8')
     io_string = io.StringIO(data_set)
     next(io_string)
@@ -94,21 +91,18 @@ def dashboard_data(request):
 
     return render(request, template, context)
 
-    
 @permission_required('admin.can_add_log_entry')
 def prediction_data(request):
     template = 'data.html'
 
     prompt = {
-       'order': 'Order of the csv should be date , no_of_predicted_ceses'
+       'order': 'Order of the csv should be date , province , suspected , tested , tested positive , admitted, discharged , death'
     }
 
     if request.method == 'GET':
         return render(request, template, prompt)
     
     csv_file = request.FILES['file']
-
-
 
     data_set = csv_file.read().decode('utf-8')
     io_string = io.StringIO(data_set)
@@ -117,17 +111,19 @@ def prediction_data(request):
     for col in csv.reader(io_string, delimiter=','):
         _, created = Prediction_model.objects.update_or_create(
             entry_id =int(col[0]),
-            date = col[1],
-            Predictions = col[2],
-            Upper_confidence_interval = col[3],
-            Lower_confidence_interval = col[4]
-           
+            date = (col[1]),
+            Predictions = float(col[2]),
+            Upper_confidence_interval = float(col[3]),
+            Lower_confidence_interval = float(col[4])           
         )
 
 
     context = {}
 
     return render(request, template, context)
+
+    
+
 
     
 
