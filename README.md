@@ -18,6 +18,7 @@
 - Add tabular data
 - Change emergency contact info to hyperlinks to relevant hospital's website
 - Cross interpolation of symptoms and statistics to show something like "This symtpom occurred in x% patients."
+- Improved colors for plots
 
 ### v2.0
 - Urdu support
