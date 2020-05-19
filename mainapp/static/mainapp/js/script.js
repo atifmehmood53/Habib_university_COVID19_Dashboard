@@ -236,18 +236,7 @@ var prediction_graph_canvas = document.getElementById('time-series-graph-predict
 var prediction_graph_config = {
     type: 'line',
     data: {
-        datasets: [{
-                label: 'Upper Confidence Interval',
-                pointBackgroundColor: '#b74e65',
-				pointBorderColor: '#b74e65',
-				pointRadius: 5,
-				fill: false,
-				borderColor: '#b74e65',
-				backgroundColor: '#b74e65',
-				data: c[2],
-				//data: predictions[1],
-				borderWidth: 3
-            },  
+        datasets: [  
 			{
 				label: 'Prediction of Nationwide Cases',
 				pointBackgroundColor: '#c96044',
@@ -258,18 +247,6 @@ var prediction_graph_config = {
 				backgroundColor: '#c96044',
 				data: c[1],
 				//data: predictions[0],
-				borderWidth: 3
-			},
-			{
-				label: 'Lower Confidence Interval',
-				pointBackgroundColor: '#908834',
-                pointBorderColor: '#908834',
-                pointRadius: 4,
-                fill: false,
-				borderColor: '#908834',
-                backgroundColor: '#908834',
-                data: c[0],
-                //data: predictions[2],
 				borderWidth: 3
 			}
 		]
@@ -304,6 +281,83 @@ var prediction_graph_config = {
     }
 };
 var prediction_graph = new Chart(prediction_graph_canvas, prediction_graph_config);
+
+var prediction_details_canvas = document.getElementById('time-series-prediction-details').getContext('2d');
+var prediction_details_config = {
+    type: 'line',
+    data: {
+        datasets: [{
+                label: 'Upper Confidence Interval',
+                pointBackgroundColor: '#d7aa00',
+				pointBorderColor: '#d7aa00',
+				pointRadius: 5,
+				fill: false,
+				borderColor: '#d7aa00',
+				backgroundColor: 'rgba(215, 170, 0, 0.5)',
+				data: c[2],
+				//data: predictions[1],
+				fill: 2,
+				borderWidth: 3
+            },  
+			{
+				label: 'Prediction of Nationwide Cases',
+				pointBackgroundColor: '#c96044',
+				pointBorderColor: '#c96044',
+				pointRadius: 5,
+				fill: false,
+				borderColor: '#c96044',
+				backgroundColor: '#c96044',
+				data: c[1],
+				fill: false,
+				//data: predictions[0],
+				borderWidth: 3
+			},
+			{
+				label: 'Lower Confidence Interval',
+				pointBackgroundColor: '#908834',
+                pointBorderColor: '#908834',
+                pointRadius: 4,
+                fill: false,
+				borderColor: '#908834',
+                backgroundColor: '#908834',
+                data: c[0],
+				fill: '+2',
+                //data: predictions[2],
+				borderWidth: 3
+			}
+		]
+	},	
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            xAxes: [{
+                type: 'time',
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Date'
+                },
+                ticks: {
+                    source: 'data'
+                }
+            }],
+            yAxes: [{
+                display: true,
+				ticks:{
+					max:100000,
+					min: 0
+				},
+                scaleLabel: {
+                    display: true,
+                    labelString: '# of people'
+                }
+            }]
+        }
+    }
+};
+//var prediction_details = new Chart(prediction_details_canvas, prediction_details_config);
+
 
 function national_donut_data(){
 	data = Object.assign(global_data); //copying global data for safety purposes, can be removed later
@@ -903,12 +957,38 @@ function updated_time(){
 	}
 	update_text.textContent = "Last updated on: " + current.getDate() + "/" + (current.getMonth()+1) + "/" + current.getFullYear();
 }
+//var prediction_details = new Chart(prediction_details_canvas, prediction_details_config);
+function showGraph(){
+	var text = document.getElementById('viewmore-button').textContent;
+	console.log(document.getElementById('time-series-prediction-details').style.visibility)
+	/*if (text === "View Less Details"){
+		document.getElementById('time-series-prediction-details').style.visibility = "hidden";
+	}
+	else if (text === "View More Details"){
+		document.getElementById('time-series-prediction-details').style.visibility = "visible";
+	}*/
+	if (document.getElementById('time-series-prediction-details').style.visibility === "hidden"){
+		var prediction_details = new Chart(prediction_details_canvas, prediction_details_config);
+		document.getElementById('time-series-prediction-details').style.visibility = "visible";
+	}
+	else if (document.getElementById('time-series-prediction-details').style.visibility === "visible"){
+		prediction-details.destroy()
+		document.getElementById('time-series-prediction-details').style.visibility = "hidden";
+	}
+	
+}
+ 
 
 $('#prediction-details').on('hidden.bs.collapse', function () {
     $('#viewmore-button').text('View More Details');
+	showGraph()
+	//document.getElementById('time-series-prediction-details').style.visibility = "hidden";
   });
   $('#prediction-details').on('shown.bs.collapse', function () {
     $('#viewmore-button').text('View Less Details');
+	
+	showGraph()
+	//document.getElementById('time-series-prediction-details').style.visibility = "visible";
   });
   
 $('#tutorial_modal').modal();

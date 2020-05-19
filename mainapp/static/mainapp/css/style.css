@@ -83,7 +83,6 @@ fill: #585858;
 
 .view-more button{
   color: white;
-  text-transform: lowercase;
   margin-top: 2%;
   background-color: #8C0618;
   border:  #8C0618;
@@ -101,7 +100,6 @@ fill: #585858;
   padding-bottom: 15px;
   /* display: none; */
 }
-
 
 .slidecontainer {
   width: 100%;
