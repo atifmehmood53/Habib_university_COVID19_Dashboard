@@ -25,6 +25,7 @@
     
 	<!--Font Awesome CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="icon" type="image/x-icon" href="{% static 'mainapp/images/Habib_Logo.png' %}">
   <script type="text/javascript">
     var global_data = {{ my_data | safe}};
     console.table(global_data);
@@ -207,18 +208,19 @@
                 </div>
                 <ul id="general-stats">
                   <li id="total-infected">people have been infected in Pakistan till now.</li>
-                  <li id="most-infected-city">Lahore is the city with most number of new cases.</li>
+                  <li id="most-infected-city">Lahore is the city with the most number of new cases.</li>
                 </ul>
               </div>
             </div>
-          
-          
-
 
             <div class="row no-gutters">
-              <div class="col-12 donut-chart" id="donut">
+              <div class="col-6 donut-chart" id="donut">
                 <!--Donut Chart-->
-                <canvas id='donut-chart' height="120%"></canvas>
+                <canvas id='donut-chart' height="250%"></canvas>
+              </div>
+			  <div class="col-6 donut-chart" id="donut2">
+                <!--Donut Chart-->
+                <canvas id='donut-chart2' height="250%"></canvas>
               </div>
             </div>
 
@@ -284,7 +286,59 @@
       </div> <!--End of Main Section-->
 
       
-      
+      <!--Symptoms Section -->
+		<div class="row details-section margin-row" id="symptoms-section">
+			<!--<div class="col-md-12">-->
+				<div class="main-timeline">
+					<div class="col-md-6 timeline">
+						<a href="#" class="timeline-content">
+							<div class="timeline-icon">
+								<i class="fa fa-globe"></i>
+							</div>
+							<h3 class="title">Symptom 1</h3>
+							<p class="description">
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer males uada tellus lorem, et condimentum neque commodo
+							</p>
+						</a>
+					</div>
+					<div class="col-md-6 timeline">
+						<a href="#" class="timeline-content">
+							<div class="timeline-icon">
+								<i class="fa fa-rocket"></i>
+							</div>
+							<h3 class="title">Symptom 2</h3>
+							<p class="description">
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer males uada tellus lorem, et condimentum neque commodo
+							</p>
+						</a>
+					</div>
+					<div class="col-md-6 timeline">
+						<a href="#" class="timeline-content">
+							<div class="timeline-icon">
+								<i class="fa fa-rocket"></i>
+							</div>
+							<h3 class="title">Symptom 3</h3>
+							<p class="description">
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer males uada tellus lorem, et condimentum neque commodo
+							</p>
+						</a>
+					</div>
+					<div class="col-md-6 timeline">
+						<a href="#" class="timeline-content">
+							<div class="timeline-icon">
+								<i class="fa fa-rocket"></i>
+							</div>
+							<h3 class="title">Symptom 4</h3>
+							<p class="description">
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer males uada tellus lorem, et condimentum neque commodo
+							</p>
+						</a>
+					</div>
+					
+				</div>
+			<!--</div>-->
+		</div>
+	  
       
       <!--Details section-->
       <div class="row details-section margin-row" id="trend-section">
@@ -310,9 +364,26 @@
           <div> <!--DO NOT REMOVE THIS ADDITIONAL DIV. THIS FIXES A BUG IN CHARTJS-->
             <canvas id="time-series-graph-prediction" height="300" class="details-graph"></canvas>
           </div>
-        </div>
+			<div class="view-more">
+				<button class="btn" type="button" id="viewmore-button" data-toggle="collapse" data-target=".multi-collapse"
+				aria-expanded="false" aria-controls="detail-prediction detail-description">View more details</button>
+			</div>
+			<div class="row" id="prediction-details">
+				<div class="col collapse multi-collapse" id="detail-prediction">
+					<!--The detailed prediction graph will go here-->
+					<canvas id="time-series-graph-confirmed-cases" height="300" class="details-graph"></canvas>
+				</div>
+			<div class="col collapse multi-collapse" id="detail-description">
+			<h6 class="text-center" id="description-heading">Description</h6>
+				<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima similique soluta magnam suscipit
+				temporibus minus, veniam perspiciatis voluptate distinctio aspernatur perferendis, officia nam
+				consequatur. Amet eaque modi expedita fugit laudantium. Lorem ipsum dolor sit amet consectetur, adipisicing
+				elit. Minima similique soluta magnam suscipit temporibus minus, veniam perspiciatis voluptate distinctio
+				aspernatur perferendis, officia nam consequatur. Amet eaque modi expedita fugit laudantium.</p>
+			</div>
+			</div>
       </div>
-
+	</div>
 
       <div class="row justify-content-around acknowledgements-row">
 
