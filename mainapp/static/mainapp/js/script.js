@@ -268,10 +268,6 @@ var prediction_graph_config = {
             }],
             yAxes: [{
                 display: true,
-				ticks:{
-					max:100000,
-					min: 0
-				},
                 scaleLabel: {
                     display: true,
                     labelString: '# of people'
@@ -381,7 +377,7 @@ function national_donut_data(){
 	document.getElementById('total-cases').innerHTML = confirmed_sum;
 	document.getElementById('total-recoveries').innerHTML = recovered_sum;
 	document.getElementById('total-deaths').innerHTML = deceased_sum;
-	total_infected.textContent = new_data[0] + " people have been infected in Pakistan till now.";
+	total_infected.textContent = confirmed_sum + " people have been infected in Pakistan till now.";
     most_infected_city.textContent = "Lahore is the city with the most number of new cases.";
 	
 	return new_data
