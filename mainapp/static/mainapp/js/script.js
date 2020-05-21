@@ -36,6 +36,8 @@ var trend_slider = document.getElementById('trend_slider');
 var update_text = document.getElementById("update-text");
 var week_slider = document.getElementById("week_slider");
 
+var hospital_info = [];
+
 var all_provinces = [
     document.getElementById('PK-PB'),
     document.getElementById('PK-SD'),
@@ -242,7 +244,7 @@ var myChart = new Chart(ctx1, trend_chart_config);
 var today = new Date();
 var prediction_graph_canvas = document.getElementById('time-series-graph-prediction').getContext('2d');
 var prediction_graph_config = {
-    type: 'line',
+    type: 'bar',
     data: {
         datasets: [  
 			{
