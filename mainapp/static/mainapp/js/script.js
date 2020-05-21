@@ -23,6 +23,18 @@ const zones = {
 
 Object.freeze(zones);
 
+const hospital_zones = {
+    AK: 0,
+    BA: 1,
+    GB: 2,
+    IS: 3,
+    KP: 4,
+    PB: 5,
+    SD: 6
+};
+
+Object.freeze(hospital_zones);
+
 // Global selectors
 var last_selected_zone;
 var selected_expansion_button;
@@ -36,7 +48,63 @@ var trend_slider = document.getElementById('trend_slider');
 var update_text = document.getElementById("update-text");
 var week_slider = document.getElementById("week_slider");
 
-var hospital_info = [];
+// Add link to webpage as a string in place of the empty string as "http://www.webpage.com".
+// Ensure the "http://"
+var hospital_info = [
+    [["Abbas Institute of Medical Sciences, Muzzaffarabad", ""], 
+    ["DHQ Hospital, Mirpur", ""], 
+    ["Sheikh Khalifa Bin Zaid (SKBZ) Hospital, Rawalakot", ""]], //AK
+
+    [["Red Crescent Hospital, Gwadar", ""], 
+    ["Fatima Jinnah General and Chest Hospital, Quetta", ""], 
+    ["DHQ Teaching Hospital, Turbat", ""]], //BA
+
+    [["Civil Hospital, Hunza", ""], 
+    ["DHQ Hospital, Gilgit", ""], 
+    ["DHQ Hospital, Skardu", ""]], //GB
+
+    [["Pakistan Institute of Medical Sciences (PIMS), Islamabad", ""]], //IS
+
+    [["Bacha Khan Medical Complex, Swabi", ""], 
+    ["Ayub Teaching Hospital, Abbotabad", ""], 
+    ["Lady Reading Hospital, Peshawar", ""]], //KP
+
+    [["Benazir Bhutto Hospital, Rawalpindi", ""], 
+    ["Services Hospital, Lahore", ""], 
+    ["Allied Teaching Hospital, Faisalabad", ""]], //PB
+
+    [["Aga Khan University Hospital, Karachi", ""], 
+    ["LUMHS hospital, Hyderabad", ""], 
+    ["Jinnah Postgraduate Medical Centre, Karachi", ""]]  //SD
+];
+var hospital_links = [
+    [], //AK
+    [], //BA
+    [], //GB
+    [], //IS
+    [], //KP
+    [], //PB
+    [], //SD
+];
+
+var i;
+var x;
+for (i=0; i<hospital_info.length; i++) {
+    for (x=0; x<hospital_info[i].length; x++) {
+        var link = document.createElement('a');
+        link.textContent = hospital_info[i][x][0];
+        link.setAttribute('href', hospital_info[i][x][1]);
+        link.setAttribute('target', 'blank');
+        link.setAttribute('class', 'hospital');
+        link.setAttribute('style', 'color: white');
+        
+        var list_element = document.createElement("li");
+        list_element.appendChild(link);
+        hospital_links[i].push(list_element);
+    }
+}
+console.log(hospital_links);
+
 
 var all_provinces = [
     document.getElementById('PK-PB'),
@@ -551,9 +619,11 @@ function popup(e) {
             total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in Punjab till now.";
             most_infected_city.innerHTML = province_data[province_data.length - 1].most_infected_city + " is the city with the most number of new cases.";
             center_list.style.listStyleType = 'disc';
-            center_1.textContent = "Benazir Bhutto Hospital, Rawalpindi";
-            center_2.textContent = "Services Hospital, Lahore";
-            center_3.textContent = "Allied Teaching Hospital, Faisalabad";
+            center_list.innerHTML = '';
+            var i;
+            for (i=0; i<hospital_links[hospital_zones.PB].length; i++) {
+                center_list.appendChild(hospital_links[hospital_zones.PB][i]);
+            }
 			
 			var today = new Date();
 			var current_month = today.getMonth();
@@ -570,9 +640,11 @@ function popup(e) {
             most_infected_city.innerHTML = province_data[province_data.length - 1].most_infected_city + " is the city with the most number of new cases.";
 
             center_list.style.listStyleType = 'disc';
-            center_1.textContent = "Aga Khan University Hospital, Karachi";
-            center_2.textContent = "LUMHS hospital, Hyderabad";
-            center_3.textContent = "Jinnah Postgraduate Medical Centre, Karachi";
+            center_list.innerHTML = '';
+            var i;
+            for (i=0; i<hospital_links[hospital_zones.SD].length; i++) {
+                center_list.appendChild(hospital_links[hospital_zones.SD][i]);
+            }
 			
 			//update_donutData(donut_chart, province_data);
 			//update_timeSeries(myChart, province_data);
@@ -606,9 +678,11 @@ function popup(e) {
             most_infected_city.innerHTML = province_data[province_data.length - 1].most_infected_city + " is the city with the most number of new cases.";
 
             center_list.style.listStyleType = 'disc';
-            center_1.textContent = "Bacha Khan Medical Complex, Swabi";
-            center_2.textContent = "Ayub Teaching Hospital, Abbotabad";
-            center_3.textContent = "Lady Reading Hospital, Peshawar";
+            center_list.innerHTML = '';
+            var i;
+            for (i=0; i<hospital_links[hospital_zones.KP].length; i++) {
+                center_list.appendChild(hospital_links[hospital_zones.KP][i]);
+            }
 			
 			//update_donutData(donut_chart, province_data);
 			//update_timeSeries(myChart, province_data);
@@ -628,9 +702,11 @@ function popup(e) {
             most_infected_city.innerHTML = province_data[province_data.length - 1].most_infected_city + " is the city with the most number of new cases.";
 
             center_list.style.listStyleType = 'disc';
-            center_1.textContent = "Abbas Institute of Medical Sciences, Muzzaffarabad";
-            center_2.textContent = "DHQ Hospital, Mirpur";
-            center_3.textContent = "Sheikh Khalifa Bin Zaid (SKBZ) Hospital, Rawalakot";
+            center_list.innerHTML = '';
+            var i;
+            for (i=0; i<hospital_links[hospital_zones.AK].length; i++) {
+                center_list.appendChild(hospital_links[hospital_zones.AK][i]);
+            }
 			
 			//update_donutData(donut_chart, province_data);
 			//update_timeSeries(myChart, province_data);
@@ -649,10 +725,12 @@ function popup(e) {
             total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in Islamabad till now.";
             most_infected_city.innerHTML = province_data[province_data.length - 1].most_infected_city + " is the city with the most number of new cases.";
 
-            center_list.style.listStyleType = 'none';
-            center_1.textContent = "Pakistan Institute of Medical Sciences (PIMS), Islamabad";
-            center_2.textContent = "";
-            center_3.textContent = "";
+            center_list.style.listStyleType = 'disc';
+            center_list.innerHTML = '';
+            var i;
+            for (i=0; i<hospital_links[hospital_zones.IS].length; i++) {
+                center_list.appendChild(hospital_links[hospital_zones.IS][i]);
+            }
 			
 			//update_donutData(donut_chart, province_data);
 			//update_timeSeries(myChart, province_data);
@@ -672,9 +750,11 @@ function popup(e) {
             most_infected_city.innerHTML = province_data[province_data.length - 1].most_infected_city + " is the city with the most number of new cases.";
 
             center_list.style.listStyleType = 'disc';
-            center_1.textContent = "Civil Hospital, Hunza";
-            center_2.textContent = "DHQ Hospital, Gilgit";
-            center_3.textContent = "DHQ Hospital, Skardu";
+            center_list.innerHTML = '';
+            var i;
+            for (i=0; i<hospital_links[hospital_zones.GB].length; i++) {
+                center_list.appendChild(hospital_links[hospital_zones.GB][i]);
+            }
 			
 			//update_donutData(donut_chart, province_data);
 			//update_timeSeries(myChart, province_data);
@@ -694,9 +774,11 @@ function popup(e) {
             most_infected_city.innerHTML = province_data[province_data.length - 1].most_infected_city + " is the city with the most number of new cases.";
 
             center_list.style.listStyleType = 'disc';
-            center_1.textContent = "Red Crescent Hospital, Gwadar";
-            center_2.textContent = "Fatima Jinnah General and Chest Hospital, Quetta";
-            center_3.textContent = "DHQ Teaching Hospital, Turbat";
+            center_list.innerHTML = '';
+            var i;
+            for (i=0; i<hospital_links[hospital_zones.BA].length; i++) {
+                center_list.appendChild(hospital_links[hospital_zones.BA][i]);
+            }
 			
 			//update_donutData(donut_chart, province_data);
 			//update_timeSeries(myChart, province_data);
@@ -814,9 +896,7 @@ function reset_to_default() {
     most_infected_city.innerHTML = "Lahore is the city with the most number of new cases.";
 
     center_list.style.listStyleType = 'none';
-    center_1.textContent = "";
-    center_2.textContent = "";
-    center_3.textContent = "";
+    center_list.innerHTML = '';
     //console.log(b);
 	d = monthly_data(n);
 	//console.log(d)
