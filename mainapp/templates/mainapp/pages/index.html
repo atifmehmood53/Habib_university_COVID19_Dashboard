@@ -378,12 +378,19 @@
                 <canvas id="time-series-graph-confirmed-cases" height="300" class="details-graph"></canvas>
               </div>
             </div>
-            <div class="col-12">
+            <div class="col-6">
               <div class="slidecontainer">
-                <label for="" class="float-left slider-marker">Beginning</label>
-                <label for="" class="float-right slider-marker">Current Week</label>
-                <input type="range" min="0" max="20" value="0" step="1" class="slider" id="trend_slider">
+				<input type="range" min="0" max="12" value="12" step="1" class="slider" id="trend_slider">
               </div>
+			  <label for="" class="float-left slider-marker">Beginning</label>
+                <label for="" class="float-right slider-marker">Current Month</label>
+            </div>
+			<div class="col-6">
+              <div class="slidecontainer">
+                <input type="range" min="0" max="20" value="0" step="1" class="slider" id="week_slider">
+              </div>
+			  <label for="" class="float-left slider-marker">Beginning</label>
+              <label for="" class="float-right slider-marker">Current Week</label>
             </div>
           </div>
         </div>
