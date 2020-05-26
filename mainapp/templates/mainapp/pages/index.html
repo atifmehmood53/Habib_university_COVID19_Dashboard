@@ -21,108 +21,105 @@
     <!--IntroJS CSS-->
     <link rel="stylesheet" href="{% static 'mainapp/css/introjs-main.css' %}">
     <link rel="stylesheet" href="{% static 'mainapp/css/introjs-dark.css' %}">
-    
-    
-	<!--Font Awesome CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="icon" type="image/x-icon" href="{% static 'mainapp/images/Habib_Logo.png' %}">
-  <script type="text/javascript">
-    var global_data = {{ my_data | safe}};
-    console.table(global_data);
-  </script>
+
+
+    <!--Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" type="image/x-icon" href="{% static 'mainapp/images/Habib_Logo.png' %}">
+    <script type="text/javascript">
+        var global_data = {{ my_data | safe }};
+        console.table(global_data);
+    </script>
     <title>Pakistan COVID-19 Resource Center</title>
-  </head>
-  
+</head>
 
 
-	<body>
-		<nav class="navbar navbar-expand-sm navbar-dark" style="background-color: #8C0618;">
-			<a class="navbar-brand " href="#" id="navbar"><b>Pakistan COVID-19 Resource Center</b></a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav mr-auto">
-					<li class="nav-item active" onclick="startIntro()"><a class="nav-link" href="#" id="tutorial-button">Tutorial</a></li>
-					<li class="nav-item active" data-toggle="modal" data-target="#exampleModal"><a class="nav-link" href="#" id="feedback-button">Feedback</a></li>
-				</ul>
-			</div>
-		<div id="tip" class="ml-auto">
-			<span id="tip-text"><i>Tip: Click on a province to populate the page with its info.</i></span>
-		</div>		
+
+<body>
+    <nav class="navbar navbar-expand-sm navbar-dark" style="background-color: #8C0618;">
+        <a class="navbar-brand " href="#" id="navbar"><b>Pakistan COVID-19 Resource Center</b></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active" onclick="startIntro()"><a class="nav-link" href="#" id="tutorial-button">Tutorial</a></li>
+                <li class="nav-item active" data-toggle="modal" data-target="#exampleModal"><a class="nav-link" href="#" id="feedback-button">Feedback</a></li>
+            </ul>
+        </div>
+        <div id="tip" class="ml-auto">
+            <span id="tip-text"><i>Tip: Click on a province to populate the page with its info.</i></span>
+        </div>
     </nav>
-	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
 
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="feedback-modal">Feedback Form</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="feedback-modal">Feedback Form</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-        </div>
-        <form method="post">
-            {% csrf_token %}
-		<div class="modal-body">
-          
-            <div class="md-form form-sm fieldWrapper">
-				{{ form.subject.errors }}
-				<i class="fa fa-user-circle fa-lg prefix"></i>
-				{{ form.name }}
-			</div>
-			<div class="md-form form-sm">
-				<i class="fa fa-envelope fa-lg prefix"></i>
-				{{ form.email }}
-			</div>
-			<div class="md-form form-sm" style="display:flex">
-				<i class="fa fa-comments fa-lg prefix"></i>
-				{{ form.feedback }}
-			</div>
-			<div class="modal-footer border-top-0 d-flex justify-content-center" >
-				<button  id="submit-form" class="btn btn-primary">Submit</button>
-			</div>
-        </form>
-		</div>
-      
-		</div>
-		</div>
-  </div>
-  
+                </div>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="modal-body">
 
-  <div class="modal fade" id="tutorial_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Welcome to Pakistan COVID-19 Resource Center!</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <div class="md-form form-sm fieldWrapper">
+                            {{ form.subject.errors }}
+                            <i class="fa fa-user-circle fa-lg prefix"></i> {{ form.name }}
+                        </div>
+                        <div class="md-form form-sm">
+                            <i class="fa fa-envelope fa-lg prefix"></i> {{ form.email }}
+                        </div>
+                        <div class="md-form form-sm" style="display:flex">
+                            <i class="fa fa-comments fa-lg prefix"></i> {{ form.feedback }}
+                        </div>
+                        <div class="modal-footer border-top-0 d-flex justify-content-center">
+                            <button id="submit-form" class="btn btn-primary">Submit</button>
+                        </div>
+                </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="tutorial_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Welcome to Pakistan COVID-19 Resource Center!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
+                </div>
+                <div class="modal-body">
+                    <span>Do you want to take a tutorial first?</span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary tutorial-modal-button" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary tutorial-modal-button" data-dismiss="modal" onclick="startIntro()">Start Tutorial</button>
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-          <span>Do you want to take a tutorial first?</span>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary tutorial-modal-button" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-secondary tutorial-modal-button" data-dismiss="modal" onclick="startIntro()">Start Tutorial</button>
-        </div>
-      </div>
     </div>
-  </div>
 
 
 
     <div class="container-fluid">
-      <div class="row no-gutters">
-        <div class="col-lg-6 col-md-6 col-sm-12">
-          <div class="row padded-row">
-            <!--Header Info-->
-            <div class="col-lg-4 col-md-4 col-sm-4 stats" data-hint="Hello"> Nationwide Cases: <br><span id="total-cases"></span></div>
-            <div class="col-lg-4 col-md-4 col-sm-4 stats"> Nationwide Recoveries: <br><span id="total-recoveries"></span></div>
-            <div class="col-lg-4 col-md-4 col-sm-4 stats"> Nationwide Deceased: <br><span id="total-deaths"></span></div>
-          </div>
-          <div class="row padded-row">
-            <!--Map-->
-            <div class="col-lg-12 col-md-12 col-xs-12" style="margin-top: 1rem;" id="map">
-              <!--<div id="tooltip" display="none" style="position: absolute; z-index: 1; padding: 2%; text-align: center; display: none;"></div>-->
-              <svg viewBox="0 0 700 700" width="400px" height="350px">
+        <div class="row no-gutters">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="row padded-row">
+                    <!--Header Info-->
+                    <div class="col-lg-4 col-md-4 col-sm-4 stats" data-hint="Hello"> Nationwide Cases: <br><span id="total-cases"></span></div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 stats"> Nationwide Recoveries: <br><span id="total-recoveries"></span></div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 stats"> Nationwide Deceased: <br><span id="total-deaths"></span></div>
+                </div>
+                <div class="row padded-row">
+                    <!--Map-->
+                    <div class="col-lg-12 col-md-12 col-xs-12" style="margin-top: 1rem;" id="map">
+                        <!--<div id="tooltip" display="none" style="position: absolute; z-index: 1; padding: 2%; text-align: center; display: none;"></div>-->
+                        <svg viewBox="0 0 700 700" width="400px" height="350px">
                 <defs>
                   <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto" stroke="#ffffff" fill="#ffffff">
                     <polygon points="0 0, 10 3.5, 0 7" />
@@ -188,296 +185,301 @@
                   <text x="35" y="120" font-size="20px" fill="#ededed" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji'" font-weight="lighter">Islamabad</text>
                   <text x="35" y="150" font-size="20px" fill="#ededed" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji'" font-weight="lighter">Azad Kashmir</text>
 				  <text x="480" y="600" id="update-text" font-size="20px" fill="#ededed" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji'" font-weight="lighter">Last Updated on: 24th April 2020</text>
-              </svg> 
-              </div>
-            </div>
-          </div>
-
-
-
-        <!--Right Hand Side of the page-->  
-        <div class="col col-md-6 col-sm-12">
-          <div class="container-fluid" style="padding-right: 0; padding-left: 0;" id="stat-section">
-
-
-            <div class="row no-gutters"> <!--General Info Partition-->
-              <div class="col-12 general-info-seg">
-                <!--General Info-->
-                <div class="general-info-heading">
-                  <span><b>General Statistics</b></span>
+              </svg>
+                    </div>
                 </div>
-                <ul id="general-stats">
-                  <li id="total-infected">people have been infected in Pakistan till now.</li>
-                  <li id="most-infected-city">Lahore is the city with the most number of new cases.</li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="row no-gutters">
-              <div class="col-6 donut-chart" id="donut">
-                <!--Donut Chart-->
-                <canvas id='donut-chart' height="250%"></canvas>
-              </div>
-			  <div class="col-6 donut-chart" id="donut2">
-                <!--Donut Chart-->
-                <canvas id='donut-chart2' height="250%"></canvas>
-              </div>
             </div>
 
 
-            <div class="row no-gutters">
-              <div class="col-12">
+
+            <!--Right Hand Side of the page-->
+            <div class="col col-md-6 col-sm-12">
+                <div class="container-fluid" style="padding-right: 0; padding-left: 0;" id="stat-section">
 
 
-                <div class="btn-group btn-group-toggle buttons-heading" data-toggle="buttons" id="info-sec-buttons">
-                  <label class="btn btn-secondary active custom">
+                    <div class="row no-gutters">
+                        <!--General Info Partition-->
+                        <div class="col-12 general-info-seg">
+                            <!--General Info-->
+                            <div class="general-info-heading">
+                                <span><b>General Statistics</b></span>
+                            </div>
+                            <ul id="general-stats">
+                                <li id="total-infected">people have been infected in Pakistan till now.</li>
+                                <li id="most-infected-city">Lahore is the city with the most number of new cases.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="row no-gutters">
+                        <div class="col-6 donut-chart" id="donut">
+                            <!--Donut Chart-->
+                            <canvas id='donut-chart' height="250%"></canvas>
+                        </div>
+                        <div class="col-6 donut-chart" id="donut2">
+                            <!--Donut Chart-->
+                            <canvas id='donut-chart2' height="250%"></canvas>
+                        </div>
+                    </div>
+
+
+                    <div class="row no-gutters">
+                        <div class="col-12">
+
+
+                            <div class="btn-group btn-group-toggle buttons-heading" data-toggle="buttons" id="info-sec-buttons">
+                                <label class="btn btn-secondary active custom">
                     <input type="radio" name="options" id="emergency" autocomplete="off" checked onclick="expand_buttons(event)">Emergency Contact Info
                   </label>
 
-                  <label class="btn btn-secondary custom">
+                                <label class="btn btn-secondary custom">
                     <input type="radio" name="options" id="symptoms" autocomplete="off" onclick="expand_buttons(event)">Symptoms
                   </label>
 
-                  <label class="btn btn-secondary custom">
+                                <label class="btn btn-secondary custom">
                     <input type="radio" name="options" id="precautions" autocomplete="off" onclick="expand_buttons(event)">Precautions
                   </label>
+                            </div>
+
+
+
+                            <div class="row no-gutters" id="info-sec">
+                                <div class="col-12">
+                                    <div id="emergency_content" class="content">
+                                        <span>National COVID-19 Helpline [1166]</span>
+                                        <ul id="center-list">
+                                            <li id="center-1">Aga Khan University Hospital, Karachi</li>
+                                            <li id="center-2">LUMHS hospital, Hyderabad</li>
+                                            <li id="center-3">Jinnah Postgraduate Medical Centre, Karachi</li>
+                                        </ul>
+                                    </div>
+                                    <div id="symptoms_content" class="content">
+                                        <ul>
+                                            <span style="display: block"> You may experience the following symptoms if you have COVID-19.</span>
+                                            <li id="center-1">Cough</li>
+                                            <li id="center-2">Fever</li>
+                                            <li id="center-3">Tiredness</li>
+                                            <li id="center-3">Difficulty in breathing (only in severe cases)</li>
+                                        </ul>
+                                    </div>
+                                    <div id="precautions_content" class="content">
+                                        <ul style="list-style-type: none;">
+                                            <li id="center-1">Wash your hands regularly for 20 seconds, with soap and water or alcohol-based hand rub.</li>
+                                            <li id="center-2">Maintain at least 3 feet distance, and avoid close contact with people who are experiencing cough, fever or sneeze. </li>
+                                            <li id="center-3">Avoid touching your face, mouth and nose. </li>
+                                            <li id="center-3">Avoid going out frequently. If it is necessary, cover your nose and mouth with a mask when going out. </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <!--End of nested container-->
+            </div>
+            <!--End of RHS-->
+        </div>
+        <!--End of Main Section-->
+
+
+        <!--Symptoms Section -->
+        <div class="row details-section margin-row" id="symptoms-section">
+            <!--<div class="col-md-12">-->
+            <div class="main-timeline">
+                <div class="col-md-6 timeline">
+                    <a href="#" class="timeline-content">
+                        <div class="timeline-icon">
+                            <i class="fa fa-globe"></i>
+                        </div>
+                        <h3 class="title">Symptom 1</h3>
+                        <p class="description">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer males uada tellus lorem, et condimentum neque commodo
+                        </p>
+                    </a>
+                </div>
+                <div class="col-md-6 timeline">
+                    <a href="#" class="timeline-content">
+                        <div class="timeline-icon">
+                            <i class="fa fa-rocket"></i>
+                        </div>
+                        <h3 class="title">Symptom 2</h3>
+                        <p class="description">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer males uada tellus lorem, et condimentum neque commodo
+                        </p>
+                    </a>
+                </div>
+                <div class="col-md-6 timeline">
+                    <a href="#" class="timeline-content">
+                        <div class="timeline-icon">
+                            <i class="fa fa-rocket"></i>
+                        </div>
+                        <h3 class="title">Symptom 3</h3>
+                        <p class="description">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer males uada tellus lorem, et condimentum neque commodo
+                        </p>
+                    </a>
+                </div>
+                <div class="col-md-6 timeline">
+                    <a href="#" class="timeline-content">
+                        <div class="timeline-icon">
+                            <i class="fa fa-rocket"></i>
+                        </div>
+                        <h3 class="title">Symptom 4</h3>
+                        <p class="description">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer males uada tellus lorem, et condimentum neque commodo
+                        </p>
+                    </a>
                 </div>
 
-
-
-                <div class="row no-gutters" id="info-sec">
-                  <div class="col-12">
-                    <div id="emergency_content" class="content">
-                      <span>National COVID-19 Helpline [1166]</span>
-                      <ul id="center-list">
-                          <li id="center-1">Aga Khan University Hospital, Karachi</li>
-                          <li id="center-2">LUMHS hospital, Hyderabad</li>
-                          <li id="center-3">Jinnah Postgraduate Medical Centre, Karachi</li>
-                      </ul>
-                  </div>
-                  <div id="symptoms_content" class="content">
-                      <ul>
-                          <span style="display: block"> You may experience the following symptoms if you have COVID-19.</span>
-                          <li id="center-1">Cough</li>
-                          <li id="center-2">Fever</li>
-                          <li id="center-3">Tiredness</li>
-                          <li id="center-3">Difficulty in breathing (only in severe cases)</li>
-                      </ul>
-                  </div>
-                  <div id="precautions_content" class="content">
-                      <ul style="list-style-type: none;">
-                          <li id="center-1">Wash your hands regularly for 20 seconds, with soap and water or alcohol-based hand rub.</li>
-                          <li id="center-2">Maintain at least 3 feet distance, and avoid close contact with people who are experiencing cough, fever or sneeze. </li>
-                          <li id="center-3">Avoid touching your face, mouth and nose. </li>
-                          <li id="center-3">Avoid going out frequently. If it is necessary, cover your nose and mouth with a mask when going out. </li>
-                      </ul>
-                  </div>
-                  </div>
-                </div>  
-
-
-
-
-              </div>
             </div>
-          
-          </div> <!--End of nested container-->
-        </div> <!--End of RHS-->
-      </div> <!--End of Main Section-->
-
-      
-      <!--Symptoms Section -->
-		<div class="row details-section margin-row" id="symptoms-section">
-			<!--<div class="col-md-12">-->
-				<div class="main-timeline">
-					<div class="col-md-6 timeline">
-						<a href="#" class="timeline-content">
-							<div class="timeline-icon">
-								<i class="fa fa-globe"></i>
-							</div>
-							<h3 class="title">Symptom 1</h3>
-							<p class="description">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer males uada tellus lorem, et condimentum neque commodo
-							</p>
-						</a>
-					</div>
-					<div class="col-md-6 timeline">
-						<a href="#" class="timeline-content">
-							<div class="timeline-icon">
-								<i class="fa fa-rocket"></i>
-							</div>
-							<h3 class="title">Symptom 2</h3>
-							<p class="description">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer males uada tellus lorem, et condimentum neque commodo
-							</p>
-						</a>
-					</div>
-					<div class="col-md-6 timeline">
-						<a href="#" class="timeline-content">
-							<div class="timeline-icon">
-								<i class="fa fa-rocket"></i>
-							</div>
-							<h3 class="title">Symptom 3</h3>
-							<p class="description">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer males uada tellus lorem, et condimentum neque commodo
-							</p>
-						</a>
-					</div>
-					<div class="col-md-6 timeline">
-						<a href="#" class="timeline-content">
-							<div class="timeline-icon">
-								<i class="fa fa-rocket"></i>
-							</div>
-							<h3 class="title">Symptom 4</h3>
-							<p class="description">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer males uada tellus lorem, et condimentum neque commodo
-							</p>
-						</a>
-					</div>
-					
-				</div>
-			<!--</div>-->
-    </div>
-    
-
-    <!--Carousel-->
-    <div class="row justify-content-center">
-      <div class="col-9">
-        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img class="d-block w-100" src="{% static 'mainapp/images/slide1.png' %}" alt="First slide">
-            </div>
-            <div class="carousel-item">
-              <img class="d-block w-100" src="{% static 'mainapp/images/slide2.png' %}" alt="Second slide">
-            </div>
-            <div class="carousel-item">
-              <img class="d-block w-100" src="{% static 'mainapp/images/slide3.png' %}" alt="Third slide">
-            </div>
-          </div>
-          <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-          </a>
-          <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-          </a>
-        </div>
-      </div>
-    </div>
-	  
-      
-      <!--Details section-->
-      <div class="row details-section margin-row" id="trend-section">
-
-        <div class="col-lg-6 col-md-6 col-sm-12" id="trend-graph">
-          <div class="row">
-            <div class="col-12">
-              <div> <!--DO NOT REMOVE THIS ADDITIONAL DIV. THIS FIXES A BUG IN CHARTJS-->
-                <canvas id="time-series-graph-confirmed-cases" height="300" class="details-graph"></canvas>
-              </div>
-            </div>
-            <div class="col-6">
-              <div class="slidecontainer">
-				<input type="range" min="0" max="12" value="12" step="1" class="slider" id="trend_slider">
-              </div>
-			  <label for="" class="float-left slider-marker">Beginning</label>
-                <label for="" class="float-right slider-marker">Current Month</label>
-            </div>
-			<div class="col-6">
-              <div class="slidecontainer">
-                <input type="range" min="0" max="20" value="0" step="1" class="slider" id="week_slider">
-              </div>
-			  <label for="" class="float-left slider-marker">Beginning</label>
-              <label for="" class="float-right slider-marker">Current Week</label>
-            </div>
-          </div>
+            <!--</div>-->
         </div>
 
-        <div class="col-lg-6 col-md-6 col-sm-12" id="prediction-graph">
-          <div> <!--DO NOT REMOVE THIS ADDITIONAL DIV. THIS FIXES A BUG IN CHARTJS-->
-            <canvas id="time-series-graph-prediction" height="300" class="details-graph"></canvas>
-          </div>
-			<div class="view-more">
-				<button class="btn" type="button" id="viewmore-button" data-toggle="collapse" data-target="#prediction-details" aria-expanded="false" aria-controls="prediction-details">View More Details</button>
-			</div>
-		</div>
-	</div>
-			
-		<div class="row collapse" id="prediction-details">
-				<div class="col-lg-6 col-md-6 col-sm-12">
-					<div id="prediction-details-graph">
-						<!--The detailed prediction graph will go here-->
-						<canvas id="time-series-prediction-details" height="300" class="details-graph" style="visibility:hidden"></canvas>
-					</div>
-				</div>
-				<div class="col-lg-6 col-md-6 col-sm-12">
-					<div id="detail-description">
-					<h6 class="text-center" id="description-heading">Description</h6>
-						<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima similique soluta magnam suscipit
-						temporibus minus, veniam perspiciatis voluptate distinctio aspernatur perferendis, officia nam
-						consequatur. Amet eaque modi expedita fugit laudantium. Lorem ipsum dolor sit amet consectetur, adipisicing
-						elit. Minima similique soluta magnam suscipit temporibus minus, veniam perspiciatis voluptate distinctio
-						aspernatur perferendis, officia nam consequatur. Amet eaque modi expedita fugit laudantium.</p>
-					</div>
-				</div>
-			</div>
-      
-	
 
-      <div class="row justify-content-around acknowledgements-row">
-
-
-        <div class="col-lg-12 col-md-12 col-sm-12">
-          
-          
-          <div class="contributors">
-            <div class="row justify-content-center">
-              <div class="col-12">
-                <span id="contributor-heading">Proudly designed, developed and maintained by faculty and students of Habib University.</span>
-              </div>
-            </div>
-
-            <div class="row justify-content-center">
-
-              
-                  <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4 contributors-content">
-                    <span><strong>Supervisors: </strong></span><br>
-                    <span>Dr. Sarah Hasnain</span><br>
-                    <span>Dr. Abdul Samad</span>
-                  </div>
-                  <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4 contributors-content">
-                    <span><strong>Front-end Team: </strong></span><br>
-                    <span>Anisa Aisha Ahmed</span><br>
-                    <span>Owais Bin Asad</span><br>
-                    <span>Maheen Anees</span>
-                  </div>
-                  <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4 contributors-content">
-                    <span><strong>Back-end Team: </strong></span><br>
-                    <span>Sara Mahmood</span><br>
-                    <span>Atif Mehmood</span><br>
-                    <span>Saman Gaziani</span>
-                  </div>
-                  <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4 contributors-content">
-                    <span><strong>Data Collection Team: </strong></span><br>
-                    <span>Amna Shoaib</span><br>
-                    <span>Maaheen Chandna</span><br>
-					<span>Kabir Kumar</span><br>
-					<span>Syed Hasan Faaz Abidi</span>
-                  </div>
-                  <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4 contributors-content">
-                    <span><strong>Data Sources: </strong></span><br>
-                    <span>NIH Daily Situation Reports</span><br>
-                    <span>Government of Pakistan Dashboard</span>
-                  </div>
-              
+        <!--Carousel-->
+        <div class="row justify-content-center">
+            <div class="col-9">
+                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img class="d-block w-100" src="{% static 'mainapp/images/slide1.png' %}" alt="First slide">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="d-block w-100" src="{% static 'mainapp/images/slide2.png' %}" alt="Second slide">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="d-block w-100" src="{% static 'mainapp/images/slide3.png' %}" alt="Third slide">
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
                 </div>
-          </div>
+            </div>
         </div>
-      </div>
-        
-    
+
+
+        <!--Details section-->
+        <div class="row details-section margin-row" id="trend-section">
+
+            <div class="col-lg-6 col-md-6 col-sm-12" id="trend-graph">
+                <div class="row">
+                    <div class="col-12">
+                        <div>
+                            <!--DO NOT REMOVE THIS ADDITIONAL DIV. THIS FIXES A BUG IN CHARTJS-->
+                            <canvas id="time-series-graph-confirmed-cases" height="300" class="details-graph"></canvas>
+                        </div>
+                    </div>
+                    <!--<div class="col-6">
+                        <div class="slidecontainer">
+                            <input type="range" min="0" max="12" value="12" step="1" class="slider" id="trend_slider">
+                        </div>
+                        <label for="" class="float-left slider-marker">Beginning</label>
+                        <label for="" class="float-right slider-marker">Current Month</label>
+                    </div>-->
+                    <div class="col-12">
+                        <div class="slidecontainer">
+                            <input type="range" min="0" max="20" value="20" step="1" class="slider" id="trend_slider">
+                        </div>
+                        <label for="" class="float-left slider-marker">Beginning</label>
+                        <label for="" class="float-right slider-marker">Current Week</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-12" id="prediction-graph">
+                <div>
+                    <!--DO NOT REMOVE THIS ADDITIONAL DIV. THIS FIXES A BUG IN CHARTJS-->
+                    <canvas id="time-series-graph-prediction" height="300" class="details-graph"></canvas>
+                </div>
+                <div class="view-more">
+                    <button class="btn" type="button" id="viewmore-button" data-toggle="collapse" data-target="#prediction-details" aria-expanded="false" aria-controls="prediction-details">View More Details</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row collapse" id="prediction-details">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div id="prediction-details-graph">
+                    <!--The detailed prediction graph will go here-->
+                    <canvas id="time-series-prediction-details" height="300" class="details-graph" style="visibility:hidden"></canvas>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div id="detail-description">
+                    <h6 class="text-center" id="description-heading">Description</h6>
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima similique soluta magnam suscipit temporibus minus, veniam perspiciatis voluptate distinctio aspernatur perferendis, officia nam consequatur. Amet eaque modi expedita
+                        fugit laudantium. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima similique soluta magnam suscipit temporibus minus, veniam perspiciatis voluptate distinctio aspernatur perferendis, officia nam consequatur. Amet
+                        eaque modi expedita fugit laudantium.</p>
+                </div>
+            </div>
+        </div>
+		
+
+
+
+        <div class="row justify-content-around acknowledgements-row">
+
+
+            <div class="col-lg-12 col-md-12 col-sm-12">
+
+
+                <div class="contributors">
+                    <div class="row justify-content-center">
+                        <div class="col-12">
+                            <span id="contributor-heading">Proudly designed, developed and maintained by faculty and students of Habib University.</span>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-center">
+
+
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4 contributors-content">
+                            <span><strong>Supervisors: </strong></span><br>
+                            <span>Dr. Sarah Hasnain</span><br>
+                            <span>Dr. Abdul Samad</span>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4 contributors-content">
+                            <span><strong>Front-end Team: </strong></span><br>
+                            <span>Anisa Aisha Ahmed</span><br>
+                            <span>Owais Bin Asad</span><br>
+                            <span>Maheen Anees</span>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4 contributors-content">
+                            <span><strong>Back-end Team: </strong></span><br>
+                            <span>Sara Mahmood</span><br>
+                            <span>Atif Mehmood</span><br>
+                            <span>Saman Gaziani</span>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4 contributors-content">
+                            <span><strong>Data Collection Team: </strong></span><br>
+                            <span>Amna Shoaib</span><br>
+                            <span>Maaheen Chandna</span><br>
+                            <span>Kabir Kumar</span><br>
+                            <span>Syed Hasan Faaz Abidi</span>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4 contributors-content">
+                            <span><strong>Data Sources: </strong></span><br>
+                            <span>NIH Daily Situation Reports</span><br>
+                            <span>Government of Pakistan Dashboard</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
 
 
     </div>
@@ -485,11 +487,11 @@
 
 
     <footer class="page-footer font-small blue">
-		<div class="footer-copyright text-center py-3">
-			<span id="footer-text">© 2020 Habib University</span>
-		</div>
+        <div class="footer-copyright text-center py-3">
+            <span id="footer-text">© 2020 Habib University</span>
+        </div>
     </footer>
-	<!--<input type="hidden" id="myVar" name="variable" value="{{ my_data | safe }}">-->
+    <!--<input type="hidden" id="myVar" name="variable" value="{{ my_data | safe }}">-->
 
 
 
@@ -500,9 +502,10 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-	
-	<script src="{% static 'mainapp/js/script.js' %}"></script>
 
-	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-  </body>
+    <script src="{% static 'mainapp/js/script.js' %}"></script>
+
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</body>
+
 </html>
