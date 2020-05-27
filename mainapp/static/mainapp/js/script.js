@@ -611,14 +611,26 @@ function weekly_data(data, type) {
 			week_count = 0;
 			for (var j = 0; j < data.length; j++) {
 				if (j === 0) {
-					temp.push(data[j])
+					if (i === 0) temp.push({ x: new Date(data[j].date), y: data[j].total_discharged })
+					if (i === 1) temp.push({ x: new Date(data[j].date), y: data[j].total_admitted })
+					if (i === 2) temp.push({ x: new Date(data[j].date), y: data[j].total_died })
+					if (i === 3) temp.push({ x: new Date(data[j].date), y: data[j].total_tested_positive })
+					//temp.push(data[j])
 				} else if ((j % 7) === 0) {
 					new_data[i][week_count] = temp;
 					temp = [];
 					week_count++;
-					temp.push(data[j])
+					if (i === 0) temp.push({ x: new Date(data[j].date), y: data[j].total_discharged })
+					if (i === 1) temp.push({ x: new Date(data[j].date), y: data[j].total_admitted })
+					if (i === 2) temp.push({ x: new Date(data[j].date), y: data[j].total_died })
+					if (i === 3) temp.push({ x: new Date(data[j].date), y: data[j].total_tested_positive })
+					//temp.push(data[j])
 				} else {
-					temp.push(data[j])
+					if (i === 0) temp.push({ x: new Date(data[j].date), y: data[j].total_discharged })
+					if (i === 1) temp.push({ x: new Date(data[j].date), y: data[j].total_admitted })
+					if (i === 2) temp.push({ x: new Date(data[j].date), y: data[j].total_died })
+					if (i === 3) temp.push({ x: new Date(data[j].date), y: data[j].total_tested_positive })
+					//temp.push(data[j])
 				}
 			}
 			if (temp.length !== 0) {
@@ -717,7 +729,8 @@ function popup(e) {
 			}
 			
             update_donutData(donut_chart, province_data);
-            update_timeSeries(myChart, updated_data);
+            updateData(myChart, updated_data, 'time series')
+			//console.log(weekly_data_list)
 			
         } else if (e.target.id === "PK-SD") {
             //province = "Sindh";
@@ -732,15 +745,15 @@ function popup(e) {
                 center_list.appendChild(hospital_links[hospital_zones.SD][i]);
             }
 
-            //update_donutData(donut_chart, province_data);
-            //update_timeSeries(myChart, province_data);
-
-            var today = new Date();
-            var current_month = today.getMonth();
-            month_data = update_provinceMonth("Sindh", province_data);
-
+			weekly_data_list = weekly_data(province_data, 'province')
+			var updated_data = []
+			for (var i = 0; i < weekly_data_list.length; i++) {
+				updated_data.push(weekly_data_list[i][weekly_data_list[i].length - 1])
+			}
+			
             update_donutData(donut_chart, province_data);
-            update_timeSeries(myChart, month_data[current_month]);
+            updateData(myChart, updated_data, 'time series')
+			
         } else if (e.target.id === "PK-KP" || e.target.id == "PK-TA") {
             new_data = [
                 [],
@@ -772,16 +785,15 @@ function popup(e) {
             for (i = 0; i < hospital_links[hospital_zones.KP].length; i++) {
                 center_list.appendChild(hospital_links[hospital_zones.KP][i]);
             }
-
-            //update_donutData(donut_chart, province_data);
-            //update_timeSeries(myChart, province_data);
-
-            var today = new Date();
-            var current_month = today.getMonth();
-            month_data = update_provinceMonth("KP", province_data);
-
+			weekly_data_list = weekly_data(province_data, 'province')
+			var updated_data = []
+			for (var i = 0; i < weekly_data_list.length; i++) {
+				updated_data.push(weekly_data_list[i][weekly_data_list[i].length - 1])
+			}
+			
             update_donutData(donut_chart, province_data);
-            update_timeSeries(myChart, month_data[current_month]);
+            updateData(myChart, updated_data, 'time series')
+			
         } else if (e.target.id === "PK-AK") {
             //province = "Azad Kashmir";
             province_data = global_data.AJK;
@@ -795,15 +807,15 @@ function popup(e) {
                 center_list.appendChild(hospital_links[hospital_zones.AK][i]);
             }
 
-            //update_donutData(donut_chart, province_data);
-            //update_timeSeries(myChart, province_data);
-
-            var today = new Date();
-            var current_month = today.getMonth();
-            month_data = update_provinceMonth("Azad Kashmir", province_data);
-
+			weekly_data_list = weekly_data(province_data, 'province')
+			var updated_data = []
+			for (var i = 0; i < weekly_data_list.length; i++) {
+				updated_data.push(weekly_data_list[i][weekly_data_list[i].length - 1])
+			}
+			
             update_donutData(donut_chart, province_data);
-            update_timeSeries(myChart, month_data[current_month]);
+            updateData(myChart, updated_data, 'time series')
+			
         } else if (e.target.id === "PK-IS") {
             //province = "Islamabad";
             province_data = global_data.ICT;
@@ -817,15 +829,15 @@ function popup(e) {
                 center_list.appendChild(hospital_links[hospital_zones.IS][i]);
             }
 
-            //update_donutData(donut_chart, province_data);
-            //update_timeSeries(myChart, province_data);
-
-            var today = new Date();
-            var current_month = today.getMonth();
-            month_data = update_provinceMonth("Islamabad", province_data);
-
+            weekly_data_list = weekly_data(province_data, 'province')
+			var updated_data = []
+			for (var i = 0; i < weekly_data_list.length; i++) {
+				updated_data.push(weekly_data_list[i][weekly_data_list[i].length - 1])
+			}
+			
             update_donutData(donut_chart, province_data);
-            update_timeSeries(myChart, month_data[current_month]);
+            updateData(myChart, updated_data, 'time series')
+			
         } else if (e.target.id === "PK-GB") {
             //province = "Gilgit-Baltistan";
             province_data = global_data.GB;
@@ -839,15 +851,15 @@ function popup(e) {
                 center_list.appendChild(hospital_links[hospital_zones.GB][i]);
             }
 
-            //update_donutData(donut_chart, province_data);
-            //update_timeSeries(myChart, province_data);
-
-            var today = new Date();
-            var current_month = today.getMonth();
-            month_data = update_provinceMonth("GB", province_data);
-
+            weekly_data_list = weekly_data(province_data, 'province')
+			var updated_data = []
+			for (var i = 0; i < weekly_data_list.length; i++) {
+				updated_data.push(weekly_data_list[i][weekly_data_list[i].length - 1])
+			}
+			
             update_donutData(donut_chart, province_data);
-            update_timeSeries(myChart, month_data[current_month]);
+            updateData(myChart, updated_data, 'time series')
+			
         } else if (e.target.id === "PK-BA") {
             //province = "Balochistan";
             province_data = global_data.Balochistan;
@@ -861,15 +873,15 @@ function popup(e) {
                 center_list.appendChild(hospital_links[hospital_zones.BA][i]);
             }
 
-            //update_donutData(donut_chart, province_data);
-            //update_timeSeries(myChart, province_data);
-
-            var today = new Date();
-            var current_month = today.getMonth();
-            month_data = update_provinceMonth("Balochistan", province_data);
-
+            weekly_data_list = weekly_data(province_data, 'province')
+			var updated_data = []
+			for (var i = 0; i < weekly_data_list.length; i++) {
+				updated_data.push(weekly_data_list[i][weekly_data_list[i].length - 1])
+			}
+			
             update_donutData(donut_chart, province_data);
-            update_timeSeries(myChart, month_data[current_month]);
+            updateData(myChart, updated_data, 'time series')
+			
         }
         if (province_data[province_data.length - 1].most_infected_city === "None") {
             most_infected_city.textContent = "";
@@ -925,6 +937,7 @@ function update_timeSeries(chart, data) {
         [],
         []
     ]
+	//console.log(data)
 	for (var a = 0; a < data.length; a++){
 		for (var i = 0; i < data[a].length; i++) {
 			new_data[0].push({ x: new Date(data[a][i].date), y: data[a][i].total_discharged })
@@ -932,22 +945,19 @@ function update_timeSeries(chart, data) {
 			new_data[2].push({ x: new Date(data[a][i].date), y: data[a][i].total_died })
 			new_data[3].push({ x: new Date(data[a][i].date), y: data[a][i].total_tested_positive })
 		}
+		break;
 	}
+	//console.log(new_data)
     /*for (var i = 0; i < data.length; i++) {
         new_data[0].push({ x: new Date(data[i].date), y: data[i].total_discharged })
         new_data[1].push({ x: new Date(data[i].date), y: data[i].total_admitted })
         new_data[2].push({ x: new Date(data[i].date), y: data[i].total_died })
         new_data[3].push({ x: new Date(data[i].date), y: data[i].total_tested_positive })
     }*/
-    /*chart.data.datasets[0].data = new_data[0];
+    chart.data.datasets[0].data = new_data[0];
     chart.data.datasets[1].data = new_data[1];
     chart.data.datasets[2].data = new_data[2];
     chart.data.datasets[3].data = new_data[3];
-    slider_data[0] = myChart.data.datasets[0].data
-    slider_data[1] = myChart.data.datasets[1].data
-    slider_data[2] = myChart.data.datasets[2].data
-    slider_data[3] = myChart.data.datasets[3].data*/
-        //copy_b = JSON.parse(JSON.stringify(slider_data));
     chart.clear()
     chart.update();
 }
@@ -989,21 +999,21 @@ function reset_to_default() {
 
     center_list.style.listStyleType = 'none';
     center_list.innerHTML = '';
-    //console.log(b);
-    d = monthly_data(n);
-    //console.log(d)
-    copy_d = JSON.parse(JSON.stringify(d));
-    b = current_month_data(n);
+    
+	
+	weekly_data_list = weekly_data(n, 'national');
+	var updated_data = []
+	for (var i = 0; i < weekly_data_list.length; i++) {
+		updated_data.push(weekly_data_list[i][weekly_data_list[i].length - 1])
+	}
 
     updateData(donut_chart, a, 'donut');
-    updateData(myChart, b, 'time series');
-    slider_data[0] = myChart.data.datasets[0].data
+    updateData(myChart, updated_data, 'time series');
+    /*slider_data[0] = myChart.data.datasets[0].data
     slider_data[1] = myChart.data.datasets[1].data
     slider_data[2] = myChart.data.datasets[2].data
     slider_data[3] = myChart.data.datasets[3].data
-    copy_b = JSON.parse(JSON.stringify(slider_data));
-
-
+    copy_b = JSON.parse(JSON.stringify(slider_data));*/
 
     var x;
     for (x of all_provinces) {
@@ -1198,9 +1208,11 @@ trend_slider.max = weekly_data_list[0].length - 1;
 trend_slider.oninput = function() {
 	var val = parseInt(this.value);
     var updated_data = []
+	//console.log(weekly_data_list)
     for (var i = 0; i < weekly_data_list.length; i++) {
         updated_data.push(weekly_data_list[i][val])
     }
+	console.log(updated_data)
 	updateData(myChart, updated_data, 'time series')
 }
 
