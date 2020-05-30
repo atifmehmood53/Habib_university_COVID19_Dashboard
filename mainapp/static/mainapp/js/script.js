@@ -180,9 +180,9 @@ var donut_config = {
                 '#50bf0f',
                 '#d10d0d'*/
                 //'#d56f28',
-                '#b74e65',
-                '#908834',
-                '#c84533'
+                '#d56f28',
+                '#477b37',
+                '#bb2635' 
             ],
         }],
         labels: ['Active', 'Recovered', 'Deceased']
@@ -213,13 +213,12 @@ var donut_config = {
 
             backgroundColor: [
                 //'#d56f28',
-                '#b74e65',
-                '#908834',
-                '#c84533',
-                '#e8702f',
                 '#d7aa00',
-                '#7FA62E',
-                '#a90022',
+                '#e8702f',
+                '#c84533',
+                '#be5465',
+                '#538c72',
+                '#7FA62E'
 
             ],
         }],
@@ -263,12 +262,12 @@ var trend_chart_config = {
             },
             {
                 label: 'Active',
-                pointBackgroundColor: '#b74e65',
-                pointBorderColor: '#b74e65',
+                pointBackgroundColor: '#d56f28',
+                pointBorderColor: '#d56f28',
                 pointRadius: 4,
                 fill: false,
-                backgroundColor: '#b74e65',
-                borderColor: '#b74e65',
+                backgroundColor: '#d56f28',
+                borderColor: '#d56f28',
                 data: b[1],
                 //data: trend_data[1],
                 borderWidth: 3
@@ -287,12 +286,12 @@ var trend_chart_config = {
             },
             {
                 label: 'Confirmed',
-                pointBackgroundColor: '#d56f28',
-                pointBorderColor: '#d56f28',
+                pointBackgroundColor: '#b74e65',
+                pointBorderColor: '#b74e65',
                 pointRadius: 4,
                 fill: false,
-                backgroundColor: '#d56f28',
-                borderColor: '#d56f28',
+                backgroundColor: '#b74e65',
+                borderColor: '#b74e65',
                 data: b[3],
                 borderWidth: 3
             }
