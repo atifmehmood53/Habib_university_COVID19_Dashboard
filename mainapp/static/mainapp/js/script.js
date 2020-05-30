@@ -242,7 +242,6 @@ var donut_config = {
 var donut_chart2 = new Chart(donut_ctx2, donut_config);
 
 
-
 // Confirmed Cases Graph
 var ctx1 = document.getElementById('time-series-graph-confirmed-cases').getContext('2d');
 var trend_chart_config = {
@@ -250,12 +249,12 @@ var trend_chart_config = {
     data: {
         datasets: [{
                 label: 'Recovered',
-                pointBackgroundColor: '#908834',
-                pointBorderColor: '#908834',
+                pointBackgroundColor: '#477b37',
+                pointBorderColor: '#477b37',
                 pointRadius: 4,
                 fill: false,
-                backgroundColor: '#908834',
-                borderColor: '#908834',
+                backgroundColor: '#477b37',
+                borderColor: '#477b37',
                 //data: trend_data[0],
                 data: b[0],
                 borderWidth: 3
@@ -274,12 +273,12 @@ var trend_chart_config = {
             },
             {
                 label: 'Deceased',
-                pointBackgroundColor: '#c84533',
-                pointBorderColor: '#c84533',
+                pointBackgroundColor: '#bb2635',
+                pointBorderColor: '#bb2635',
                 pointRadius: 4,
                 fill: false,
-                backgroundColor: '#c84533',
-                borderColor: '#c84533',
+                backgroundColor: '#bb2635',
+                borderColor: '#bb2635',
                 //data: trend_data[2],
                 data: b[2],
                 borderWidth: 3
