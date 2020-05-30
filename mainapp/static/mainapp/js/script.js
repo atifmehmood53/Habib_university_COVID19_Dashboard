@@ -158,6 +158,13 @@ var province_labels;
 updated_time();
 //console.log(a)
 
+var two_week_accuracy_data = accuracy_data();
+
+
+
+
+
+
 // Donut Chart
 var donut_ctx = document.getElementById('donut-chart').getContext('2d');
 var donut_config = {
@@ -460,6 +467,76 @@ var prediction_details_config = {
 //var prediction_details = new Chart(prediction_details_canvas, prediction_details_config);
 
 
+var prediction_accuracy_canvas = document.getElementById('prediction-accuracy').getContext('2d');
+var prediction_accuracy_config = {
+    type: 'line',
+    data: {
+        datasets: [{
+                label: 'Prediction',
+                pointBackgroundColor: '#908834',
+                pointBorderColor: '#908834',
+                pointRadius: 4,
+                fill: false,
+                backgroundColor: '#908834',
+                borderColor: '#908834',
+                data: c[1],
+                borderWidth: 3
+            },
+            {
+                label: 'Actual Data',
+                pointBackgroundColor: '#b74e65',
+                pointBorderColor: '#b74e65',
+                pointRadius: 4,
+                fill: false,
+                backgroundColor: '#b74e65',
+                borderColor: '#b74e65',
+                data: two_week_accuracy_data,
+                borderWidth: 3
+            }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            xAxes: [{
+                display: true,
+                type: 'time',
+                time: {
+                    displayFormats: {
+                        'millisecond': 'MMM DD',
+                        'second': 'MMM DD',
+                        'minute': 'MMM DD',
+                        'hour': 'MMM DD',
+                        'day': 'MMM DD',
+                        'week': 'MMM DD',
+                        'month': 'MMM DD',
+                        'quarter': 'MMM DD',
+                        'year': 'MMM DD',
+                    }
+                },
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Date'
+                },
+                ticks: {
+                    source: 'data',
+                    autoSkip: true,
+                    maxTicksLimit: 20
+                }
+            }],
+            yAxes: [{
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Number of Cases'
+                }
+            }]
+        }
+    }
+};
+
+
+
 function national_donut_data() {
     data = Object.assign(global_data); //copying global data for safety purposes, can be removed later
 
@@ -550,6 +627,27 @@ function national_timeSeries_data() {
         }
     }
     return new_data
+}
+
+// Returns the confirmed cases against each date present in the predictions dataset.
+function accuracy_data() {
+    var starting_date = new Date(c[1][0]["x"].getFullYear(), c[1][0]["x"].getMonth(), c[1][0]["x"].getDate());
+    console.log("Starting Date = " + starting_date);
+    console.log("Global Data: ");
+    console.log(national_timeSeries);
+
+    var i = 0;
+    while ( i <= national_timeSeries[3].length) {
+        var current_date = new Date(national_timeSeries[3][i]["x"].getFullYear(), national_timeSeries[3][i]["x"].getMonth(), national_timeSeries[3][i]["x"].getDate());
+        
+        if (current_date.getTime() === starting_date.getTime()) {
+            break;
+        }
+
+        i++;
+    }
+    console.log("Index: " + i);
+    return national_timeSeries[3].slice(i, i+14);
 }
 
 function monthly_data(data) {
@@ -1251,6 +1349,7 @@ function updated_time() {
 
 function showGraph() {
     var prediction_details = new Chart(prediction_details_canvas, prediction_details_config);
+    
     if (document.getElementById('time-series-prediction-details').style.visibility === "hidden") {
         document.getElementById('time-series-prediction-details').style.visibility = "visible";
     } else if (document.getElementById('time-series-prediction-details').style.visibility === "visible") {
@@ -1258,16 +1357,26 @@ function showGraph() {
         document.getElementById('time-series-prediction-details').style.visibility = "hidden";
     }
 
+
+    var prediction_accuracy_graph = new Chart(prediction_accuracy_canvas, prediction_accuracy_config);
+
+    if (document.getElementById('prediction-accuracy').style.visibility === "hidden") {
+        document.getElementById('prediction-accuracy').style.visibility = "visible";
+    } else if (document.getElementById('prediction-accuracy').style.visibility === "visible") {
+        prediction_accuracy_graph.destroy()
+        document.getElementById('prediction-accuracy').style.visibility = "hidden";
+    }
+
 }
 
 
 $('#prediction-details').on('hidden.bs.collapse', function() {
     $('#viewmore-button').text('View More Details');
-    showGraph()
+    showGraph();
 });
 $('#prediction-details').on('shown.bs.collapse', function() {
     $('#viewmore-button').text('View Less Details');
-    showGraph()
+    showGraph();
 });
 
 $('#tutorial_modal').modal();
