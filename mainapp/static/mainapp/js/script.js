@@ -697,7 +697,10 @@ function weekly_data(data, type) {
 				}
 			}
 			if (temp.length !== 0) {
-				new_data[i][week_count] = temp;
+				for (var k = 0; k < temp.length; k++){
+					new_data[i][week_count-1].push(temp[k])
+				}
+				//new_data[i][week_count] = temp;
 				temp = []
 			}
 		}
@@ -730,7 +733,10 @@ function weekly_data(data, type) {
 				}
 			}
 			if (temp.length !== 0) {
-				new_data[i][week_count] = temp;
+				for (var k = 0; k < temp.length; k++){
+					new_data[i][week_count-1].push(temp[k])
+				}
+				//new_data[i][week_count] = temp;
 				temp = []
 			}
 		}
