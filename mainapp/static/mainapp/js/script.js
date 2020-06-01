@@ -600,7 +600,7 @@ function national_timeSeries_data() {
     confirmed_sum = 0, active_sum = 0, recovered_sum = 0, deceased_sum = 0;
 
     for (var key in data) {
-        if (key === 'Sindh' || key === "Punjab" || key === "AJK" || key === "Balochistan" || key === "GB" || key === "KPTD" || key === "Taftan_mobile_lab" || key === "KP") {
+        if (key === 'Sindh' || key === "Punjab" || key === "AJK" || key === "Balochistan" || key === "GB" || key === "KPTD" || key === "Taftan_mobile_lab" || key === "KP" || key === "ICT") {
             for (var i = 0; i < data[key].length; i++) {
                 d = new Date(data[key][i].date)
                 d_month = d.getMonth();
@@ -609,6 +609,7 @@ function national_timeSeries_data() {
                 }
                 if (new_data[0].length !== 0 && new_data[0][i] !== undefined) {
                     if (new_data[0][i].x.getTime() === d.getTime()) {
+						
                         new_data[0][i].y += data[key][i].total_discharged;
                         new_data[1][i].y += data[key][i].total_admitted;
                         new_data[2][i].y += data[key][i].total_died;
@@ -624,6 +625,7 @@ function national_timeSeries_data() {
             }
         }
     }
+	console.log(new_data)
     return new_data
 }
 
