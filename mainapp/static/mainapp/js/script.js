@@ -542,7 +542,7 @@ function national_donut_data() {
     confirmed_sum = 0, active_sum = 0, recovered_sum = 0, deceased_sum = 0;
 
     for (var key in data) {
-        if (key === 'Sindh' || key === "Punjab" || key === "AJK" || key === "Balochistan" || key === "GB" || key === "KPTD" || key === "Taftan_mobile_lab" || key === "KP") {
+        if (key === 'Sindh' || key === "Punjab" || key === "AJK" || key === "Balochistan" || key === "GB" || key === "KPTD" || key === "Taftan_mobile_lab" || key === "KP" || key === "ICT") {
             confirmed_sum += data[key][data[key].length - 1].total_tested_positive;
             active_sum += data[key][data[key].length - 1].total_admitted;
             recovered_sum += data[key][data[key].length - 1].total_discharged;
