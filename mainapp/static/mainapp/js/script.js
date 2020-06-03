@@ -285,12 +285,12 @@ var trend_chart_config = {
             },
             {
                 label: 'Confirmed',
-                pointBackgroundColor: '#b74e65',
-                pointBorderColor: '#b74e65',
+                pointBackgroundColor: '#d7aa00',
+                pointBorderColor: '#d7aa00',
                 pointRadius: 4,
                 fill: false,
-                backgroundColor: '#b74e65',
-                borderColor: '#b74e65',
+                backgroundColor: '#d7aa00',
+                borderColor: '#d7aa00',
                 data: b[3],
                 borderWidth: 3
             }
@@ -493,6 +493,10 @@ var prediction_accuracy_config = {
             }]
     },
     options: {
+		title: {
+            display: true,
+            text: 'Prediction Accuracy'
+        },
         responsive: true,
         maintainAspectRatio: false,
         scales: {
@@ -1172,19 +1176,19 @@ function expand_buttons(e) {
     selected_expansion_button = document.getElementById(e.target.id);
 
     var emergency_content = document.getElementById("emergency_content");
-    var symptoms_content = document.getElementById("symptoms_content");
+    //var symptoms_content = document.getElementById("symptoms_content");
     var precautions_content = document.getElementById("precautions_content");
 
 
     if (e.target.id === "emergency") {
-        if (symptoms_content.style.display !== "none") {
+        /*if (symptoms_content.style.display !== "none") {
             symptoms_content.style.display = "none"
-        }
+        }*/
         if (precautions_content.style.display !== "none") {
             precautions_content.style.display = "none"
         }
         emergency_content.style.display = "block";
-    } else if (e.target.id === "symptoms") {
+    } /*else if (e.target.id === "symptoms") {
         if (emergency_content.style.display !== "none") {
             emergency_content.style.display = "none"
         }
@@ -1192,13 +1196,14 @@ function expand_buttons(e) {
             precautions_content.style.display = "none"
         }
         symptoms_content.style.display = "block"
-    } else if (e.target.id === "precautions") {
+    } */
+	else if (e.target.id === "precautions") {
         if (emergency_content.style.display !== "none") {
             emergency_content.style.display = "none"
         }
-        if (symptoms_content.style.display !== "none") {
+        /*if (symptoms_content.style.display !== "none") {
             symptoms_content.style.display = "none"
-        }
+        }*/
         precautions_content.style.display = "block"
     }
 }
