@@ -181,9 +181,10 @@ var donut_config = {
                 '#d10d0d'*/
                 //'#d56f28',
                 '#d56f28',
-                '#477b37',
+                '#759441',
                 '#bb2635' 
             ],
+			borderWidth: 0,
         }],
         labels: ['Active', 'Recovered', 'Deceased']
     },
@@ -218,9 +219,10 @@ var donut_config = {
                 '#c84533',
                 '#be5465',
                 '#538c72',
-                '#7FA62E'
+                '#759441'
 
             ],
+			borderWidth:0,
         }],
         labels: province_labels
     },
@@ -249,12 +251,12 @@ var trend_chart_config = {
     data: {
         datasets: [{
                 label: 'Recovered',
-                pointBackgroundColor: '#477b37',
-                pointBorderColor: '#477b37',
+                pointBackgroundColor: '#759441',
+                pointBorderColor: '#759441',
                 pointRadius: 4,
                 fill: false,
-                backgroundColor: '#477b37',
-                borderColor: '#477b37',
+                backgroundColor: '#759441',
+                borderColor: '#759441',
                 //data: trend_data[0],
                 data: b[0],
                 borderWidth: 3
@@ -342,7 +344,7 @@ var myChart = new Chart(ctx1, trend_chart_config);
 var today = new Date();
 var prediction_graph_canvas = document.getElementById('time-series-graph-prediction').getContext('2d');
 var prediction_graph_config = {
-    type: 'bar',
+    type: 'line',
     data: {
         datasets: [{
             label: 'Prediction of Nationwide Cases',

@@ -183,7 +183,7 @@ svg text {
   padding-bottom: 2%;
   
   background-color: #c8a95f;
-  color: #ffffff;
+  color: #36332D;
   font-size: 20px;
   text-align: center;
   margin-bottom: 2%;
@@ -226,8 +226,8 @@ table th {
 }
 
 .general-info-seg {
-  background-color: white;
-  color: #8C0618;
+  background-color: #c8a95f;
+  color: #36332D;
   padding-top: 3%;
   padding-bottom: 5%;
 }
@@ -453,7 +453,8 @@ a:hover,a:focus{
 }
 #accordion .panel-title a{
     display: block;
-    padding: 15px 20px;
+    /*padding: 15px 20px;*/
+	padding: 3% 10%;
     background: #412333;
     border: none;
     font-size: 20px;
@@ -569,7 +570,7 @@ a:hover,a:focus{
     height: 100%;
     text-align: center;
     line-height: 50px;
-    border-left: 2px solid #8C0618;
+    border-left: 2px solid #36332D;
     position: absolute;
     top: 0;
     right: 27%;
@@ -581,7 +582,7 @@ a:hover,a:focus{
 #accordion2 .panel-body{
     padding: 10px 20px;
     margin: 0 0 20px;
-    border-bottom: 3px solid #8C0618;
+    border-bottom: 3px solid #36332D;
     border-top: none;
     background: #fff;
     font-size: 15px;
@@ -595,17 +596,17 @@ a:hover,a:focus{
 }
 
 #accordion2 .panel-title .fact-true{
-	color: #8C0618;
+	color: #36332D;
 	background: linear-gradient(to right, rgba(255,255,255,255) 69%,rgba(255,255,255,255) 20%,rgba(127, 166, 46, 1) 0%,rgba(127, 166, 46, 1) 100%);
 }
 
 #accordion2 .panel-title .fact-somewhat-true{
-	color: #8C0618;
-	background: linear-gradient(to right, rgba(255,255,255,255) 69%,rgba(255,255,255,255) 20%,rgba(215, 170, 0, 1) 0%,rgba(215, 170, 0, 1) 100%);
+	color: #36332D;
+	background: linear-gradient(to right, rgba(255,255,255,255) 69%,rgba(255,255,255,255) 20%,rgba(154, 166, 46, 1) 0%,rgba(215, 170, 0, 1) 100%);
 }
 
 #accordion2 .panel-title .fact-false{
-	color: #8C0618;
+	color: #36332D;
 	background: linear-gradient(to right, rgba(255,255,255,255) 69%,rgba(255,255,255,255) 20%,rgba(221,61,70, 1) 0%,rgba(221,61,70, 1) 100%);
 }
 

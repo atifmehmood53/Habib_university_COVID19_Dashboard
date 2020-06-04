@@ -43,6 +43,7 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active" onclick="startIntro()"><a class="nav-link" href="#" id="tutorial-button">Tutorial</a></li>
                 <li class="nav-item active" data-toggle="modal" data-target="#exampleModal"><a class="nav-link" href="#" id="feedback-button">Feedback</a></li>
+				<li class="nav-item active" data-toggle="modal" data-target="#refModal"><a class="nav-link" href="#" id="ref-button">References</a></li>
             </ul>
         </div>
         <div id="tip" class="ml-auto">
@@ -78,6 +79,29 @@
                         </div>
                 </form>
                 </div>
+
+            </div>
+        </div>
+    </div>
+	
+	<div class="modal fade" id="refModal" tabindex="-1" role="dialog" aria-labelledby="refModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reference-modal">References</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+                </div>
+                    <div class="modal-body">
+						<ul>
+							<li> Dermatology COVID19 registry: <a href="https://www.aad.org/member/practice/coronavirus/registry" style="text-decoration:underline"> https://www.aad.org/member/practice/coronavirus/registry"</a></li>
+							<li> Michelen M, Jones N and Stavropoulou C. In patients of COVID-19, what are the symptoms and clinical features of mild and moderate cases. Centre for Evidence Based Medicine, <a href="https://www.cebm.net/covid-19/in-patients-of-covid-19-what-are-the-symptoms-and-clinical-features-of-mild-and-moderate-case/" style="text-decoration:underline">https://www.cebm.net/covid-19/in-patients-of-covid-19-what-are-the-symptoms-and-clinical-features-of-mild-and-moderate-case/</a></li>
+							<li> Yan CH, Faraji F, Prajapati DP, Boone CE and DeConde AS. Association of chemosensory dysfunction and COVID‐19 in patients presenting with influenza‐like symptoms. Int Forum Allergy Rhinol. 2020; 1‐ 8. </li>
+							<li> World Health Organization Q and A: <a href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019/question-and-answers-hub/q-a-detail/q-a-coronaviruses"style="text-decoration:underline">https://www.who.int/emergencies/diseases/novel-coronavirus-2019/question-and-answers-hub/q-a-detail/q-a-coronaviruses"</a>
+						</ul>
+					</div>
 
             </div>
         </div>
@@ -212,13 +236,13 @@
                     </div>
 
                     <div class="row no-gutters">
-                        <div class="col-6 donut-chart" id="donut">
+                        <div class="col-6 donut-chart" id="donut" style="background-color: #c8a95f">
                             <!--Donut Chart-->
-                            <canvas id='donut-chart' height="250%"></canvas>
+                            <canvas id='donut-chart' height="250%" style="background-color: #c8a95f"></canvas>
                         </div>
-                        <div class="col-6 donut-chart" id="donut2">
+                        <div class="col-6 donut-chart" id="donut2" style="background-color: #c8a95f">
                             <!--Donut Chart-->
-                            <canvas id='donut-chart2' height="250%"></canvas>
+                            <canvas id='donut-chart2' height="250%" style="background-color: #c8a95f"></canvas>
                         </div>
                     </div>
 
@@ -286,14 +310,69 @@
         </div>
         <!--End of Main Section-->
 		
-			<div class="row">
+			
+		
+        <!--Details section-->
+        <div class="row details-section margin-row" id="trend-section">
+
+            <div class="col-lg-6 col-md-6 col-sm-12" id="trend-graph">
+                <div class="row">
+                    <div class="col-12">
+                        <div>
+                            <!--DO NOT REMOVE THIS ADDITIONAL DIV. THIS FIXES A BUG IN CHARTJS-->
+                            <canvas id="time-series-graph-confirmed-cases" height="300" class="details-graph"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="slidecontainer">
+                            <input type="range" min="0" max="20" value="20" step="1" class="slider" id="trend_slider">
+                        </div>
+                        <label for="" class="float-left slider-marker">Beginning</label>
+                        <label for="" class="float-right slider-marker">Current Week</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-12" id="prediction-graph">
+                <div>
+                    <!--DO NOT REMOVE THIS ADDITIONAL DIV. THIS FIXES A BUG IN CHARTJS-->
+                    <canvas id="time-series-graph-prediction" height="300" class="details-graph"></canvas>
+                </div>
+                <div class="view-more">
+                    <button class="btn" type="button" id="viewmore-button" data-toggle="collapse" data-target="#prediction-details" aria-expanded="false" aria-controls="prediction-details">View More Details</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row collapse" id="prediction-details">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div id="prediction-details-graph">
+                    <!--The detailed prediction graph will go here-->
+                    <canvas id="time-series-prediction-details" height="300" class="details-graph" style="visibility:hidden"></canvas>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div id="detail-description">
+                    <h6 class="text-center" id="description-heading">Description</h6>
+                    <p>	Forecasts for number of cumulative COVID19 cases at the national and provincial level are determined using statistical time series models with Holt's linear trend method. The best fit model is determined by fitting models with three broad categories of trends: linear, exponential and damped exponential, where the exponent is down weighted. If the trend exhibited nationally or provincially is clearly non-linear, only exponential or damped exponential models are used. For damped exponential models, multiple models are created using dampening factors between 0.8 and 1.0, where possible. </p>
+					<p> To ensure as accurate forecasts as possible, all models are validated by removing two weeks worth of data and then forecasting for this time period. Prediction error is estimated by calculating the Root Mean Squared Error (RMSE) and the Mean Absolute Percentage Error (MAPE). The model with the smallest RMSE and MAPE error is chosen for forecasting. Forecast models are updated as more data becomes available.</p>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12" style="margin-top: 2%; margin-bottom: 2%;">
+                <div>
+                    <canvas id="prediction-accuracy" height="300" class="details-graph" style="visibility:hidden"></canvas>
+                </div>
+            </div>
+        </div>
+		
+		<div class="row" style="margin-top: 2%">
 				<div class="col-md-6">
 					<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 						<div class="panel panel-default">
 							<div class="panel-title-heading" role="tab" id="head-tab">
 								<h4>
 									<a role="button" style="background-color: #bb4d4c">
-										Most Common Symptoms
+										Common Symptoms
 									</a>
 								</h4>
 							</div>
@@ -354,65 +433,12 @@
 						</div>
 					</div>
 				</div>
-				<!--<div class="col-md-4">
-					<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-						<div class="panel panel-default">
-							<div class="panel-title-heading" role="tab" id="head-tab">
-								<h4>
-									<a role="button" style="background-color: #92a24e">
-										Serious Symptoms
-									</a>
-								</h4>
-							</div>
-							<div class="panel-heading" role="tab" id="headingOne">
-								<h4 class="panel-title" style="font-style: italic">
-									<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#s2collapseOne" aria-expanded="false" aria-controls="s2collapseOne" style="background-color: #92a24e">
-										Difficulty in Breathing
-									</a>
-								</h4>
-							</div>
-							<div id="s2collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-								<div class="panel-body">
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nisl lorem, dictum id pellentesque at, vestibulum ut arcu. Curabitur erat libero, egestas eu tincidunt ac, rutrum ac justo. Vivamus condimentum laoreet lectus, blandit posuere tortor aliquam vitae. Curabitur molestie eros. </p>
-								</div>
-							</div>
-						</div>
-						<div class="panel panel-default">
-							<div class="panel-heading" role="tab" id="headingTwo">
-								<h4 class="panel-title" style="font-style: italic">
-									<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#s2collapseTwo" aria-expanded="false" aria-controls="s2collapseTwo" style="background-color: #92a24e">
-										Chest Pain
-									</a>
-								</h4>
-							</div>
-							<div id="s2collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-								<div class="panel-body">
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nisl lorem, dictum id pellentesque at, vestibulum ut arcu. Curabitur erat libero, egestas eu tincidunt ac, rutrum ac justo. Vivamus condimentum laoreet lectus, blandit posuere tortor aliquam vitae. Curabitur molestie eros. </p>
-								</div>
-							</div>
-						</div>
-						<div class="panel panel-default">
-							<div class="panel-heading" role="tab" id="headingThree">
-								<h4 class="panel-title" style="font-style: italic">
-									<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#s2collapseThree" aria-expanded="false" aria-controls="s2collapseThree" style="background-color: #92a24e">
-										Loss of Speech
-									</a>
-								</h4>
-							</div>
-							<div id="s2collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-								<div class="panel-body">
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nisl lorem, dictum id pellentesque at, vestibulum ut arcu. Curabitur erat libero, egestas eu tincidunt ac, rutrum ac justo. Vivamus condimentum laoreet lectus, blandit posuere tortor aliquam vitae. Curabitur molestie eros. </p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div> -->
 				<div class="col-md-6">
 					<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 						<div class="panel panel-default">
 							<div class="panel-title-heading" role="tab" id="head-tab">
 								<h4>
-									<a role="button" style="background-color: #538c72">
+									<a role="button" style="background-color: #d1512c">
 										Other Symptoms
 									</a>
 								</h4>
@@ -420,7 +446,7 @@
 							<div class="panel-heading" role="tab" id="headingOne">
 								
 								<h4 class="panel-title" style="font-style: italic">
-									<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#s3collapseOne" aria-expanded="false" aria-controls="s3collapseOne" style="background-color: #538c72">
+									<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#s3collapseOne" aria-expanded="false" aria-controls="s3collapseOne" style="background-color: #d1512c">
 										Shortness of Breath
 									</a>
 								</h4>
@@ -434,7 +460,7 @@
 						<div class="panel panel-default">
 							<div class="panel-heading" role="tab" id="headingTwo">
 								<h4 class="panel-title" style="font-style: italic">
-									<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#s3collapseTwo" aria-expanded="false" aria-controls="s3collapseTwo" style="background-color: #538c72">
+									<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#s3collapseTwo" aria-expanded="false" aria-controls="s3collapseTwo" style="background-color: #d1512c">
 										Body Aches and Fatigue
 									</a>
 								</h4>
@@ -448,7 +474,7 @@
 						<div class="panel panel-default">
 							<div class="panel-heading" role="tab" id="headingThree">
 								<h4 class="panel-title" style="font-style: italic">
-									<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree" style="background-color: #538c72">
+									<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree" style="background-color: #d1512c">
 										Diarrhoea and Other Stomach Issues
 									</a>
 								</h4>
@@ -462,7 +488,7 @@
 						<div class="panel panel-default">
 							<div class="panel-heading" role="tab" id="headingFour">
 								<h4 class="panel-title" style="font-style: italic">
-									<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour" style="background-color: #538c72">
+									<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour" style="background-color: #d1512c">
 										Rashes, Skin Discoloration, Chillbains
 									</a>
 								</h4>
@@ -476,59 +502,6 @@
 					</div>
 				</div>
 			</div>
-		
-        <!--Details section-->
-        <div class="row details-section margin-row" id="trend-section">
-
-            <div class="col-lg-6 col-md-6 col-sm-12" id="trend-graph">
-                <div class="row">
-                    <div class="col-12">
-                        <div>
-                            <!--DO NOT REMOVE THIS ADDITIONAL DIV. THIS FIXES A BUG IN CHARTJS-->
-                            <canvas id="time-series-graph-confirmed-cases" height="300" class="details-graph"></canvas>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="slidecontainer">
-                            <input type="range" min="0" max="20" value="20" step="1" class="slider" id="trend_slider">
-                        </div>
-                        <label for="" class="float-left slider-marker">Beginning</label>
-                        <label for="" class="float-right slider-marker">Current Week</label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-6 col-md-6 col-sm-12" id="prediction-graph">
-                <div>
-                    <!--DO NOT REMOVE THIS ADDITIONAL DIV. THIS FIXES A BUG IN CHARTJS-->
-                    <canvas id="time-series-graph-prediction" height="300" class="details-graph"></canvas>
-                </div>
-                <div class="view-more">
-                    <button class="btn" type="button" id="viewmore-button" data-toggle="collapse" data-target="#prediction-details" aria-expanded="false" aria-controls="prediction-details">View More Details</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="row collapse" id="prediction-details">
-            <div class="col-lg-6 col-md-6 col-sm-12">
-                <div id="prediction-details-graph">
-                    <!--The detailed prediction graph will go here-->
-                    <canvas id="time-series-prediction-details" height="300" class="details-graph" style="visibility:hidden"></canvas>
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-6 col-sm-12">
-                <div id="detail-description">
-                    <h6 class="text-center" id="description-heading">Description</h6>
-                    <p>	Forecasts for number of cumulative COVID19 cases at the national and provincial level are determined using statistical time series models with Holt's linear trend method. The best fit model is determined by fitting models with three broad categories of trends: linear, exponential and damped exponential, where the exponent is down weighted. If the trend exhibited nationally or provincially is clearly non-linear, only exponential or damped exponential models are used. For damped exponential models, multiple models are created using dampening factors between 0.8 and 1.0, where possible. </p>
-					<p> To ensure as accurate forecasts as possible, all models are validated by removing two weeks worth of data and then forecasting for this time period. Prediction error is estimated by calculating the Root Mean Squared Error (RMSE) and the Mean Absolute Percentage Error (MAPE). The model with the smallest RMSE and MAPE error is chosen for forecasting. Forecast models are updated as more data becomes available.</p>
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-6 col-sm-12" style="margin-top: 2%; margin-bottom: 2%;">
-                <div>
-                    <canvas id="prediction-accuracy" height="300" class="details-graph" style="visibility:hidden"></canvas>
-                </div>
-            </div>
-        </div>
 		
 		<div class="row details-section justify-content-center" style="background-color: #c8a95f">
 				<div class="col-md-9">
@@ -546,7 +519,7 @@
 									<a class="collapsed fact-true" role="button" data-toggle="collapse" data-parent="#accordion2" href="#collapse1" aria-expanded="false" aria-controls="collapse1">
 										
 										<span style="width: 70%">Loss of smell and taste is a symptom of COVID-19.</span>
-										<span class="fact-truth">  True </span>
+										<span class="fact-truth" style="text-transform: uppercase">  True </span>
 									</a>
 									
 								</h4>
@@ -570,7 +543,7 @@
 									<a class="collapsed fact-somewhat-true" role="button" data-toggle="collapse" data-parent="#accordion2" href="#collapse2" aria-expanded="false" aria-controls="collapse2">
 										
 										<span style="width: 70%">Consuming lemon and other citrus fruit can prevent Covid-19 infection.</span>
-										<span class="fact-truth"> Somewhat True </span>
+										<span class="fact-truth" style="text-transform: uppercase"> Somewhat True </span>
 									</a>
 								</h4>
 							</div>
@@ -591,7 +564,7 @@
 								<h4 class="panel-title">
 									<a class="collapsed fact-false" role="button" data-toggle="collapse" data-parent="#accordion2" href="#collapse3" aria-expanded="false" aria-controls="collapse3">
 										<span style="width: 70%">Fact 3</span>
-										<span class="fact-truth"> False </span>
+										<span class="fact-truth" style="text-transform: uppercase"> False </span>
 									</a>
 									
 								</h4>
