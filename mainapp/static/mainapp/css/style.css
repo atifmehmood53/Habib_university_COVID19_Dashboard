@@ -23,7 +23,13 @@ canvas {
   background-color: white;
   min-height: 100%;
   padding-bottom: 3%;
+  
 }
+
+#donut-chart, #donut-chart2 {
+  padding-bottom: 1%;
+}
+
 
 svg {
     position: relative;
