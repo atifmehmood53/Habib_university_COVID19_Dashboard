@@ -1228,7 +1228,7 @@ function startIntro() {
             },
             {
                 element: '#navbar',
-                intro: "The dashboard is divided into 3 sections."
+                intro: "The dashboard is divided into 5 sections."
             },
             {
                 element: '#map',
@@ -1278,6 +1278,31 @@ function startIntro() {
             {
                 element: '#prediction-graph',
                 intro: 'This graph shows a prediction for the number of cases for the next 14 days. Keep in mind that this is only a prediction.',
+                position: 'top'
+            },
+            {
+                element: '#viewmore-button',
+                intro: 'Click this to view more details about the predictions.',
+                position: 'bottom'
+            },
+            {
+                element: '#symptoms-section',
+                intro: 'This section lists some of the most common as well as other symptoms for coronavirus.',
+                position: 'top'
+            },
+            {
+                element: '#headingOne',
+                intro: 'Click on each symptom to read more about it.',
+                position: 'top'
+            },
+            {
+                element: '#factchecking-section',
+                intro: 'This section shows some of the prevailing myths, misconceptions as well as facts regarding COVID-19 and to what extent they are true.',
+                position: 'top'
+            },
+            {
+                element: '#factheadingOne',
+                intro: 'Click on each fact to learn more about it and view the source of information as well.',
                 position: 'top'
             },
             {
