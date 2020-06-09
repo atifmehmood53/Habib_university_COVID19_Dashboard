@@ -86,7 +86,13 @@ fill: #585858;
   background-color: #c8a95f;
   /*margin-bottom: 15%;*/
 }
-
+h7, h8, h9, h10{
+  font-weight: bold;
+  font-size: 16px;
+}
+h6{
+  font-weight: bold;
+}
 
 .view-more button{
   color: white;

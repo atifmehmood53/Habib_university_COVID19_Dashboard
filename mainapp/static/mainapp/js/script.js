@@ -1242,13 +1242,23 @@ function startIntro() {
             },
             {
                 element: '#donut',
-                intro: "This doughnut chart shows current numbers for confirmed, active, recorvered, and deceased cases. Hover over any colored segment to see the exact number of cases.",
+                intro: "This doughnut chart shows current numbers for active, recorvered, and deceased cases. Hover over any colored segment to see the exact number of cases.",
                 position: 'left'
             },
             {
                 element: '#donut',
-                intro: 'You can also click on any of the names to remove them from the chart. Try clicking on Confirmed Cases to remove it. You can always click on them again to bring them back!',
+                intro: 'You can also click on any of the names to remove them from the chart. Try clicking on Active Cases to remove it. You can always click on them again to bring them back!',
                 position: 'left'
+            },
+            {
+                element: '#donut-chart2',
+                intro: "This doughnut chart shows current number of confirmed cases for each province. Hover over any colored segment to see the exact number of cases.",
+                position: 'right'
+            },
+            {
+                element: '#donut-chart2',
+                intro: 'You can also click on any of the names to remove them from the chart. Try clicking on Sindh to remove it. You can always click on them again to bring them back!',
+                position: 'right'
             },
             {
                 element: '#info-sec',
@@ -1257,13 +1267,13 @@ function startIntro() {
             },
             {
                 element: '#info-sec-buttons',
-                intro: 'In addition to contact info, you can use these buttons to view the precautions and symtoms of COVID-19 as well.',
+                intro: 'In addition to contact info, you can use these buttons to view the necessary precautions for COVID-19 as well.',
                 position: 'right'
             },
             {
                 element: '#trend-section',
                 intro: 'This is where you can see the trends for each type of case as well a prediction for the next two weeks!',
-                position: 'top'
+                position: 'bottom'
             },
             {
                 element: '#trend-graph',
@@ -1288,7 +1298,7 @@ function startIntro() {
             {
                 element: '#symptoms-section',
                 intro: 'This section lists some of the most common as well as other symptoms for coronavirus.',
-                position: 'top'
+                position: 'right'
             },
             {
                 element: '#headingOne',
@@ -1298,12 +1308,12 @@ function startIntro() {
             {
                 element: '#factchecking-section',
                 intro: 'This section shows some of the prevailing myths, misconceptions as well as facts regarding COVID-19 and to what extent they are true.',
-                position: 'top'
+                position: 'bottom'
             },
             {
                 element: '#factheadingOne',
                 intro: 'Click on each fact to learn more about it and view the source of information as well.',
-                position: 'top'
+                position: 'bottom'
             },
             {
                 element: '#feedback-button',
