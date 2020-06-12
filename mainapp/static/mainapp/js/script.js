@@ -184,7 +184,6 @@ var donut_config = {
                 '#759441',
                 '#bb2635' 
             ],
-			borderWidth: 0,
         }],
         labels: ['Active', 'Recovered', 'Deceased']
     },
@@ -222,7 +221,6 @@ var donut_config = {
                 '#759441'
 
             ],
-			borderWidth:0,
         }],
         labels: province_labels
     },
@@ -452,10 +450,6 @@ var prediction_details_config = {
             }],
             yAxes: [{
                 display: true,
-                ticks: {
-                    max: 100000,
-                    min: 0
-                },
                 scaleLabel: {
                     display: true,
                     labelString: '# of people'
@@ -495,10 +489,10 @@ var prediction_accuracy_config = {
             }]
     },
     options: {
-		title: {
+		/*title: {
             display: true,
             text: 'Prediction Accuracy'
-        },
+        },*/
         responsive: true,
         maintainAspectRatio: false,
         scales: {

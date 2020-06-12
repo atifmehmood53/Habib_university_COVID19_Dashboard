@@ -511,9 +511,9 @@ a:hover,a:focus{
 #accordion .panel-body{
     padding: 10px 20px;
     border: none;
-    background: #fff;
+    background: #c8a95f;
     font-size: 15px;
-    color: #807e7e;
+    color: #36332D;
     line-height: 28px;
 	margin-bottom: 2%;
 }

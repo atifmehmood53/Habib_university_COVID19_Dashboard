@@ -105,6 +105,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
+					<h6>References for Symptoms</h6>
                     <ul>
                         <li> Dermatology COVID19 registry: <a
                                 href="https://www.aad.org/member/practice/coronavirus/registry"
@@ -291,13 +292,17 @@
                     </div>
 
                     <div class="row no-gutters">
-                        <div class="col-6 donut-chart" id="donut" style="background-color: #c8a95f">
+                        <div class="col-6" >
                             <!--Donut Chart-->
-                            <canvas id='donut-chart' height="250%"></canvas>
+							<div class="col-md-12 donut-chart" id="donut" style="background-color: #c8a95f">
+								<canvas id='donut-chart' height="280%" class="details-graph"></canvas>
+							</div>
                         </div>
-                        <div class="col-6 donut-chart" id="donut2" style="background-color: #c8a95f">
+                        <div class="col-md-6" >
                             <!--Donut Chart-->
-                            <canvas id='donut-chart2' height="250%"></canvas>
+							<div class="col-md-12 donut-chart" id="donut2" style="background-color: #c8a95f">
+								<canvas id='donut-chart2' height="280%" class="details-graph"></canvas>
+							</div>
                         </div>
                     </div>
 
@@ -396,7 +401,7 @@
             </div>
 
             <div class="col-lg-6 col-md-6 col-sm-12 text-center" id="prediction-graph">
-                <h8>14-Day Prediction</h8>
+                <!--<h8>14-Day Prediction</h8>-->
                 <div>
                     <!--DO NOT REMOVE THIS ADDITIONAL DIV. THIS FIXES A BUG IN CHARTJS-->
                     <canvas id="time-series-graph-prediction" height="300" class="details-graph"></canvas>
@@ -713,11 +718,11 @@
                     <div class="panel panel-default">
                         <div class="panel-heading" role="tab" id="headingThree">
                             <h4 class="panel-title">
-                                <a class="collapsed fact-false" role="button" data-toggle="collapse"
+                                <a class="collapsed fact-somewhat-true" role="button" data-toggle="collapse"
                                     data-parent="#accordion2" href="#collapse3" aria-expanded="false"
                                     aria-controls="collapse3">
-                                    <span style="width: 70%">Fact 3</span>
-                                    <span class="fact-truth" style="text-transform: uppercase"> False </span>
+                                    <span style="width: 70%">Can Covid-19 be transmitted through the faeces of infected patients?</span>
+                                    <span class="fact-truth" style="text-transform: uppercase"> Somewhat true </span>
                                 </a>
 
                             </h4>
@@ -725,10 +730,40 @@
                         <div id="collapse3" class="panel-collapse collapse" role="tabpanel"
                             aria-labelledby="headingThree">
                             <div class="panel-body">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nisl lorem, dictum
-                                    id pellentesque at, vestibulum ut arcu. Curabitur erat libero, egestas eu tincidunt
-                                    ac, rutrum ac justo. Vivamus condimentum laoreet lectus, blandit posuere tortor
-                                    aliquam vitae. Curabitur molestie eros. </p>
+								<b>Description:</b>
+                                <ul> 
+									<li> SARS-CoV RNA (genetic material) <strong>is detectable in stool samples</strong> of laboratory-confirmed Covid-19 patients. * No viral RNA was detected in urine specimens.</li>
+									<li> Being tested positive for SARS-CoV-2 RNA in stool specimens is not associated with the presence of gastrointestinal symptoms and the severity of illness.</li>
+									<li> Viral RNA continues to be detected in patients for an average of 7 days (6-10 days range) following negative pharyngeal swabs suggesting that transmission may occur even after viral clearance in respiratory tract.</li>
+									<li> Fecal-oral route may serve as an alternative transmission route for SARS-CoV-2. </li>
+								</ul>
+								<p>Side Note: This study has significant impact on SOP’s concerning Covid-19 patient discharge. This, and other studies show that patients should not be discharged based purely on negative RT-PCR test results for viral RNA in pharyngeal swabs. Viral RNA detection via anal swabs/stool specimens in Covid-19 patients during hospitalization and recovery should be routinely performed and precautions must be taken until negative conversion of viral RNA in feces is seen.</p>
+								<p><b>Citation: </b> Chen Y, Chen L, Deng Q, et al. The presence of SARS-CoV-2 RNA in the feces of COVID-19 patients. J Med Virol. 2020;92(7):833‐840. doi: <a href="10.1002/jmv.25825" style="text-decoration: underline">10.1002/jmv.25825</a><a href="https://pubmed.ncbi.nlm.nih.gov/32243607/" style="text-decoration: underline">https://pubmed.ncbi.nlm.nih.gov/32243607/</a></p>
+                            </div>
+                        </div>
+                    </div>
+					<div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingFour">
+                            <h4 class="panel-title">
+                                <a class="collapsed fact-true" role="button" data-toggle="collapse"
+                                    data-parent="#accordion2" href="#collapse4" aria-expanded="false"
+                                    aria-controls="collapse4">
+                                    <span style="width: 70%">Does smoking make you more susceptible to Covid-19 infection?</span>
+                                    <span class="fact-truth" style="text-transform: uppercase"> True </span>
+                                </a>
+
+                            </h4>
+                        </div>
+                        <div id="collapse4" class="panel-collapse collapse" role="tabpanel"
+                            aria-labelledby="headingFour">
+                            <div class="panel-body">
+								<b>Description:</b>
+                                <ul> 
+									<li>Studies have presented extensive evidence which has highlighted the negative impact of tobacco use on lung health and its causal association with respiratory diseases.</li>
+									<li>Specifically, in terms of Covid-19, studies have shown that <strong>smokers are 1.4 times more likely</strong> to <strong>have severe symptoms of Covid-19</strong> and approx. 2.4 times more likely to be admitted to an ICU, need mechanical ventilation or die in comparison to non-smokers.</li>
+									<li>Overall, smoking <strong>is most likely associated with the negative progression</strong> of Covid-19.</li>
+								</ul>
+								<p><b>Citation:</b> Vardavas CI, Nikitara K. COVID-19 and smoking: A systematic review of the evidence. Tob Induc Dis. 2020;18:20. Published 2020 Mar 20. doi:<a href="10.18332/tid/119324" style="text-decoration: underline">10.18332/tid/119324</a> <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7083240/" style="text-decoration: underline">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7083240/</a></p>
                             </div>
                         </div>
                     </div>
