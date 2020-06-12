@@ -335,10 +335,6 @@ var prediction_graph_config = {
             }],
             yAxes: [{
                 display: true,
-				ticks:{
-					max:100000,
-					min: 0
-				},
                 scaleLabel: {
                     display: true,
                     labelString: '# of people'
