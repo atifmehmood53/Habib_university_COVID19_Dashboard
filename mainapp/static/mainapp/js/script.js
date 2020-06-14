@@ -299,6 +299,10 @@ var trend_chart_config = {
     options: {
         responsive: true,
         maintainAspectRatio: false,
+        title: {
+            display: true,
+            text: 'Trends'
+        },
         scales: {
             xAxes: [{
                 display: true,
@@ -345,7 +349,7 @@ var prediction_graph_config = {
     type: 'line',
     data: {
         datasets: [{
-            label: 'Prediction of Nationwide Cases',
+            label: 'Nationwide Cases',
             pointBackgroundColor: '#c96044',
             pointBorderColor: '#c96044',
             pointRadius: 5,
@@ -360,6 +364,10 @@ var prediction_graph_config = {
     options: {
         responsive: true,
         maintainAspectRatio: false,
+        title: {
+            display: true,
+            text: 'Predictions'
+        },
         scales: {
             xAxes: [{
                 type: 'time',
@@ -376,7 +384,7 @@ var prediction_graph_config = {
                 display: true,
                 scaleLabel: {
                     display: true,
-                    labelString: '# of people'
+                    labelString: 'Number of cases'
                 }
             }]
         }
@@ -431,6 +439,10 @@ var prediction_details_config = {
     options: {
         responsive: true,
         maintainAspectRatio: false,
+        title: {
+            display: true,
+            text: 'Detailed Predictions'
+        },
         elements: {
             point: {
                 radius: 0
@@ -452,7 +464,7 @@ var prediction_details_config = {
                 display: true,
                 scaleLabel: {
                     display: true,
-                    labelString: '# of people'
+                    labelString: 'Number of cases'
                 }
             }]
         }
@@ -489,12 +501,12 @@ var prediction_accuracy_config = {
             }]
     },
     options: {
-		/*title: {
-            display: true,
-            text: 'Prediction Accuracy'
-        },*/
         responsive: true,
         maintainAspectRatio: false,
+        title: {
+            display: true,
+            text: 'Prediction Accuracy'
+        },
         scales: {
             xAxes: [{
                 display: true,

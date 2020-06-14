@@ -383,8 +383,7 @@
 
             <div class="col-lg-6 col-md-6 col-sm-12" id="trend-graph">
                 <div class="row">
-                    <div class="col-12 text-center">
-                        <h7>Trends</h7>
+                    <div class="col-12">
                         <div>
                             <!--DO NOT REMOVE THIS ADDITIONAL DIV. THIS FIXES A BUG IN CHARTJS-->
                             <canvas id="time-series-graph-confirmed-cases" height="300" class="details-graph"></canvas>
@@ -400,23 +399,20 @@
                 </div>
             </div>
 
-            <div class="col-lg-6 col-md-6 col-sm-12 text-center" id="prediction-graph">
-                <!--<h8>14-Day Prediction</h8>-->
+            <div class="col-lg-6 col-md-6 col-sm-12" id="prediction-graph">
                 <div>
                     <!--DO NOT REMOVE THIS ADDITIONAL DIV. THIS FIXES A BUG IN CHARTJS-->
                     <canvas id="time-series-graph-prediction" height="300" class="details-graph"></canvas>
                 </div>
-                <div class="view-more">
+                <div class="view-more text-center">
                     <button class="btn" type="button" id="viewmore-button" data-toggle="collapse"
-                        data-target="#prediction-details" aria-expanded="false" aria-controls="prediction-details">View
-                        More Details</button>
+                        data-target="#prediction-details" aria-expanded="false" aria-controls="prediction-details">View More Details</button>
                 </div>
             </div>
         </div>
 
         <div class="row collapse" id="prediction-details">
-            <div class="col-lg-6 col-md-6 col-sm-12 text-center">
-                <h10>14-Day Prediction</h10>
+            <div class="col-lg-6 col-md-6 col-sm-12">
                 <div id="prediction-details-graph">
                     <!--The detailed prediction graph will go here-->
                     <canvas id="time-series-prediction-details" height="300" class="details-graph"
@@ -440,8 +436,7 @@
                         updated as more data becomes available.</p>
                 </div>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-12 text-center" style="margin-top: 2%; margin-bottom: 2%;">
-                <h9>Prediction Accuracy</h9>
+            <div class="col-lg-6 col-md-6 col-sm-12" style="margin-top: 2%; margin-bottom: 2%;">
                 <div>
                     <canvas id="prediction-accuracy" height="300" class="details-graph"
                         style="visibility:hidden"></canvas>
