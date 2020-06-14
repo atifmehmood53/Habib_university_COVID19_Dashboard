@@ -1272,8 +1272,8 @@ function startIntro() {
                 position: 'right'
             },
             {
-                element: '#info-sec-buttons',
-                intro: 'In addition to contact info, you can use these buttons to view the necessary precautions for COVID-19 as well.',
+                element: '#precautions-button',
+                intro: 'In addition to contact info, you can use this button to view the necessary precautions for COVID-19 as well.',
                 position: 'right'
             },
             {
@@ -1303,7 +1303,7 @@ function startIntro() {
             },
             {
                 element: '#symptoms-section',
-                intro: 'This section lists some of the most common as well as other symptoms for coronavirus.',
+                intro: 'This section lists some of the most common as well as other symptoms for COVID-19.',
                 position: 'right'
             },
             {
