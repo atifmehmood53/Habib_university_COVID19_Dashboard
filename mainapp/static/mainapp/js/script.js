@@ -1223,7 +1223,7 @@ center_2.textContent = "";
 center_3.textContent = "";
 
 
-setInterval(update_tip_text, 5000);
+//setInterval(update_tip_text, 5000);
 
 function startIntro() {
     var intro = introJs();
