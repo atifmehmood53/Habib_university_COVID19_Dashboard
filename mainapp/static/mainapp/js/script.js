@@ -52,43 +52,43 @@ var week_slider = document.getElementById("week_slider");
 // Ensure the "http://"
 var hospital_info = [
     [
-        ["Abbas Institute of Medical Sciences, Muzzaffarabad", ""],
-        ["DHQ Hospital, Mirpur", ""],
-        ["Sheikh Khalifa Bin Zaid (SKBZ) Hospital, Rawalakot", ""]
+        ["Abbas Institute of Medical Sciences, Muzzaffarabad", "#"],
+        ["DHQ Hospital, Mirpur", "#"],
+        ["Sheikh Khalifa Bin Zaid (SKBZ) Hospital, Rawalakot", "#"]
     ], //AK
 
     [
-        ["Red Crescent Hospital, Gwadar", ""],
-        ["Fatima Jinnah General and Chest Hospital, Quetta", ""],
-        ["DHQ Teaching Hospital, Turbat", ""]
+        ["Red Crescent Hospital, Gwadar", "#"],
+        ["Fatima Jinnah General and Chest Hospital, Quetta", "#"],
+        ["DHQ Teaching Hospital, Turbat", "#"]
     ], //BA
 
     [
-        ["Civil Hospital, Hunza", ""],
-        ["DHQ Hospital, Gilgit", ""],
-        ["DHQ Hospital, Skardu", ""]
+        ["Civil Hospital, Hunza", "#"],
+        ["DHQ Hospital, Gilgit", "#"],
+        ["DHQ Hospital, Skardu", "#"]
     ], //GB
 
     [
-        ["Pakistan Institute of Medical Sciences (PIMS), Islamabad", ""]
+        ["Pakistan Institute of Medical Sciences (PIMS), Islamabad", "https://pims.gov.pk/"]
     ], //IS
 
     [
-        ["Bacha Khan Medical Complex, Swabi", ""],
-        ["Ayub Teaching Hospital, Abbotabad", ""],
-        ["Lady Reading Hospital, Peshawar", ""]
+        ["Bacha Khan Medical Complex, Swabi", "http://gkmcs.edu.pk/ath/bacha-khan-medical-complex-shah-mansoor/2"],
+        ["Ayub Teaching Hospital, Abbotabad", "http://ath.gov.pk/"],
+        ["Lady Reading Hospital, Peshawar", "https://www.lrh.edu.pk/"]
     ], //KP
 
     [
-        ["Benazir Bhutto Hospital, Rawalpindi", ""],
-        ["Services Hospital, Lahore", ""],
-        ["Allied Teaching Hospital, Faisalabad", ""]
+        ["Benazir Bhutto Hospital, Rawalpindi", "#"],
+        ["Services Hospital, Lahore", "http://sims.edu.pk/shl.aspx"],
+        ["Allied Teaching Hospital, Faisalabad", "https://www.facebook.com/alliedhospital/"]
     ], //PB
 
     [
-        ["Aga Khan University Hospital, Karachi", ""],
-        ["LUMHS hospital, Hyderabad", ""],
-        ["Jinnah Postgraduate Medical Centre, Karachi", ""]
+        ["Aga Khan University Hospital, Karachi", "https://hospitals.aku.edu/pakistan/karachi/pages/default.aspx"],
+        ["LUMHS hospital, Hyderabad", "https://www.lumhs.edu.pk/"],
+        ["Jinnah Postgraduate Medical Centre, Karachi", "https://www.jpmc.edu.pk/"]
     ] //SD
 ];
 var hospital_links = [
