@@ -1302,9 +1302,19 @@ function startIntro() {
                 position: 'bottom'
             },
             {
+                element: '#time-series-prediction-details',
+                intro: 'This graph provides more details about the predictions. Between the Upper and Lower Confidence Interval is the range in which the predictions are most likely to lie.',
+                position: 'right'
+            },
+            {
+                element: '#prediction-accuracy',
+                intro: 'This graph shows a comparison between the predictions alongwith the data for the days that have already elapsed so you can see how accurate the predictions were!',
+                position: 'right'
+            },
+            {
                 element: '#symptoms-section',
                 intro: 'This section lists some of the most common as well as other symptoms for COVID-19.',
-                position: 'right'
+                position: 'bottom'
             },
             {
                 element: '#headingOne',
@@ -1339,6 +1349,14 @@ function startIntro() {
         ]
     });
     intro.setOption('showProgress', true);
+    intro.onchange(function(targetElement) {
+        console.log(targetElement.id);
+        if (targetElement.id === 'viewmore-button') {
+            if ($('#viewmore-button').hasClass('collapsed')) {
+                $('#viewmore-button').click();
+            }
+        }
+    });
     intro.start();
 }
 
