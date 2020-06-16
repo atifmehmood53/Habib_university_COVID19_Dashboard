@@ -26,7 +26,10 @@ def index(request):
     }
     data1 = dict()
 
+    
+
     data1['Predictions'] = (predictionSerializer(Prediction_model.objects.all(), many = True)).data
+    #data1['city_Data'] = (citySerializer(city_Data.objects.all(), many = True)).data
 
     for province,_  in (province_choices):
        context["total_cases_today"][province]= ((Daily_Cases.objects.filter(province=province)))
@@ -126,6 +129,47 @@ def prediction_data(request):
 
 
     context = {}
+
+    return render(request, template, context)
+
+@permission_required('admin.can_add_log_entry')
+def city_data_upload(request):
+    template = 'data.html'
+    form  = Option()
+    context = {'form': form}
+
+    prompt = {
+    'order': 'Order of the csv should be date , province , suspected , tested , tested positive , admitted, discharged , death'
+    }
+
+    if request.method == 'GET':
+        return render(request, template, prompt)
+    
+    csv_file = request.FILES['file']
+
+    data_set = csv_file.read().decode('utf-8')
+    io_string = io.StringIO(data_set)
+    next(io_string)
+
+    if request.method == 'POST':
+        form = Option(request.POST)
+        if form.is_valid():
+            province_choice = form.cleaned_data['province']
+        
+        form = Option() 
+
+        for col in csv.reader(io_string, delimiter=','):
+            _, created = city_Data.objects.update_or_create(
+                id =int(col[0]),
+                date = (col[1]),
+                district = (col[2]),
+                total = int(col[3]),
+                casePerMillionPopulation = int(col[3]) / int(col[5]),
+                Population = int(col[5]),
+                province =  province_choice
+            )
+
+
 
     return render(request, template, context)
 

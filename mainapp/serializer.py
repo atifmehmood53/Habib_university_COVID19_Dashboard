@@ -17,4 +17,9 @@ class predictionSerializer(serializers.ModelSerializer):
         exclude = ['entry_id']
 
 
+class citySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = city_Data
+        exclude = ['id']
+
     

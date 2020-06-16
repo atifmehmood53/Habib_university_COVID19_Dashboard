@@ -43,3 +43,11 @@ class feedback(models.Model):
 
 
 
+class city_Data(models.Model):
+    id = models.IntegerField(default = 0 , primary_key = True)
+    date = models.DateField(auto_now_add=False)
+    district = models.CharField(max_length = 250)
+    total = models.IntegerField(default =None)
+    casePerMillionPopulation = models.FloatField(default = None)
+    Population = models.IntegerField(default = None)
+    province = models.CharField(default = None, max_length =255 )
