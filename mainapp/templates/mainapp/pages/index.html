@@ -399,12 +399,23 @@
                 </div>
             </div>
 
-            <div class="col-lg-6 col-md-6 col-sm-12" id="prediction-graph">
+            <div class="col-lg-6 col-md-6 col-sm-12" id="city-graph">
+				<div>
+					<!--DO NOT REMOVE THIS ADDITIONAL DIV. THIS FIXES A BUG IN CHARTJS-->
+					<canvas id="cities-graph" height="300" class="details-graph"></canvas>
+				</div>
+            </div>
+			<div class="col-lg-6 col-md-6 col-sm-12" id="prediction-graph">
                 <div>
                     <!--DO NOT REMOVE THIS ADDITIONAL DIV. THIS FIXES A BUG IN CHARTJS-->
                     <canvas id="time-series-graph-prediction" height="300" class="details-graph"></canvas>
                 </div>
-                <div class="view-more text-center">
+            </div>
+			<div class="col-lg-6 col-md-6 col-sm-12" id="prediction-accuracy-graph">
+                <div>
+                    <canvas id="prediction-accuracy" height="300" class="details-graph"></canvas>
+                </div>
+				<div class="view-more text-center">
                     <button class="btn" type="button" id="viewmore-button" data-toggle="collapse"
                         data-target="#prediction-details" aria-expanded="false" aria-controls="prediction-details">View More Details</button>
                 </div>
@@ -434,12 +445,6 @@
                         calculating the Root Mean Squared Error (RMSE) and the Mean Absolute Percentage Error (MAPE).
                         The model with the smallest RMSE and MAPE error is chosen for forecasting. Forecast models are
                         updated as more data becomes available.</p>
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-6 col-sm-12" style="margin-top: 2%; margin-bottom: 2%;">
-                <div>
-                    <canvas id="prediction-accuracy" height="300" class="details-graph"
-                        style="visibility:hidden"></canvas>
                 </div>
             </div>
         </div>
@@ -653,7 +658,6 @@
                         <div id="collapse1" class="panel-collapse collapse in" role="tabpanel"
                             aria-labelledby="headingOne">
                             <div class="panel-body">
-                                <b>Description:</b>
                                 <ul>
                                     <li>Along with other classical symptoms such fatigue, headache and fever, loss of
                                         smell and taste (chemosensory dysfuction) has been shown to be <strong> strongly
@@ -691,7 +695,6 @@
                         <div id="collapse2" class="panel-collapse collapse" role="tabpanel"
                             aria-labelledby="headingTwo">
                             <div class="panel-body">
-                                <b>Description:</b>
                                 <ul>
                                     <li> SARS-CoV-2 protease, Spike glycoprotein-RBD and PD-ACE2, are three target
                                         receptors which have been shown to contribute to virus infection. </li>
@@ -725,7 +728,6 @@
                         <div id="collapse3" class="panel-collapse collapse" role="tabpanel"
                             aria-labelledby="headingThree">
                             <div class="panel-body">
-								<b>Description:</b>
                                 <ul> 
 									<li> SARS-CoV RNA (genetic material) <strong>is detectable in stool samples</strong> of laboratory-confirmed COVID-19 patients. * No viral RNA was detected in urine specimens.</li>
 									<li> Being tested positive for SARS-CoV-2 RNA in stool specimens is not associated with the presence of gastrointestinal symptoms and the severity of illness.</li>
@@ -752,7 +754,6 @@
                         <div id="collapse4" class="panel-collapse collapse" role="tabpanel"
                             aria-labelledby="headingFour">
                             <div class="panel-body">
-								<b>Description:</b>
                                 <ul> 
 									<li>Studies have presented extensive evidence which has highlighted the negative impact of tobacco use on lung health and its causal association with respiratory diseases.</li>
 									<li>Specifically, in terms of COVID-19, studies have shown that <strong>smokers are 1.4 times more likely</strong> to <strong>have severe symptoms of COVID-19</strong> and approx. 2.4 times more likely to be admitted to an ICU, need mechanical ventilation or die in comparison to non-smokers.</li>

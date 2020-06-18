@@ -544,6 +544,87 @@ var prediction_accuracy_config = {
         }
     }
 };
+var prediction_accuracy_graph = new Chart(prediction_accuracy_canvas, prediction_accuracy_config);
+
+var cities_canvas = document.getElementById('cities-graph').getContext('2d');
+var cities_config = {
+    type: 'line',
+    data: {
+        datasets: [{
+                label: 'Upper Confidence Interval',
+                //pointBackgroundColor: '#d7aa00',
+                //pointBorderColor: '#d7aa00',
+                //pointRadius: 5,
+                borderDash: [20, 5],
+                borderColor: '#d7aa00',
+                backgroundColor: 'rgba(215, 170, 0, 0.5)',
+                data: c[2],
+                //data: predictions[1],
+                fill: '+1',
+                borderWidth: 3
+            },
+            {
+                label: 'Prediction of Nationwide Cases',
+                pointBackgroundColor: '#c96044',
+                pointBorderColor: '#c96044',
+                pointRadius: 5,
+                borderColor: '#c96044',
+                backgroundColor: '#c96044',
+                data: c[1],
+                fill: false,
+                //data: predictions[0],
+                borderWidth: 3
+            },
+            {
+                label: 'Lower Confidence Interval',
+                //pointBackgroundColor: '#908834',
+                //pointBorderColor: '#908834',
+                //pointRadius: 4,
+                borderDash: [20, 5],
+                borderColor: '#d7aa00',
+                backgroundColor: 'rgba(215, 170, 0, 0.5)',
+                data: c[0],
+                fill: '-1',
+                //data: predictions[2],
+                borderWidth: 3
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        title: {
+            display: true,
+            text: 'Detailed Predictions'
+        },
+        elements: {
+            point: {
+                radius: 0
+            }
+        },
+        scales: {
+            xAxes: [{
+                type: 'time',
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Date'
+                },
+                ticks: {
+                    source: 'data'
+                }
+            }],
+            yAxes: [{
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Number of cases'
+                }
+            }]
+        }
+    }
+};
+var cities_graph = new Chart(cities_canvas, cities_config);
 
 
 
@@ -1430,14 +1511,14 @@ function showGraph() {
     }
 
 
-    var prediction_accuracy_graph = new Chart(prediction_accuracy_canvas, prediction_accuracy_config);
+    /*var prediction_accuracy_graph = new Chart(prediction_accuracy_canvas, prediction_accuracy_config);
 
     if (document.getElementById('prediction-accuracy').style.visibility === "hidden") {
         document.getElementById('prediction-accuracy').style.visibility = "visible";
     } else if (document.getElementById('prediction-accuracy').style.visibility === "visible") {
         prediction_accuracy_graph.destroy()
         document.getElementById('prediction-accuracy').style.visibility = "hidden";
-    }
+    }*/
 
 }
 

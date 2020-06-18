@@ -265,7 +265,7 @@ table th {
   margin-bottom: 2%;
 }
 
-#trend-graph, #prediction-graph {
+#trend-graph, #prediction-graph, #city-graph, #prediction-accuracy-graph{
   margin-top: 1%;
   margin-bottom: 1%;
 }
