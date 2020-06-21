@@ -117,7 +117,7 @@ for (i = 0; i < hospital_info.length; i++) {
         hospital_links[i].push(list_element);
     }
 }
-console.log(hospital_links);
+
 
 
 var all_provinces = [
@@ -144,12 +144,12 @@ var current_month = today.getMonth();
 var currently_selected = undefined;
 var month_data;
 var weekly_data_list = weekly_data(n, 'national');
-console.log(weekly_data_list)
+
 var updated_data = []
 for (var i = 0; i < weekly_data_list.length; i++) {
     updated_data.push(weekly_data_list[i][weekly_data_list[i].length - 1])
 }
-console.log(updated_data)
+
 b = updated_data;
 
 //console.log(d);
@@ -683,7 +683,7 @@ function province_donut_data() {
 
 function national_timeSeries_data() {
     data = Object.assign(global_data); //copying global data for safety purposes, can be removed later
-
+    var j = 0;
     new_data = [
         [],
         [],
@@ -693,9 +693,10 @@ function national_timeSeries_data() {
     confirmed_sum = 0, active_sum = 0, recovered_sum = 0, deceased_sum = 0;
 
     for (var key in data) {
+        j = 0;
         if (key === 'Sindh' || key === "Punjab" || key === "AJK" || key === "Balochistan" || key === "GB" || key === "KPTD" || key === "Taftan_mobile_lab" || key === "KP" || key === "ICT") {
             for (var i = 0; i < data[key].length; i++) {
-                d = new Date(data[key][i].date)
+                d = new Date(data[key][j].date)
                 d_month = d.getMonth();
                 if (month_list.indexOf(d_month) < 0) {
                     month_list.push(d_month);
@@ -703,31 +704,49 @@ function national_timeSeries_data() {
                 if (new_data[0].length !== 0 && new_data[0][i] !== undefined) {
                     if (new_data[0][i].x.getTime() === d.getTime()) {
 						
-                        new_data[0][i].y += data[key][i].total_discharged;
-                        new_data[1][i].y += data[key][i].total_admitted;
-                        new_data[2][i].y += data[key][i].total_died;
-                        new_data[3][i].y += data[key][i].total_tested_positive;
+                        new_data[0][i].y += data[key][j].total_discharged;
+                        new_data[1][i].y += data[key][j].total_admitted;
+                        new_data[2][i].y += data[key][j].total_died;
+                        new_data[3][i].y += data[key][j].total_tested_positive;
                     }
+                    else {
+                        new_data[0][i].y += 0;
+                        new_data[1][i].y += 0;
+                        new_data[2][i].y += 0;
+                        new_data[3][i].y += 0;
+                        j--;
+                        //console.log("Mismatch for", key);
+                        //console.log("Global Date:", d, "Local Date:", new_data[0][i].x);
+                        /* for (var j = 0; j < data[key].length; j++) {
+                            if (new_data[0][j].x.getTime() === d.getTime()) {
+						
+                                new_data[0][j].y += data[key][j].total_discharged;
+                                new_data[1][j].y += data[key][j].total_admitted;
+                                new_data[2][j].y += data[key][j].total_died;
+                                new_data[3][j].y += data[key][j].total_tested_positive;
+                            }
+                        } */
+                    }
+                    /* if (key === "ICT") {
+                        console.log("Province:", key, " Global Date:", d, "Local Date:", new_data[0][i].x);
+                    } */
                 } else {
-                    new_data[0].push({ x: new Date(data[key][i].date), y: data[key][i].total_discharged })
-                    new_data[1].push({ x: new Date(data[key][i].date), y: data[key][i].total_admitted })
-                    new_data[2].push({ x: new Date(data[key][i].date), y: data[key][i].total_died })
-                    new_data[3].push({ x: new Date(data[key][i].date), y: data[key][i].total_tested_positive })
+                    new_data[0].push({ x: new Date(data[key][j].date), y: data[key][j].total_discharged })
+                    new_data[1].push({ x: new Date(data[key][j].date), y: data[key][j].total_admitted })
+                    new_data[2].push({ x: new Date(data[key][j].date), y: data[key][j].total_died })
+                    new_data[3].push({ x: new Date(data[key][j].date), y: data[key][j].total_tested_positive })
 
                 }
+                j++;
             }
         }
     }
-	console.log(new_data)
     return new_data
 }
 
 // Returns the confirmed cases against each date present in the predictions dataset.
 function accuracy_data() {
     var starting_date = new Date(c[1][0]["x"].getFullYear(), c[1][0]["x"].getMonth(), c[1][0]["x"].getDate());
-    console.log("Starting Date = " + starting_date);
-    console.log("Global Data: ");
-    console.log(national_timeSeries);
 
     var i = 0;
     while ( i <= national_timeSeries[3].length) {
@@ -739,7 +758,6 @@ function accuracy_data() {
 
         i++;
     }
-    console.log("Index: " + i);
     return national_timeSeries[3].slice(i, i+14);
 }
 
@@ -775,7 +793,6 @@ function weekly_data(data, type) {
 	var new_data = [[], [], [], []];
     var week_count = 0;
     var temp = [];
-	console.log(type)
     if (type === 'national'){
 		for (var i = 0; i < new_data.length; i++) {
 			week_count = 0;
@@ -1172,7 +1189,6 @@ function update_donutData(chart, data) {
 }
 
 function updateData(chart, data, type) {
-	console.log(data)
     //console.log("Updating chart")
     if (type === 'donut') {
         chart.data.datasets[0].data = data;
@@ -1431,7 +1447,6 @@ function startIntro() {
     });
     intro.setOption('showProgress', true);
     intro.onchange(function(targetElement) {
-        console.log(targetElement.id);
         if (targetElement.id === 'viewmore-button') {
             if ($('#viewmore-button').hasClass('collapsed')) {
                 $('#viewmore-button').click();
@@ -1463,7 +1478,6 @@ trend_slider.oninput = function() {
     for (var i = 0; i < weekly_data_list.length; i++) {
         updated_data.push(weekly_data_list[i][val])
     }
-	console.log(updated_data)
 	updateData(myChart, updated_data, 'time series')
 }
 
