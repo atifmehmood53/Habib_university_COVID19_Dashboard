@@ -190,7 +190,7 @@ var donut_config = {
     options: {
         title: {
             display: true,
-            text: 'Nationwide Cases Distribution'
+            text: 'Cases Distribution'
         },
         responsive: true,
         legend: {
