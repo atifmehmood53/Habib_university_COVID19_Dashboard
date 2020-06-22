@@ -14,15 +14,21 @@ from datetime import datetime
 
 
 
+
 #Create your views here.
+province = ['Sindh','Punjab', 'Balochistan', 'KPK']
 
 def index(request):
     # context of this page
     
-
+    
     
     context = {
-        "total_cases_today":{}
+        "total_cases_today":{},
+        'Sindh City' : {},
+        "Balochistan City" : {},
+        "Punjab City" : {},
+        "KPK City" : {}
     }
     data1 = dict()
 
@@ -30,11 +36,20 @@ def index(request):
 
     data1['Predictions'] = (predictionSerializer(Prediction_model.objects.all(), many = True)).data
     #data1['city_Data'] = (citySerializer(city_Data.objects.all(), many = True)).data
+    
 
     for province,_  in (province_choices):
        context["total_cases_today"][province]= ((Daily_Cases.objects.filter(province=province)))
     
-    
+  
+
+    # data1["Balochistan" +" City"] = BSerializer(Balochistan_Data.objects.all() , many=True).data
+    # data1["Sindh" +" City"] = SSerializer(Sindh_Data.objects.all() , many=True).data
+    data1["Punjab" +" City"] = PSerializer(Punjab_Data.objects.all() , many=True).data
+    # data1["KPK" +" City"] = KPKSerializer(KPK_Data.objects.all() , many=True).data
+
+    print(data1["Punjab" +" City"])
+
     for province in context['total_cases_today'].keys():
         data = dataSerializer(context['total_cases_today'][province] , many = True)
         data1[province] = data.data
@@ -67,9 +82,6 @@ def dashboard_data(request):
         return render(request, template, prompt)
     
     csv_file = request.FILES['file']
-
-    # if not csv_file.names.endswith('.csv'):
-    #     messages.error(request,'file not supported. Please upload a csv file')
 
     data_set = csv_file.read().decode('utf-8')
     io_string = io.StringIO(data_set)
@@ -131,9 +143,15 @@ def prediction_data(request):
     context = {}
 
     return render(request, template, context)
+ 
+
+
+
+
+
 
 @permission_required('admin.can_add_log_entry')
-def city_data_upload(request):
+def Balochistan_upload(request):
     template = 'data.html'
     form  = Option()
     context = {'form': form}
@@ -143,7 +161,7 @@ def city_data_upload(request):
     }
 
     if request.method == 'GET':
-        return render(request, template, prompt)
+        return render(request, template, context)
     
     csv_file = request.FILES['file']
 
@@ -151,29 +169,142 @@ def city_data_upload(request):
     io_string = io.StringIO(data_set)
     next(io_string)
 
-    if request.method == 'POST':
-        form = Option(request.POST)
-        if form.is_valid():
-            province_choice = form.cleaned_data['province']
-        
-        form = Option() 
 
-        for col in csv.reader(io_string, delimiter=','):
-            _, created = city_Data.objects.update_or_create(
-                id =int(col[0]),
-                date = (col[1]),
-                district = (col[2]),
-                total = int(col[3]),
-                casePerMillionPopulation = int(col[3]) / int(col[5]),
-                Population = int(col[5]),
-                province =  province_choice
-            )
+    for col in csv.reader(io_string, delimiter=','):
+        print(col[0])
+        _, created = Balochistan_Data.objects.update_or_create(
+            id =int(col[0]),
+            date = (col[1]),
+            district = (col[2]),
+            total = int(col[3]),
+            casePerMillionPopulation = int(col[3]) / int(col[5]),
+            Population = int(col[5]),
+            
+        )
 
 
 
     return render(request, template, context)
 
+
+@permission_required('admin.can_add_log_entry')
+def Punjab_upload(request):
+    template = 'data.html'
+    form  = Option()
+    context = {'form': form}
+
+    prompt = {
+    'order': 'Order of the csv should be date , province , suspected , tested , tested positive , admitted, discharged , death'
+    }
+
+    if request.method == 'GET':
+        return render(request, template, context)
     
+    csv_file = request.FILES['file']
+
+    data_set = csv_file.read().decode('utf-8')
+    io_string = io.StringIO(data_set)
+    next(io_string)
+
+
+    for col in csv.reader(io_string, delimiter=','):
+        if int(col[5])==0:
+            cp = 0
+        else:
+            cp = int(col[3]) / int(col[5])
+        _, created = Punjab_Data.objects.update_or_create(
+            id =int(col[0]),
+            date = (col[1]),
+            district = (col[2]),
+            total = int(col[3]),
+            casePerMillionPopulation = cp,
+            Population = int(col[5]),
+            
+        )
+
+
+
+    return render(request, template, context)
+
+@permission_required('admin.can_add_log_entry')
+def Sindh_upload(request):
+    template = 'data.html'
+    form  = Option()
+    context = {'form': form}
+
+    prompt = {
+    'order': 'Order of the csv should be date , province , suspected , tested , tested positive , admitted, discharged , death'
+    }
+
+    if request.method == 'GET':
+        return render(request, template, context)
+    
+    csv_file = request.FILES['file']
+
+    data_set = csv_file.read().decode('utf-8')
+    io_string = io.StringIO(data_set)
+    next(io_string)
+
+
+    for col in csv.reader(io_string, delimiter=','):
+        print(col[0])
+        _, created = Sindh_Data.objects.update_or_create(
+            id =int(col[0]),
+            date = (col[1]),
+            district = (col[2]),
+            total = int(col[3]),
+            casePerMillionPopulation = int(col[3]) / int(col[5]),
+            Population = int(col[5]),
+            
+        )
+
+
+
+    return render(request, template, context)
+
+@permission_required('admin.can_add_log_entry')
+def KPK_upload(request):
+    template = 'data.html'
+    form  = Option()
+    context = {'form': form}
+
+    prompt = {
+    'order': 'Order of the csv should be date , province , suspected , tested , tested positive , admitted, discharged , death'
+    }
+
+    if request.method == 'GET':
+        return render(request, template, context)
+    
+    csv_file = request.FILES['file']
+
+    data_set = csv_file.read().decode('utf-8')
+    io_string = io.StringIO(data_set)
+    next(io_string)
+
+
+    for col in csv.reader(io_string, delimiter=','):
+        if int(col[0])==0:
+            cp = 0
+        else:
+            cp = int(col[3]) / int(col[5])
+        print(col[0])
+        _, created = KPK_Data.objects.update_or_create(
+            id =int(col[0]),
+            date = (col[1]),
+            district = (col[2]),
+            total = int(col[3]),
+            casePerMillionPopulation = int(col[3]) / int(col[5]),
+            Population = int(col[5]),
+            
+        )
+
+
+
+    return render(request, template, context)
+
+
+    
+
 
 
 

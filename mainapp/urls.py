@@ -8,6 +8,10 @@ urlpatterns = [
     path("", index),
     path("admin/upload-data/" ,dashboard_data),
     path("admin/predictions-upload", prediction_data),
-    path("admin/city-upload", city_data_upload)
+    path("admin/Balochistan", Balochistan_upload),
+    path("admin/Sindh", Sindh_upload),
+    path("admin/Punjab", Punjab_upload),
+    path("admin/KPK", KPK_upload)
+    
 ]
 

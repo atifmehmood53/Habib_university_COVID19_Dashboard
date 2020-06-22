@@ -17,9 +17,23 @@ class predictionSerializer(serializers.ModelSerializer):
         exclude = ['entry_id']
 
 
-class citySerializer(serializers.ModelSerializer):
+class BSerializer(serializers.ModelSerializer):
     class Meta:
-        model = city_Data
+        model = Balochistan_Data
         exclude = ['id']
 
+class PSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Punjab_Data
+        exclude = ['id']
+
+class SSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Sindh_Data
+        exclude = ['id']
+
+class KPKSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = KPK_Data
+        exclude = ['id']
     
