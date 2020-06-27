@@ -43,13 +43,12 @@ def index(request):
     
   
 
-    # data1["Balochistan" +" City"] = BSerializer(Balochistan_Data.objects.all() , many=True).data
+    data1["Balochistan" +" City"] = BSerializer(Balochistan_Data.objects.all() , many=True).data
     # data1["Sindh" +" City"] = SSerializer(Sindh_Data.objects.all() , many=True).data
     data1["Punjab" +" City"] = PSerializer(Punjab_Data.objects.all() , many=True).data
     # data1["KPK" +" City"] = KPKSerializer(KPK_Data.objects.all() , many=True).data
 
-    print(data1["Punjab" +" City"])
-
+    
     for province in context['total_cases_today'].keys():
         data = dataSerializer(context['total_cases_today'][province] , many = True)
         data1[province] = data.data
@@ -247,13 +246,16 @@ def Sindh_upload(request):
 
 
     for col in csv.reader(io_string, delimiter=','):
-        print(col[0])
+        if int(col[5])==0:
+            cp = 0
+        else:
+            cp = int(col[3]) / int(col[5])
         _, created = Sindh_Data.objects.update_or_create(
             id =int(col[0]),
             date = (col[1]),
             district = (col[2]),
             total = int(col[3]),
-            casePerMillionPopulation = int(col[3]) / int(col[5]),
+            casePerMillionPopulation = cp,
             Population = int(col[5]),
             
         )
@@ -283,17 +285,16 @@ def KPK_upload(request):
 
 
     for col in csv.reader(io_string, delimiter=','):
-        if int(col[0])==0:
+        if int(col[5])==0:
             cp = 0
         else:
             cp = int(col[3]) / int(col[5])
-        print(col[0])
         _, created = KPK_Data.objects.update_or_create(
             id =int(col[0]),
             date = (col[1]),
             district = (col[2]),
             total = int(col[3]),
-            casePerMillionPopulation = int(col[3]) / int(col[5]),
+            casePerMillionPopulation = cp,
             Population = int(col[5]),
             
         )
