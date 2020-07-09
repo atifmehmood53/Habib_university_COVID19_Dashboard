@@ -8,8 +8,10 @@ class dataSerializer(serializers.ModelSerializer):
         model = Daily_Cases
         exclude = ['province','entry_id']
 
-
-        
+class Dynamic(serializers.ModelSerializer):
+    class Meta:
+        model = Dynamic_Data
+        exclude = ['entry_id']       
 
 class predictionSerializer(serializers.ModelSerializer):
     class Meta:

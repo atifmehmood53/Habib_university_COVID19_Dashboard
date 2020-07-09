@@ -1,5 +1,5 @@
 from django.shortcuts import render
-import csv , io
+import io
 from django.db.models import Sum
 from django.contrib import messages
 from django.contrib.auth.decorators import permission_required
@@ -12,14 +12,59 @@ import json
 from .forms import * 
 from datetime import datetime
 
+from .scrapper.main_Pakistan import main
+from .scrapper.main_AJK import main_ajk
+from .scrapper.main_GB import main_GB
+from .scrapper.main_Punjab import main_punjab
+from .scrapper.main_Balochistan import main_balochistan
+from .scrapper.main_Sindh import main_sindh
+from .scrapper.main_Islamabad import main_islamabad
+import datetime
+import csv
+import pytz
+import time
 
 
 
 #Create your views here.
 province = ['Sindh','Punjab', 'Balochistan', 'KPK']
 
+#Data Scrapping
+
+tz = pytz.timezone('Asia/Karachi')
+time_now = datetime.datetime.now(tz).time()
+
+#here we could apply any timezone according shop geo location
+time_open = datetime.time(10, 30, tzinfo=tz)
+time_close = datetime.time(10, 32, tzinfo=tz)
+print(time_open , time_now , time_close)
+if time_now >= time_open and time_now < time_close:
+    print('now')
+    main()
+
+    csv_file = '.\\province-cumulative.csv' 
+    with open(csv_file, mode='r') as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter =',')
+        line = 0
+        for row in csv_reader:
+            if line == 1:
+                id = row[0]
+            if line > 2:
+                _, created = Dynamic_Data.objects.update_or_create(
+                    entry_id = id+str(row[0]),
+                    province = row[0],
+                    confirmed_cases = int(row[1]),
+                    active_cases = int(row[2]),
+                    deaths = int(row[3]),
+                    recoveries = int(row[4])
+                
+                )
+            
+            line +=1
+import operator
 def index(request):
     # context of this page
+   
     
     
     
@@ -40,6 +85,8 @@ def index(request):
 
     for province,_  in (province_choices):
        context["total_cases_today"][province]= ((Daily_Cases.objects.filter(province=province)))
+       context["total_cases_today"][province] = sorted(context["total_cases_today"][province], key=operator.attrgetter('date'))
+
     
   
 
