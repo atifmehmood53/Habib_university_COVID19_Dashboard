@@ -23,6 +23,7 @@ import datetime
 import csv
 import pytz
 import time
+import pprint
 
 
 
@@ -64,41 +65,56 @@ if time_now >= time_open and time_now < time_close:
 import operator
 def index(request):
     # context of this page
-   
     
     
     
     context = {
         "total_cases_today":{},
-        'Sindh City' : {},
-        "Balochistan City" : {},
-        "Punjab City" : {},
-        "KPK City" : {}
     }
-    data1 = dict()
+    data1 = {
+        'Predictions': {},
+        "total_cases_today":{},
+        'City Wise' :{'Balochistan':{},
+                        'Punjab':{},
+                        'Sindh':{},
+                        'KPK':{}
+                        }
 
+    }
+
+    # getting dates for the latest entry in each province    
+    latest_date_balochistan = BSerializer(Balochistan_Data.objects.latest('date')).data['date']
+    latest_date_sindh = SSerializer(Sindh_Data.objects.latest('date')).data['date']
+    latest_date_punjab = PSerializer(Punjab_Data.objects.latest('date')).data['date']
+    latest_date_kpk = KPKSerializer(KPK_Data.objects.latest('date')).data['date']
+
+    #getting a list of cities of latest entry in each province 
+    cities_balochistan = list(Balochistan_Data.objects.filter(date= latest_date_balochistan).values('district'))
+    cities_punjab = list(Punjab_Data.objects.filter(date= latest_date_punjab).values('district'))
+    cities_sindh= list(Sindh_Data.objects.filter(date= latest_date_sindh).values('district'))
+    cities_kpk = list(KPK_Data.objects.filter(date= latest_date_kpk).values('district'))
+ 
+    #populating the dictionary with json objects
+    for city in cities_balochistan:
+        data1['City Wise']["Balochistan"][city['district']] = BSerializer(Balochistan_Data.objects.filter(date= latest_date_balochistan ,district= city['district']), many=True).data
+
+    for city in cities_punjab:
+        data1['City Wise']["Punjab"][city['district']] = BSerializer(Punjab_Data.objects.filter(date= latest_date_punjab ,district= city['district']), many=True).data
     
+    for city in cities_sindh:
+        data1['City Wise']['Sindh'][city['district']] = SSerializer(Sindh_Data.objects.filter(date = latest_date_sindh , district=city['district']), many=True).data
+
+    for city in cities_kpk:
+        data1['City Wise']['KPK'][city['district']] = KPKSerializer(KPK_Data.objects.filter(date = latest_date_kpk , district=city['district']), many=True).data
 
     data1['Predictions'] = (predictionSerializer(Prediction_model.objects.all(), many = True)).data
-    #data1['city_Data'] = (citySerializer(city_Data.objects.all(), many = True)).data
     
 
     for province,_  in (province_choices):
        context["total_cases_today"][province]= ((Daily_Cases.objects.filter(province=province)))
        context["total_cases_today"][province] = sorted(context["total_cases_today"][province], key=operator.attrgetter('date'))
-
     
-  
-
-    data1["Balochistan" +" City"] = BSerializer(sorted(Balochistan_Data.objects.all(),key = operator.attrgetter('Population') ), many=True).data
-    data1["Sindh" +" City"] = SSerializer(sorted(Balochistan_Data.objects.all(),key = operator.attrgetter('Population')) , many=True).data
-    data1["Punjab" +" City"] = PSerializer(sorted(Punjab_Data.objects.all(),key = operator.attrgetter('Population')) , many=True).data
-    data1["KPK" +" City"] = KPKSerializer(sorted(KPK_Data.objects.all(),key = operator.attrgetter('Population')) , many=True).data
-
-
-
-    
-    for province in context['total_cases_today'].keys():
+    for province in data1['total_cases_today'].keys():
         data = dataSerializer(context['total_cases_today'][province] , many = True)
         data1[province] = data.data
  
