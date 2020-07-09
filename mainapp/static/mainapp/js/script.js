@@ -134,8 +134,10 @@ var month_list = [];
 var a = national_donut_data()
 var national_timeSeries = national_timeSeries_data()
 var n = national_timeSeries;
-var c = prediction_data()
+var predictions = prediction_data()
 var d = monthly_data(n);
+var cities_list = provincial_cities_data();
+console.log(cities_list)
 //var copy_d = JSON.parse(JSON.stringify(d));
 //var copy_b = JSON.parse(JSON.stringify(d));
 var today = new Date();
@@ -356,7 +358,7 @@ var prediction_graph_config = {
             fill: false,
             borderColor: '#c96044',
             backgroundColor: '#c96044',
-            data: c[1],
+            data: predictions[1],
             //data: predictions[0],
             borderWidth: 3
         }]
@@ -404,7 +406,7 @@ var prediction_details_config = {
                 borderDash: [20, 5],
                 borderColor: '#d7aa00',
                 backgroundColor: 'rgba(215, 170, 0, 0.5)',
-                data: c[2],
+                data: predictions[2],
                 //data: predictions[1],
                 fill: '+1',
                 borderWidth: 3
@@ -416,7 +418,7 @@ var prediction_details_config = {
                 pointRadius: 5,
                 borderColor: '#c96044',
                 backgroundColor: '#c96044',
-                data: c[1],
+                data: predictions[1],
                 fill: false,
                 //data: predictions[0],
                 borderWidth: 3
@@ -429,7 +431,7 @@ var prediction_details_config = {
                 borderDash: [20, 5],
                 borderColor: '#d7aa00',
                 backgroundColor: 'rgba(215, 170, 0, 0.5)',
-                data: c[0],
+                data: predictions[0],
                 fill: '-1',
                 //data: predictions[2],
                 borderWidth: 3
@@ -485,7 +487,7 @@ var prediction_accuracy_config = {
                 fill: false,
                 backgroundColor: '#908834',
                 borderColor: '#908834',
-                data: c[1],
+                data: predictions[1],
                 borderWidth: 3
             },
             {
@@ -548,49 +550,50 @@ var prediction_accuracy_graph = new Chart(prediction_accuracy_canvas, prediction
 
 var cities_canvas = document.getElementById('cities-graph').getContext('2d');
 var cities_config = {
-    type: 'line',
+    type: 'bar',
     data: {
         datasets: [{
-                label: 'Upper Confidence Interval',
+                //label: 'Upper Confidence Interval',
                 //pointBackgroundColor: '#d7aa00',
                 //pointBorderColor: '#d7aa00',
                 //pointRadius: 5,
-                borderDash: [20, 5],
+                //borderDash: [20, 5],
                 borderColor: '#d7aa00',
-                backgroundColor: 'rgba(215, 170, 0, 0.5)',
-                data: c[2],
+                backgroundColor: '#d7aa00',
+                data: predictions[2],
                 //data: predictions[1],
-                fill: '+1',
+                //fill: '+1',
                 borderWidth: 3
-            },
-            {
-                label: 'Prediction of Nationwide Cases',
-                pointBackgroundColor: '#c96044',
-                pointBorderColor: '#c96044',
-                pointRadius: 5,
+            }
+            /*{
+                //label: 'Prediction of Nationwide Cases',
+                //pointBackgroundColor: '#c96044',
+                //pointBorderColor: '#c96044',
+                //pointRadius: 5,
                 borderColor: '#c96044',
                 backgroundColor: '#c96044',
-                data: c[1],
-                fill: false,
+                data: predictions[1],
+                //fill: false,
                 //data: predictions[0],
                 borderWidth: 3
             },
             {
-                label: 'Lower Confidence Interval',
+                //label: 'Lower Confidence Interval',
                 //pointBackgroundColor: '#908834',
                 //pointBorderColor: '#908834',
                 //pointRadius: 4,
-                borderDash: [20, 5],
+                //borderDash: [20, 5],
                 borderColor: '#d7aa00',
-                backgroundColor: 'rgba(215, 170, 0, 0.5)',
-                data: c[0],
-                fill: '-1',
+                backgroundColor: '#d7aa00',
+                data: predictions[0],
+                //fill: '-1',
                 //data: predictions[2],
                 borderWidth: 3
-            }
+            }*/
         ]
     },
     options: {
+		
         responsive: true,
         maintainAspectRatio: false,
         title: {
@@ -616,10 +619,12 @@ var cities_config = {
             }],
             yAxes: [{
                 display: true,
+				stacked: true,
                 scaleLabel: {
                     display: true,
                     labelString: 'Number of cases'
-                }
+                },
+				
             }]
         }
     }
@@ -744,13 +749,45 @@ function national_timeSeries_data() {
     return new_data
 }
 
+function provincial_cities_data() {
+    data = Object.assign(global_data); //copying global data for safety purposes, can be removed later
+    var j = 0;
+	var cases_data = [
+        [],
+        [],
+        [],
+        []
+    ];
+	var cities_cases = []
+	var cities_list = [];
+    for (var key in data) {
+        if (key === 'Balochistan City' || key === 'KPK City' || key === 'Punjab City' || key === 'Sindh City') {
+            for (var i = 0; i < data[key].length - 5; i++) {
+                d = new Date(data[key][i].date)
+				district = data[key][i].district
+				if (cities_list[j] === undefined){
+					cities_list.push([district])
+				}
+				else if (!cities_list[j].includes(district)){
+					cities_list[j].push(district)
+				}
+            }
+			j++;
+        }
+		
+    }
+	console.log(cities_list)
+	console.log(cases_data)
+    return cities_list
+}
+
 // Returns the confirmed cases against each date present in the predictions dataset.
 function accuracy_data() {
-    var starting_date = new Date(c[1][0]["x"].getFullYear(), c[1][0]["x"].getMonth(), c[1][0]["x"].getDate());
+    var starting_date = new Date(predictions[1][0]["x"].getFullYear(), predictions[1][0]["x"].getMonth(), predictions[1][0]["x"].getDate());
 
     var i = 0;
     while ( i <= national_timeSeries[3].length) {
-		console.log(national_timeSeries[3][i])
+		//console.log(national_timeSeries[3][i])
 		if (national_timeSeries[3][i] !== undefined){
 			var current_date = new Date(national_timeSeries[3][i].x.getFullYear(), national_timeSeries[3][i].x.getMonth(), national_timeSeries[3][i].x.getDate());
 			
@@ -872,7 +909,7 @@ function prediction_data() {
         new_data[1].push({ x: new Date(data[i].date), y: Math.round(data[i].Predictions) })
         new_data[2].push({ x: new Date(data[i].date), y: Math.round(data[i].Upper_confidence_interval) })
     }
-	console.log(new_data)
+	//console.log(new_data)
     return new_data;
 
 }
