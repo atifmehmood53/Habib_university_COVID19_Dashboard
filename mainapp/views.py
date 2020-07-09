@@ -74,10 +74,10 @@ def index(request):
     data1 = {
         'Predictions': {},
         "total_cases_today":{},
-        'City Wise' :{'Balochistan':{},
-                        'Punjab':{},
-                        'Sindh':{},
-                        'KPK':{}
+        'City Wise' :{'Balochistan':[],
+                        'Punjab':[],
+                        'Sindh':[],
+                        'KPK':[]
                         }
 
     }
@@ -96,16 +96,15 @@ def index(request):
    
     #populating the dictionary with json objects
     for city in cities_balochistan:
-        data1['City Wise']["Balochistan"][city['district']] = BSerializer(Balochistan_Data.objects.filter(date= latest_date_balochistan ,district= city['district']), many=True).data[0]
-
+        data1['City Wise']["Balochistan"].append(BSerializer(Balochistan_Data.objects.filter(date= latest_date_balochistan ,district= city['district']), many=True).data[0])
     for city in cities_punjab:
-        data1['City Wise']["Punjab"][city['district']] = BSerializer(Punjab_Data.objects.filter(date= latest_date_punjab ,district= city['district']), many=True).data[0]
+        data1['City Wise']["Punjab"].append(BSerializer(Punjab_Data.objects.filter(date= latest_date_punjab ,district= city['district']), many=True).data[0])
     
     for city in cities_sindh:
-        data1['City Wise']['Sindh'][city['district']] = SSerializer(Sindh_Data.objects.filter(date = latest_date_sindh , district=city['district']), many=True).data[0]
+        data1['City Wise']['Sindh'].append(SSerializer(Sindh_Data.objects.filter(date = latest_date_sindh , district=city['district']), many=True).data[0])
 
     for city in cities_kpk:
-        data1['City Wise']['KPK'][city['district']] = KPKSerializer(KPK_Data.objects.filter(date = latest_date_kpk , district=city['district']), many=True).data[0]
+        data1['City Wise']['KPK'].append(KPKSerializer(KPK_Data.objects.filter(date = latest_date_kpk , district=city['district']), many=True).data[0])
 
     data1['Predictions'] = (predictionSerializer(Prediction_model.objects.all(), many = True)).data
     
