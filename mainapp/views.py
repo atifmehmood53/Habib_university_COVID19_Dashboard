@@ -89,10 +89,10 @@ def index(request):
     latest_date_kpk = KPKSerializer(KPK_Data.objects.latest('date')).data['date']
 
     #getting a list of cities of latest entry in each province 
-    cities_balochistan =list(sorted(Balochistan_Data.objects.filter(date= latest_date_balochistan).values('district', 'Population') ,  key = operator.itemgetter('Population'))  )
-    cities_punjab = list(sorted(Punjab_Data.objects.filter(date= latest_date_punjab).values('district','Population'), key = operator.itemgetter('Population')) )
-    cities_sindh= list(sorted(Sindh_Data.objects.filter(date= latest_date_sindh).values('district' , 'Population'), key = operator.itemgetter('Population')  ))
-    cities_kpk = list(sorted(KPK_Data.objects.filter(date= latest_date_kpk).values('district' , 'Population'), key=operator.itemgetter('Population')) )
+    cities_balochistan =list(sorted(Balochistan_Data.objects.filter(date= latest_date_balochistan).values('district', 'Population') ,  key = operator.itemgetter('Population'), reverse = True )  )
+    cities_punjab = list(sorted(Punjab_Data.objects.filter(date= latest_date_punjab).values('district','Population'), key = operator.itemgetter('Population') , reverse = True ) )
+    cities_sindh= list(sorted(Sindh_Data.objects.filter(date= latest_date_sindh).values('district' , 'Population'), key = operator.itemgetter('Population') , reverse =True ))
+    cities_kpk = list(sorted(KPK_Data.objects.filter(date= latest_date_kpk).values('district' , 'Population'), key=operator.itemgetter('Population') , reverse = True) )
    
     #populating the dictionary with json objects
     for city in cities_balochistan:
