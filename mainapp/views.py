@@ -89,23 +89,23 @@ def index(request):
     latest_date_kpk = KPKSerializer(KPK_Data.objects.latest('date')).data['date']
 
     #getting a list of cities of latest entry in each province 
-    cities_balochistan = list(Balochistan_Data.objects.filter(date= latest_date_balochistan).values('district'))
-    cities_punjab = list(Punjab_Data.objects.filter(date= latest_date_punjab).values('district'))
-    cities_sindh= list(Sindh_Data.objects.filter(date= latest_date_sindh).values('district'))
-    cities_kpk = list(KPK_Data.objects.filter(date= latest_date_kpk).values('district'))
- 
+    cities_balochistan =list(sorted(Balochistan_Data.objects.filter(date= latest_date_balochistan).values('district', 'Population') ,  key = operator.itemgetter('Population'))  )
+    cities_punjab = list(sorted(Punjab_Data.objects.filter(date= latest_date_punjab).values('district','Population'), key = operator.itemgetter('Population')) )
+    cities_sindh= list(sorted(Sindh_Data.objects.filter(date= latest_date_sindh).values('district' , 'Population'), key = operator.itemgetter('Population')  ))
+    cities_kpk = list(sorted(KPK_Data.objects.filter(date= latest_date_kpk).values('district' , 'Population'), key=operator.itemgetter('Population')) )
+   
     #populating the dictionary with json objects
     for city in cities_balochistan:
-        data1['City Wise']["Balochistan"][city['district']] = BSerializer(Balochistan_Data.objects.filter(date= latest_date_balochistan ,district= city['district']), many=True).data
+        data1['City Wise']["Balochistan"][city['district']] = BSerializer(Balochistan_Data.objects.filter(date= latest_date_balochistan ,district= city['district']), many=True).data[0]
 
     for city in cities_punjab:
-        data1['City Wise']["Punjab"][city['district']] = BSerializer(Punjab_Data.objects.filter(date= latest_date_punjab ,district= city['district']), many=True).data
+        data1['City Wise']["Punjab"][city['district']] = BSerializer(Punjab_Data.objects.filter(date= latest_date_punjab ,district= city['district']), many=True).data[0]
     
     for city in cities_sindh:
-        data1['City Wise']['Sindh'][city['district']] = SSerializer(Sindh_Data.objects.filter(date = latest_date_sindh , district=city['district']), many=True).data
+        data1['City Wise']['Sindh'][city['district']] = SSerializer(Sindh_Data.objects.filter(date = latest_date_sindh , district=city['district']), many=True).data[0]
 
     for city in cities_kpk:
-        data1['City Wise']['KPK'][city['district']] = KPKSerializer(KPK_Data.objects.filter(date = latest_date_kpk , district=city['district']), many=True).data
+        data1['City Wise']['KPK'][city['district']] = KPKSerializer(KPK_Data.objects.filter(date = latest_date_kpk , district=city['district']), many=True).data[0]
 
     data1['Predictions'] = (predictionSerializer(Prediction_model.objects.all(), many = True)).data
     
@@ -114,9 +114,10 @@ def index(request):
        context["total_cases_today"][province]= ((Daily_Cases.objects.filter(province=province)))
        context["total_cases_today"][province] = sorted(context["total_cases_today"][province], key=operator.attrgetter('date'))
     
-    for province in data1['total_cases_today'].keys():
+    for province in context['total_cases_today'].keys():
         data = dataSerializer(context['total_cases_today'][province] , many = True)
         data1[province] = data.data
+
  
     data1 = json.dumps(data1)
 
