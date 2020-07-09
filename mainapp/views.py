@@ -90,10 +90,12 @@ def index(request):
     
   
 
-    data1["Balochistan" +" City"] = BSerializer(Balochistan_Data.objects.all() , many=True).data
-    data1["Sindh" +" City"] = SSerializer(Sindh_Data.objects.all() , many=True).data
-    data1["Punjab" +" City"] = PSerializer(Punjab_Data.objects.all() , many=True).data
-    data1["KPK" +" City"] = KPKSerializer(KPK_Data.objects.all() , many=True).data
+    data1["Balochistan" +" City"] = BSerializer(sorted(Balochistan_Data.objects.all(),key = operator.attrgetter('Population') ), many=True).data
+    data1["Sindh" +" City"] = SSerializer(sorted(Balochistan_Data.objects.all(),key = operator.attrgetter('Population')) , many=True).data
+    data1["Punjab" +" City"] = PSerializer(sorted(Punjab_Data.objects.all(),key = operator.attrgetter('Population')) , many=True).data
+    data1["KPK" +" City"] = KPKSerializer(sorted(KPK_Data.objects.all(),key = operator.attrgetter('Population')) , many=True).data
+
+
 
     
     for province in context['total_cases_today'].keys():
