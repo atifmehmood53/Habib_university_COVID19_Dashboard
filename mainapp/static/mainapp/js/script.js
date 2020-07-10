@@ -47,6 +47,8 @@ var center_list = document.getElementById("center-list");
 var trend_slider = document.getElementById('trend_slider');
 var update_text = document.getElementById("update-text");
 var week_slider = document.getElementById("week_slider");
+var cities_table = document.getElementById("cities-table");
+var contents = document.getElementById("tableContents");
 
 // Add link to webpage as a string in place of the empty string as "http://www.webpage.com".
 // Ensure the "http://"
@@ -138,6 +140,7 @@ var predictions = prediction_data()
 var d = monthly_data(n);
 
 
+
 var complete_citywise_data = provincial_cities_data();
 console.log(complete_citywise_data);
 var top_12_citywise_data = [
@@ -172,6 +175,7 @@ console.log(top_12_citywise_data)
 // Extracting city data for provincial capitals to display when the user
 // hasn't selected any province on the map or the user has selected a
 // province for which we don't have city-wise data.
+var default_table_data = [[], [], [], []]
 var national_citywise_data = [
     [],
     []
@@ -181,25 +185,41 @@ for (var district in global_data["City Wise"]["Balochistan"]) {
     if (global_data["City Wise"]["Balochistan"][district].district == "Quetta") {
         national_citywise_data[0].push(global_data["City Wise"]["Balochistan"][district].casePerMillionPopulation);
         national_citywise_data[1].push(global_data["City Wise"]["Balochistan"][district].district);
-    }
+		default_table_data[0].push(global_data["City Wise"]["Balochistan"][district].district)
+		default_table_data[1].push(global_data["City Wise"]["Balochistan"][district].Population)
+        default_table_data[2].push(global_data["City Wise"]["Balochistan"][district].casePerMillionPopulation);
+		default_table_data[3].push(global_data["City Wise"]["Balochistan"][district].total);
+	}
 }
 for (var district in global_data["City Wise"]["Punjab"]) {
     if (global_data["City Wise"]["Punjab"][district].district == "Lahore") {
         national_citywise_data[0].push(global_data["City Wise"]["Punjab"][district].casePerMillionPopulation);
         national_citywise_data[1].push(global_data["City Wise"]["Punjab"][district].district);
-    }
+		default_table_data[0].push(global_data["City Wise"]["Punjab"][district].district)
+		default_table_data[1].push(global_data["City Wise"]["Punjab"][district].Population)
+        default_table_data[2].push(global_data["City Wise"]["Punjab"][district].casePerMillionPopulation);
+		default_table_data[3].push(global_data["City Wise"]["Punjab"][district].total);
+	}
 }
 for (var district in global_data["City Wise"]["Sindh"]) {
     if (global_data["City Wise"]["Sindh"][district].district == "Karachi") {
         national_citywise_data[0].push(global_data["City Wise"]["Sindh"][district].casePerMillionPopulation);
         national_citywise_data[1].push(global_data["City Wise"]["Sindh"][district].district);
-    }
+		default_table_data[0].push(global_data["City Wise"]["Sindh"][district].district)
+		default_table_data[1].push(global_data["City Wise"]["Sindh"][district].Population)
+        default_table_data[2].push(global_data["City Wise"]["Sindh"][district].casePerMillionPopulation);
+		default_table_data[3].push(global_data["City Wise"]["Sindh"][district].total);
+	}
 }
 for (var district in global_data["City Wise"]["KPK"]) {
     if (global_data["City Wise"]["KPK"][district].district == "Peshawar") {
         national_citywise_data[0].push(global_data["City Wise"]["KPK"][district].casePerMillionPopulation);
         national_citywise_data[1].push(global_data["City Wise"]["KPK"][district].district);
-    }
+		default_table_data[0].push(global_data["City Wise"]["KPK"][district].district)
+		default_table_data[1].push(global_data["City Wise"]["KPK"][district].Population)
+        default_table_data[2].push(global_data["City Wise"]["KPK"][district].casePerMillionPopulation);
+		default_table_data[3].push(global_data["City Wise"]["KPK"][district].total);
+	}
 }
 
 
@@ -225,8 +245,8 @@ updated_time();
 
 var two_week_accuracy_data = accuracy_data();
 
-
-
+var table_data = citywise_table_data('default');
+update_table_data();
 
 
 
@@ -422,7 +442,6 @@ var prediction_graph_config = {
             borderColor: '#c96044',
             backgroundColor: '#c96044',
             data: predictions[1],
-            //data: predictions[0],
             borderWidth: 3
         }]
     },
@@ -463,14 +482,10 @@ var prediction_details_config = {
     data: {
         datasets: [{
                 label: 'Upper Confidence Interval',
-                //pointBackgroundColor: '#d7aa00',
-                //pointBorderColor: '#d7aa00',
-                //pointRadius: 5,
                 borderDash: [20, 5],
                 borderColor: '#d7aa00',
                 backgroundColor: 'rgba(215, 170, 0, 0.5)',
                 data: predictions[2],
-                //data: predictions[1],
                 fill: '+1',
                 borderWidth: 3
             },
@@ -483,20 +498,15 @@ var prediction_details_config = {
                 backgroundColor: '#c96044',
                 data: predictions[1],
                 fill: false,
-                //data: predictions[0],
                 borderWidth: 3
             },
             {
                 label: 'Lower Confidence Interval',
-                //pointBackgroundColor: '#908834',
-                //pointBorderColor: '#908834',
-                //pointRadius: 4,
                 borderDash: [20, 5],
                 borderColor: '#d7aa00',
                 backgroundColor: 'rgba(215, 170, 0, 0.5)',
                 data: predictions[0],
                 fill: '-1',
-                //data: predictions[2],
                 borderWidth: 3
             }
         ]
@@ -676,7 +686,6 @@ function national_donut_data() {
             deceased_sum += data[key][data[key].length - 1].total_died;
         }
     }
-    //new_data.push(confirmed_sum);
     new_data.push(active_sum);
     new_data.push(recovered_sum);
     new_data.push(deceased_sum);
@@ -709,8 +718,6 @@ function province_donut_data() {
         }
 
     }
-    //console.log(new_data)
-    //console.log(labels)
     province_labels = labels;
     return new_data
 }
@@ -809,6 +816,31 @@ function provincial_cities_data() {
         city_data[1][3].push(data["City Wise"]["KPK"][district].district);
     }
     return city_data
+}
+
+function citywise_table_data(province) {
+    data = Object.assign(global_data); //copying global data for safety purposes, can be removed later
+	var city_data = [[],[],[],[], []]
+	//var i = 0;
+	if (province === 'default'){
+		city_data = default_table_data;
+	}
+	else{
+		for (var district in data["City Wise"][province]) {
+			city_data[0].push(data["City Wise"][province][district].district)
+			city_data[1].push(data["City Wise"][province][district].Population)
+			city_data[2].push(data["City Wise"][province][district].casePerMillionPopulation);
+			city_data[3].push(data["City Wise"][province][district].total);
+		}
+	}
+    return city_data
+}
+
+function update_table_data(){
+	contents.innerHTML = "";
+	for (var i = 0; i < table_data[0].length; i++){
+		contents.innerHTML += "<tr><td>" + table_data[0][i] + "</td><td>" + table_data[1][i] + "</td><td>" + table_data[2][i] + "</td><td>" + table_data[3][i] + "</td></tr>";
+	}
 }
 
 // Returns the confirmed cases against each date present in the predictions dataset.
@@ -1022,6 +1054,8 @@ function popup(e) {
         if (e.target.id === "PK-PB") {
             //province = "Punjab";
             province_data = global_data.Punjab;
+			table_data = citywise_table_data('Punjab');
+			update_table_data();
             total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in Punjab till now.";
             most_infected_city.innerHTML = province_data[province_data.length - 1].most_infected_city + " is the city with the most number of new cases.";
             center_list.style.listStyleType = 'disc';
@@ -1039,7 +1073,6 @@ function popup(e) {
 			
             update_donutData(donut_chart, province_data);
             updateData(myChart, updated_data, 'time series')
-            //console.log(weekly_data_list)
             
             // Update citywise data
             update_citywise_data("Punjab");
@@ -1047,6 +1080,8 @@ function popup(e) {
         } else if (e.target.id === "PK-SD") {
             //province = "Sindh";
             province_data = global_data.Sindh;
+			table_data = citywise_table_data('Sindh')
+			update_table_data();
             total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in Sindh till now.";
             most_infected_city.innerHTML = province_data[province_data.length - 1].most_infected_city + " is the city with the most number of new cases.";
 
@@ -1090,7 +1125,8 @@ function popup(e) {
                     }
                 }
             }
-            //console.log(province_data)
+			table_data = citywise_table_data('KPK')
+			update_table_data();
             total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in KPK till now.";
             most_infected_city.innerHTML = province_data[province_data.length - 1].most_infected_city + " is the city with the most number of new cases.";
 
@@ -1115,6 +1151,8 @@ function popup(e) {
         } else if (e.target.id === "PK-AK") {
             //province = "Azad Kashmir";
             province_data = global_data.AJK;
+			table_data = citywise_table_data('default')
+			update_table_data();
             total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in Azad Kashmir till now.";
             most_infected_city.innerHTML = province_data[province_data.length - 1].most_infected_city + " is the city with the most number of new cases.";
 
@@ -1140,6 +1178,8 @@ function popup(e) {
         } else if (e.target.id === "PK-IS") {
             //province = "Islamabad";
             province_data = global_data.ICT;
+			table_data = citywise_table_data('default')
+			update_table_data();
             total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in Islamabad till now.";
             most_infected_city.innerHTML = province_data[province_data.length - 1].most_infected_city + " is the city with the most number of new cases.";
 
@@ -1165,6 +1205,8 @@ function popup(e) {
         } else if (e.target.id === "PK-GB") {
             //province = "Gilgit-Baltistan";
             province_data = global_data.GB;
+			table_data = citywise_table_data('default')
+			update_table_data();
             total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in Gilgit-Baltistan till now.";
             most_infected_city.innerHTML = province_data[province_data.length - 1].most_infected_city + " is the city with the most number of new cases.";
 
@@ -1190,6 +1232,8 @@ function popup(e) {
         } else if (e.target.id === "PK-BA") {
             //province = "Balochistan";
             province_data = global_data.Balochistan;
+			table_data = citywise_table_data('Balochistan')
+			update_table_data();
             total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in Balochistan till now.";
             most_infected_city.innerHTML = province_data[province_data.length - 1].most_infected_city + " is the city with the most number of new cases.";
 
@@ -1219,8 +1263,6 @@ function popup(e) {
         } else {
             most_infected_city.style.display = "block";
         }
-
-        //console.log("Clicked! X: "+e.pageX+" Y: "+e.pageY);
 
         var selected_province = document.getElementById(e.target.id);
 
@@ -1267,7 +1309,6 @@ function update_timeSeries(chart, data) {
         [],
         []
     ]
-	//console.log(data)
 	for (var a = 0; a < data.length; a++){
 		for (var i = 0; i < data[a].length; i++) {
 			new_data[0].push({ x: new Date(data[a][i].date), y: data[a][i].total_discharged })
@@ -1277,13 +1318,6 @@ function update_timeSeries(chart, data) {
 		}
 		break;
 	}
-	//console.log(new_data)
-    /*for (var i = 0; i < data.length; i++) {
-        new_data[0].push({ x: new Date(data[i].date), y: data[i].total_discharged })
-        new_data[1].push({ x: new Date(data[i].date), y: data[i].total_admitted })
-        new_data[2].push({ x: new Date(data[i].date), y: data[i].total_died })
-        new_data[3].push({ x: new Date(data[i].date), y: data[i].total_tested_positive })
-    }*/
     chart.data.datasets[0].data = new_data[0];
     chart.data.datasets[1].data = new_data[1];
     chart.data.datasets[2].data = new_data[2];
@@ -1293,10 +1327,7 @@ function update_timeSeries(chart, data) {
 }
 
 function update_donutData(chart, data) {
-    //console.log("Updating donut chart")
-    //console.log(data)
     new_data = [];
-    //new_data.push(data[data.length - 1].total_tested_positive);
     new_data.push(data[data.length - 1].total_admitted);
     new_data.push(data[data.length - 1].total_discharged);
     new_data.push(data[data.length - 1].total_died);
@@ -1305,7 +1336,6 @@ function update_donutData(chart, data) {
 }
 
 function updateData(chart, data, type) {
-    //console.log("Updating chart")
     if (type === 'donut') {
         chart.data.datasets[0].data = data;
     } else if (type === 'time series') {
@@ -1314,8 +1344,6 @@ function updateData(chart, data, type) {
         chart.data.datasets[2].data = data[2];
         chart.data.datasets[3].data = data[3];
     }
-	//console.log(data)
-    //chart.clear();
     chart.update();
 }
 
@@ -1341,12 +1369,7 @@ function reset_to_default() {
 
     // Reset citywise chart to National Data
     update_citywise_data("National");
-    /*slider_data[0] = myChart.data.datasets[0].data
-    slider_data[1] = myChart.data.datasets[1].data
-    slider_data[2] = myChart.data.datasets[2].data
-    slider_data[3] = myChart.data.datasets[3].data
-    copy_b = JSON.parse(JSON.stringify(slider_data));*/
-
+	update_table_data('default');
     var x;
     for (x of all_provinces) {
         x.style.fill = '#000000';
@@ -1394,9 +1417,6 @@ function highlight_release(e) {
 }
 
 function expand_buttons(e) {
-    //console.log("EXPAND BUTTONS CALLED");
-    //console.log(e.target.id);
-    //console.log(data);
     selected_expansion_button = document.getElementById(e.target.id);
 
     var emergency_content = document.getElementById("emergency_content");
@@ -1405,29 +1425,15 @@ function expand_buttons(e) {
 
 
     if (e.target.id === "emergency") {
-        /*if (symptoms_content.style.display !== "none") {
-            symptoms_content.style.display = "none"
-        }*/
         if (precautions_content.style.display !== "none") {
             precautions_content.style.display = "none"
         }
         emergency_content.style.display = "block";
-    } /*else if (e.target.id === "symptoms") {
-        if (emergency_content.style.display !== "none") {
-            emergency_content.style.display = "none"
-        }
-        if (precautions_content.style.display !== "none") {
-            precautions_content.style.display = "none"
-        }
-        symptoms_content.style.display = "block"
-    } */
+    }
 	else if (e.target.id === "precautions") {
         if (emergency_content.style.display !== "none") {
             emergency_content.style.display = "none"
         }
-        /*if (symptoms_content.style.display !== "none") {
-            symptoms_content.style.display = "none"
-        }*/
         precautions_content.style.display = "block"
     }
 }
@@ -1633,7 +1639,7 @@ function updated_time() {
     update_text.textContent = "Last updated on: " + current.getDate() + "/" + (current.getMonth() + 1) + "/" + current.getFullYear();
 }
 
-function showGraph() {
+function showPredictionGraph() {
     var prediction_details = new Chart(prediction_details_canvas, prediction_details_config);
     
     if (document.getElementById('time-series-prediction-details').style.visibility === "hidden") {
@@ -1643,26 +1649,36 @@ function showGraph() {
         document.getElementById('time-series-prediction-details').style.visibility = "hidden";
     }
 
+}
 
-    /*var prediction_accuracy_graph = new Chart(prediction_accuracy_canvas, prediction_accuracy_config);
-
-    if (document.getElementById('prediction-accuracy').style.visibility === "hidden") {
-        document.getElementById('prediction-accuracy').style.visibility = "visible";
-    } else if (document.getElementById('prediction-accuracy').style.visibility === "visible") {
-        prediction_accuracy_graph.destroy()
-        document.getElementById('prediction-accuracy').style.visibility = "hidden";
-    }*/
-
+function showCitiesTable(){
+	if (document.getElementById('cities-details').style.visibility === "hidden") {
+        document.getElementById('cities-details').style.visibility = "visible";
+		//console.log(table_data)
+		update_table_data();
+    } else if (document.getElementById('cities-details').style.visibility === "visible") {
+        document.getElementById('cities-details').style.visibility = "hidden";
+    }
 }
 
 
 $('#prediction-details').on('hidden.bs.collapse', function() {
     $('#viewmore-button').text('View More Details');
-    showGraph();
+    showPredictionGraph();
 });
 $('#prediction-details').on('shown.bs.collapse', function() {
     $('#viewmore-button').text('View Less Details');
-    showGraph();
+    showPredictionGraph();
+});
+
+
+$('#cities-details').on('hidden.bs.collapse', function() {
+    $('#viewmore-button').text('View More Details');
+    showCitiesTable();
+});
+$('#cities-details').on('shown.bs.collapse', function() {
+    $('#viewmore-button').text('View Less Details');
+    showCitiesTable();
 });
 
 $('#tutorial_modal').modal();

@@ -422,6 +422,19 @@ input[type=checkbox] {
 		width: 33%;
 	}
 }*/
+.table.table-hover.table-sm > thead > tr > th{
+	color: #fff;
+	background-color: #8C0618;
+	border-color: #333;
+}
+
+.table.table-hover.table-sm > tbody > tr > th{
+	border-color: #333;
+}
+
+.table.table-hover.table-sm > tbody > tr > td{
+	border-color: #333;
+}
 
 
 /* Symptoms section */
