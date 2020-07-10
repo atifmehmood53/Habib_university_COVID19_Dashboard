@@ -1369,7 +1369,9 @@ function reset_to_default() {
 
     // Reset citywise chart to National Data
     update_citywise_data("National");
-	update_table_data('default');
+	table_data = citywise_table_data('default');
+	update_table_data();
+	
     var x;
     for (x of all_provinces) {
         x.style.fill = '#000000';
