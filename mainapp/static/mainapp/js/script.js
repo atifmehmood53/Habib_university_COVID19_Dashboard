@@ -839,7 +839,7 @@ function citywise_table_data(province) {
 function update_table_data(){
 	contents.innerHTML = "";
 	for (var i = 0; i < table_data[0].length; i++){
-		contents.innerHTML += "<tr><td>" + table_data[0][i] + "</td><td>" + table_data[1][i] + "</td><td>" + table_data[2][i] + "</td><td>" + table_data[3][i] + "</td></tr>";
+		contents.innerHTML += "<tr><td>" + table_data[0][i] + "</td><td>" + table_data[3][i] + "</td><td>" + table_data[1][i] + "</td><td>" + table_data[2][i] + "</td></tr>";
 	}
 }
 
@@ -1673,11 +1673,11 @@ $('#prediction-details').on('shown.bs.collapse', function() {
 
 
 $('#cities-details').on('hidden.bs.collapse', function() {
-    $('#viewmore-button').text('View More Details');
+    $('#viewmore-cities-button').text('View More Details');
     showCitiesTable();
 });
 $('#cities-details').on('shown.bs.collapse', function() {
-    $('#viewmore-button').text('View Less Details');
+    $('#viewmore-cities-button').text('View Less Details');
     showCitiesTable();
 });
 
