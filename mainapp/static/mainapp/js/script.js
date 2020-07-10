@@ -136,10 +136,73 @@ var national_timeSeries = national_timeSeries_data()
 var n = national_timeSeries;
 var predictions = prediction_data()
 var d = monthly_data(n);
-var cities_list = provincial_cities_data();
-console.log(cities_list)
-//var copy_d = JSON.parse(JSON.stringify(d));
-//var copy_b = JSON.parse(JSON.stringify(d));
+
+
+var complete_citywise_data = provincial_cities_data();
+console.log(complete_citywise_data);
+var top_12_citywise_data = [
+    [
+        [],
+        [],
+        [],
+        []
+    ],
+    [
+        [],
+        [],
+        [],
+        []
+    ]
+];
+// Extracting top 12 districts (by population) from each province
+for (var i=0; i<3; i++) {
+    for (var j=0; j<12; j++) {
+        top_12_citywise_data[0][i].push(complete_citywise_data[0][i][j]);
+        top_12_citywise_data[1][i].push(complete_citywise_data[1][i][j]);
+    }
+}
+// KPK has less than 12 districts as of now so
+// it needs to processed seperately to avoid undefined values in the arrays.
+top_12_citywise_data[0][3] = complete_citywise_data[0][3];
+top_12_citywise_data[1][3] = complete_citywise_data[1][3];
+
+console.log("Top 12 Citywise Data:")
+console.log(top_12_citywise_data)
+
+// Extracting city data for provincial capitals to display when the user
+// hasn't selected any province on the map or the user has selected a
+// province for which we don't have city-wise data.
+var national_citywise_data = [
+    [],
+    []
+];
+
+for (var district in global_data["City Wise"]["Balochistan"]) {
+    if (global_data["City Wise"]["Balochistan"][district].district == "Quetta") {
+        national_citywise_data[0].push(global_data["City Wise"]["Balochistan"][district].casePerMillionPopulation);
+        national_citywise_data[1].push(global_data["City Wise"]["Balochistan"][district].district);
+    }
+}
+for (var district in global_data["City Wise"]["Punjab"]) {
+    if (global_data["City Wise"]["Punjab"][district].district == "Lahore") {
+        national_citywise_data[0].push(global_data["City Wise"]["Punjab"][district].casePerMillionPopulation);
+        national_citywise_data[1].push(global_data["City Wise"]["Punjab"][district].district);
+    }
+}
+for (var district in global_data["City Wise"]["Sindh"]) {
+    if (global_data["City Wise"]["Sindh"][district].district == "Karachi") {
+        national_citywise_data[0].push(global_data["City Wise"]["Sindh"][district].casePerMillionPopulation);
+        national_citywise_data[1].push(global_data["City Wise"]["Sindh"][district].district);
+    }
+}
+for (var district in global_data["City Wise"]["KPK"]) {
+    if (global_data["City Wise"]["KPK"][district].district == "Peshawar") {
+        national_citywise_data[0].push(global_data["City Wise"]["KPK"][district].casePerMillionPopulation);
+        national_citywise_data[1].push(global_data["City Wise"]["KPK"][district].district);
+    }
+}
+
+
 var today = new Date();
 var current_month = today.getMonth();
 //var b = current_month_data(n, current_month);
@@ -167,7 +230,7 @@ var two_week_accuracy_data = accuracy_data();
 
 
 
-// Donut Chart
+// Donut Charts
 var donut_ctx = document.getElementById('donut-chart').getContext('2d');
 var donut_config = {
     type: 'doughnut',
@@ -553,43 +616,12 @@ var cities_config = {
     type: 'bar',
     data: {
         datasets: [{
-                //label: 'Upper Confidence Interval',
-                //pointBackgroundColor: '#d7aa00',
-                //pointBorderColor: '#d7aa00',
-                //pointRadius: 5,
-                //borderDash: [20, 5],
+                label: 'Cases Per Million',
                 borderColor: '#d7aa00',
                 backgroundColor: '#d7aa00',
-                data: predictions[2],
-                //data: predictions[1],
-                //fill: '+1',
+                data: national_citywise_data[0],
                 borderWidth: 3
             }
-            /*{
-                //label: 'Prediction of Nationwide Cases',
-                //pointBackgroundColor: '#c96044',
-                //pointBorderColor: '#c96044',
-                //pointRadius: 5,
-                borderColor: '#c96044',
-                backgroundColor: '#c96044',
-                data: predictions[1],
-                //fill: false,
-                //data: predictions[0],
-                borderWidth: 3
-            },
-            {
-                //label: 'Lower Confidence Interval',
-                //pointBackgroundColor: '#908834',
-                //pointBorderColor: '#908834',
-                //pointRadius: 4,
-                //borderDash: [20, 5],
-                borderColor: '#d7aa00',
-                backgroundColor: '#d7aa00',
-                data: predictions[0],
-                //fill: '-1',
-                //data: predictions[2],
-                borderWidth: 3
-            }*/
         ]
     },
     options: {
@@ -598,7 +630,7 @@ var cities_config = {
         maintainAspectRatio: false,
         title: {
             display: true,
-            text: 'Detailed Predictions'
+            text: 'City-wise Data'
         },
         elements: {
             point: {
@@ -607,22 +639,19 @@ var cities_config = {
         },
         scales: {
             xAxes: [{
-                type: 'time',
                 display: true,
+                type: 'category',
+                labels: national_citywise_data[1],
                 scaleLabel: {
                     display: true,
-                    labelString: 'Date'
+                    labelString: 'District'
                 },
-                ticks: {
-                    source: 'data'
-                }
             }],
             yAxes: [{
                 display: true,
-				stacked: true,
                 scaleLabel: {
                     display: true,
-                    labelString: 'Number of cases'
+                    labelString: 'Cases Per Million'
                 },
 				
             }]
@@ -751,34 +780,35 @@ function national_timeSeries_data() {
 
 function provincial_cities_data() {
     data = Object.assign(global_data); //copying global data for safety purposes, can be removed later
-    var j = 0;
-	var cases_data = [
-        [],
-        [],
-        [],
-        []
-    ];
-	var cities_cases = []
-	var cities_list = [];
-    for (var key in data) {
-        if (key === 'Balochistan City' || key === 'KPK City' || key === 'Punjab City' || key === 'Sindh City') {
-            for (var i = 0; i < data[key].length - 5; i++) {
-                d = new Date(data[key][i].date)
-				district = data[key][i].district
-				if (cities_list[j] === undefined){
-					cities_list.push([district])
-				}
-				else if (!cities_list[j].includes(district)){
-					cities_list[j].push(district)
-				}
-            }
-			j++;
-        }
-		
+	var city_data = [[
+        [], // Balochistan
+        [], // Punjab
+        [], // Sindh
+        []  // KPK
+    ],
+	[
+        [], // Balochistan
+        [], // Punjab
+        [], // Sindh
+        []  // KPK
+    ]];
+    for (var district in data["City Wise"]["Balochistan"]) {
+        city_data[0][0].push(data["City Wise"]["Balochistan"][district].casePerMillionPopulation)
+        city_data[1][0].push(data["City Wise"]["Balochistan"][district].district);
     }
-	console.log(cities_list)
-	console.log(cases_data)
-    return cities_list
+    for (var district in data["City Wise"]["Punjab"]) {
+        city_data[0][1].push(data["City Wise"]["Punjab"][district].casePerMillionPopulation)
+        city_data[1][1].push(data["City Wise"]["Punjab"][district].district);
+    }
+    for (var district in data["City Wise"]["Sindh"]) {
+        city_data[0][2].push(data["City Wise"]["Sindh"][district].casePerMillionPopulation)
+        city_data[1][2].push(data["City Wise"]["Sindh"][district].district);
+    }
+    for (var district in data["City Wise"]["KPK"]) {
+        city_data[0][3].push(data["City Wise"]["KPK"][district].casePerMillionPopulation)
+        city_data[1][3].push(data["City Wise"]["KPK"][district].district);
+    }
+    return city_data
 }
 
 // Returns the confirmed cases against each date present in the predictions dataset.
@@ -942,6 +972,30 @@ function update_provinceMonth(province, province_data) {
     return month_data;
 }
 
+function update_citywise_data(province) {
+    if (province == "Balochistan") {
+        cities_graph.data.datasets[0].data = top_12_citywise_data[0][0];
+        cities_graph.options.scales.xAxes[0].labels = top_12_citywise_data[1][0]
+    }
+    else if (province == "Punjab") {
+        cities_graph.data.datasets[0].data = top_12_citywise_data[0][1];
+        cities_graph.options.scales.xAxes[0].labels = top_12_citywise_data[1][1]
+    }
+    else if (province == "Sindh") {
+        cities_graph.data.datasets[0].data = top_12_citywise_data[0][2];
+        cities_graph.options.scales.xAxes[0].labels = top_12_citywise_data[1][2]
+    }
+    else if (province == "KPK") {
+        cities_graph.data.datasets[0].data = top_12_citywise_data[0][3];
+        cities_graph.options.scales.xAxes[0].labels = top_12_citywise_data[1][3]
+    }
+    else if (province == "National") {
+        cities_graph.data.datasets[0].data = national_citywise_data[0];
+        cities_graph.options.scales.xAxes[0].labels = national_citywise_data[1];
+    }
+    cities_graph.update();
+}
+
 function popup(e) {
     //trend_slider.value = "0";
     trend_slider.value = trend_slider.max;
@@ -985,7 +1039,10 @@ function popup(e) {
 			
             update_donutData(donut_chart, province_data);
             updateData(myChart, updated_data, 'time series')
-			//console.log(weekly_data_list)
+            //console.log(weekly_data_list)
+            
+            // Update citywise data
+            update_citywise_data("Punjab");
 			
         } else if (e.target.id === "PK-SD") {
             //province = "Sindh";
@@ -1008,6 +1065,9 @@ function popup(e) {
 			
             update_donutData(donut_chart, province_data);
             updateData(myChart, updated_data, 'time series')
+
+            // Update citywise data
+            update_citywise_data("Sindh");
 			
         } else if (e.target.id === "PK-KP" || e.target.id == "PK-TA") {
             new_data = [
@@ -1048,6 +1108,9 @@ function popup(e) {
 			
             update_donutData(donut_chart, province_data);
             updateData(myChart, updated_data, 'time series')
+
+            // Update citywise data
+            update_citywise_data("KPK");
 			
         } else if (e.target.id === "PK-AK") {
             //province = "Azad Kashmir";
@@ -1070,6 +1133,9 @@ function popup(e) {
 			
             update_donutData(donut_chart, province_data);
             updateData(myChart, updated_data, 'time series')
+
+            // Update citywise data
+            update_citywise_data("National");
 			
         } else if (e.target.id === "PK-IS") {
             //province = "Islamabad";
@@ -1092,6 +1158,9 @@ function popup(e) {
 			
             update_donutData(donut_chart, province_data);
             updateData(myChart, updated_data, 'time series')
+
+            // Update citywise data
+            update_citywise_data("National");
 			
         } else if (e.target.id === "PK-GB") {
             //province = "Gilgit-Baltistan";
@@ -1114,6 +1183,9 @@ function popup(e) {
 			
             update_donutData(donut_chart, province_data);
             updateData(myChart, updated_data, 'time series')
+
+            // Update citywise data
+            update_citywise_data("National");
 			
         } else if (e.target.id === "PK-BA") {
             //province = "Balochistan";
@@ -1136,6 +1208,9 @@ function popup(e) {
 			
             update_donutData(donut_chart, province_data);
             updateData(myChart, updated_data, 'time series')
+
+            // Update citywise data
+            update_citywise_data("Balochistan");
 			
         }
         if (province_data[province_data.length - 1].most_infected_city === "None") {
@@ -1263,6 +1338,9 @@ function reset_to_default() {
 
     updateData(donut_chart, a, 'donut');
     updateData(myChart, updated_data, 'time series');
+
+    // Reset citywise chart to National Data
+    update_citywise_data("National");
     /*slider_data[0] = myChart.data.datasets[0].data
     slider_data[1] = myChart.data.datasets[1].data
     slider_data[2] = myChart.data.datasets[2].data
