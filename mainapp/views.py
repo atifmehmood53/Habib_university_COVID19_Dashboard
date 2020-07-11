@@ -107,7 +107,7 @@ def index(request):
         data1['City Wise']['KPK'].append(KPKSerializer(KPK_Data.objects.filter(date = latest_date_kpk , district=city['district']), many=True).data[0])
 
     data1['Predictions'] = (predictionSerializer(Prediction_model.objects.all(), many = True)).data
-    
+    data1['Peshawar'] = KPKSerializer(KPK_Data.objects.filter(date= '2020-05-18' ,district= 'Peshawar'), many=True).data[0]
 
     for province,_  in (province_choices):
        context["total_cases_today"][province]= ((Daily_Cases.objects.filter(province=province)))
@@ -235,13 +235,17 @@ def Balochistan_upload(request):
 
 
     for col in csv.reader(io_string, delimiter=','):
-        print(col[0])
+        if int(col[5])==0:
+            cp = 0
+        else:
+            cp = (int(col[3]) / int(col[5])) * 1000000
+ 
         _, created = Balochistan_Data.objects.update_or_create(
             id =int(col[0]),
             date = (col[1]),
             district = (col[2]),
             total = int(col[3]),
-            casePerMillionPopulation = int(col[3]) / int(col[5]),
+            casePerMillionPopulation = cp,
             Population = int(col[5]),
             
         )
@@ -275,7 +279,7 @@ def Punjab_upload(request):
         if int(col[5])==0:
             cp = 0
         else:
-            cp = int(col[3]) / int(col[5])
+            cp = (int(col[3]) / int(col[5])) * 1000000
         _, created = Punjab_Data.objects.update_or_create(
             id =int(col[0]),
             date = (col[1]),
@@ -314,7 +318,7 @@ def Sindh_upload(request):
         if int(col[5])==0:
             cp = 0
         else:
-            cp = int(col[3]) / int(col[5])
+            cp = (int(col[3]) / int(col[5])) * 1000000
         _, created = Sindh_Data.objects.update_or_create(
             id =int(col[0]),
             date = (col[1]),
@@ -353,7 +357,7 @@ def KPK_upload(request):
         if int(col[5])==0:
             cp = 0
         else:
-            cp = int(col[3]) / int(col[5])
+            cp = (int(col[3]) / int(col[5])) * 1000000
         _, created = KPK_Data.objects.update_or_create(
             id =int(col[0]),
             date = (col[1]),
