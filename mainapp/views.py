@@ -25,8 +25,6 @@ import pytz
 import time
 import pprint
 
-
-
 #Create your views here.
 province = ['Sindh','Punjab', 'Balochistan', 'KPK']
 
@@ -36,7 +34,7 @@ tz = pytz.timezone('Asia/Karachi')
 time_now = datetime.datetime.now(tz).time()
 
 #here we could apply any timezone according shop geo location
-time_open = datetime.time(10, 30, tzinfo=tz)
+time_open = datetime.time(19, 28, tzinfo=tz)
 time_close = datetime.time(10, 32, tzinfo=tz)
 print(time_open , time_now , time_close)
 if time_now >= time_open and time_now < time_close:
@@ -61,7 +59,9 @@ if time_now >= time_open and time_now < time_close:
                 
                 )
             
-            line +=1
+            line += 1
+            
+
 import operator
 def index(request):
     # context of this page
