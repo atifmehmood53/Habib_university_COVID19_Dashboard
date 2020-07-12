@@ -18,6 +18,7 @@ psycopg2 = "*"
 beautifulsoup4 = "==4.7.1"
 django-tracking-analyzer = "*"
 pytz = "*"
+selenium = "*"
 
 [requires]
 python_version = "3.7"
