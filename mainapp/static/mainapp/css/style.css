@@ -82,7 +82,7 @@ fill: #585858;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-#trend-section {
+#trend-section, #trend-section2{
   background-color: #c8a95f;
   /*margin-bottom: 15%;*/
 }
@@ -609,6 +609,12 @@ a:hover,a:focus{
     line-height: 27px;
 }
 
+.fact-subheading{
+	text-align:center;
+	color: #333;
+	margin: 2%;
+}
+
 .fact-truth{
 	width: 30%;
 	text-align: center;
@@ -627,6 +633,11 @@ a:hover,a:focus{
 #accordion2 .panel-title .fact-false{
 	color: #36332D;
 	background: linear-gradient(to right, rgba(255,255,255,255) 69%,rgba(255,255,255,255) 20%,rgba(221,61,70, 1) 0%,rgba(221,61,70, 1) 100%);
+}
+
+#accordion2 .panel-title .fact-unsure{
+	color: #36332D;
+	background: linear-gradient(to right, rgba(255,255,255,255) 69%,rgba(255,255,255,255) 20%,rgba(221,61,70, 1) 0%,rgba(154, 166, 46, 1) 100%);
 }
 
 /*fact checking heading */

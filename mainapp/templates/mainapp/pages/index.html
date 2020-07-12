@@ -425,7 +425,23 @@
 					</tbody>
 				</table>
 			</div>
-			<!--</div>=-->
+			<!--<div class="col-lg-6 col-md-6 col-sm-12" id="prediction-graph">
+                <div>
+                    <!--DO NOT REMOVE THIS ADDITIONAL DIV. THIS FIXES A BUG IN CHARTJS-->
+                    <!--<canvas id="time-series-graph-prediction" height="300" class="details-graph"></canvas>
+                </div>
+            </div>
+			<div class="col-lg-6 col-md-6 col-sm-12" id="prediction-accuracy-graph">
+                <div>
+                    <canvas id="prediction-accuracy" height="300" class="details-graph"></canvas>
+                </div>
+				<div class="view-more text-center">
+                    <button class="btn" type="button" id="viewmore-button" data-toggle="collapse"
+                        data-target="#prediction-details" aria-expanded="false" aria-controls="prediction-details">View More Details</button>
+                </div>
+            </div>-->
+        </div>
+		<div class="row details-section margin-row" id="trend-section2">
 			<div class="col-lg-6 col-md-6 col-sm-12" id="prediction-graph">
                 <div>
                     <!--DO NOT REMOVE THIS ADDITIONAL DIV. THIS FIXES A BUG IN CHARTJS-->
@@ -441,7 +457,7 @@
                         data-target="#prediction-details" aria-expanded="false" aria-controls="prediction-details">View More Details</button>
                 </div>
             </div>
-        </div>
+		</div>
 
         <div class="row collapse" id="prediction-details">
             <div class="col-lg-6 col-md-6 col-sm-12">
@@ -663,6 +679,7 @@
                     <span class="span-class bottom left"></span>
                 </div>
                 <div class="panel-group" id="accordion2" role="tablist" aria-multiselectable="true">
+					<h3 class="fact-subheading"> Susceptibility </h3>
                     <div class="panel panel-default">
                         <div class="panel-heading" role="tab" id="factheadingOne">
                             <h4 class="panel-title">
@@ -700,7 +717,182 @@
                             </div>
                         </div>
                     </div>
-                    <div class="panel panel-default">
+					<div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingFour">
+                            <h4 class="panel-title">
+                                <a class="collapsed fact-true" role="button" data-toggle="collapse"
+                                    data-parent="#accordion2" href="#collapse4" aria-expanded="false"
+                                    aria-controls="collapse4">
+                                    <span style="width: 60%">Does smoking make you more susceptible to COVID-19 infection?</span>
+                                    <span class="fact-truth" style="text-transform: uppercase"> True </span>
+                                </a>
+
+                            </h4>
+                        </div>
+                        <div id="collapse4" class="panel-collapse collapse" role="tabpanel"
+                            aria-labelledby="headingFour">
+                            <div class="panel-body">
+                                <ul> 
+									<li>Studies have presented extensive evidence which has highlighted the negative impact of tobacco use on lung health and its causal association with respiratory diseases.</li>
+									<li>Specifically, in terms of COVID-19, studies have shown that <strong>smokers are 1.4 times more likely</strong> to <strong>have severe symptoms of COVID-19</strong> and approx. 2.4 times more likely to be admitted to an ICU, need mechanical ventilation or die in comparison to non-smokers.</li>
+									<li>Overall, smoking <strong>is most likely associated with the negative progression</strong> of COVID-19.</li>
+								</ul>
+								<p><b>Citation:</b> Vardavas CI, Nikitara K. COVID-19 and smoking: A systematic review of the evidence. Tob Induc Dis. 2020;18:20. Published 2020 Mar 20. doi:<a href="10.18332/tid/119324" style="text-decoration: underline">10.18332/tid/119324</a> <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7083240/" style="text-decoration: underline">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7083240/</a></p>
+                            </div>
+                        </div>
+                    </div>
+					<div class="view-more text-center">
+						<button class="btn" type="button" id="viewmore-susceptibility-button" data-toggle="collapse"
+                        data-target="#susceptibility-details" aria-expanded="false" aria-controls="susceptibility-details">View More Details</button>
+					</div>
+                    <div id="susceptibility-details" style="visibility: hidden;">
+						<div class="panel panel-default">
+							<div class="panel-heading" role="tab" id="headingFive">
+								<h4 class="panel-title">
+									<a class="collapsed fact-false" role="button" data-toggle="collapse"
+										data-parent="#accordion2" href="#collapse5" aria-expanded="false"
+										aria-controls="collapse5">
+										<span style="width: 60%">Are children are less susceptible to COVID-19?</span>
+										<span class="fact-truth" style="text-transform: uppercase"> False </span>
+									</a>
+								</h4>
+							</div>
+							<div id="collapse5" class="panel-collapse collapse" role="tabpanel"
+								aria-labelledby="headingFive">
+								<div class="panel-body">
+									<ul> 
+										<li>All individuals, including children are susceptible to SARS-CoV-2. </li>
+										<li> Children having immature immune system are vulnerable to the severity of the illness. Children with preexisting conditions such as heart, lung, and airway disease, malnutrition, and tumors are also at a greater risk to infection and its severity.</li>
+										<li> The average incubation period for children (6.5 days) is slightly longer than that of adults (5.4 days). </li>
+									</ul>
+									<p><b>Citation:</b> She, J., 2020. COVID‐19 epidemic: Disease characteristics in children. Journal of Medical Virology, 92(7).</p>
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading" role="tab" id="headingSix">
+								<h4 class="panel-title">
+									<a class="collapsed fact-somewhat-true" role="button" data-toggle="collapse"
+										data-parent="#accordion2" href="#collapse6" aria-expanded="false"
+										aria-controls="collapse6">
+										<span style="width: 60%">Does biological sex determine COVID-19 susceptibility?</span>
+										<span class="fact-truth" style="text-transform: uppercase"> Somewhat true </span>
+									</a>
+								</h4>
+							</div>
+							<div id="collapse6" class="panel-collapse collapse" role="tabpanel"
+								aria-labelledby="headingSix">
+								<div class="panel-body">
+									<ul> 
+										<li>Descriptive and observational data from Wuhan, China notes that the majority of COVID-19 affected patients have been male.</li>
+										<li> Earlier studies have demonstrated that sex hormones (estrogen and testosterone) impact the immune system response and engagement in different ways, <strong> resulting in a less robust immunological response in males </strong> (leading to subsequent morbidity and mortality from viral respiratory illnesses). </li>
+										<li> Increased ACE2 (enzyme receptors serve as a main entry point for COVID-19) activity has been found in males than females, suggesting a sex hormone influence.</li>
+										<li> Behavioral and cultural variables also influence current COVID-19 epidemiology; for example smoking is more prevalent amongst men in most cultures causing men to be more susceptible to infection.</li>
+										<li> Gender-specifc factors such as women being traditional caregivers and coordinators of care for their loved ones, particularly working mothers, result in women spending more time than men focused on medical issues related to both their own healthcare and that of their families. These factors have a significant effect on disease outcome among women vs men.</li>
+									</ul>
+									<p><b>Citation:</b> Walter, L. A. & McGregor, A. J., 2020. Sex- and Gender-specific Observations and Implications for COVID-19. West J Emerg Med, May.pp. 507-509.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<h3 class="fact-subheading"> Transmission </h3>
+					<div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingThree">
+                            <h4 class="panel-title">
+                                <a class="collapsed fact-somewhat-true" role="button" data-toggle="collapse"
+                                    data-parent="#accordion2" href="#collapse3" aria-expanded="false"
+                                    aria-controls="collapse3">
+                                    <span style="width: 60%">Can COVID-19 be transmitted through the faeces of infected patients?</span>
+                                    <span class="fact-truth" style="text-transform: uppercase"> Somewhat true </span>
+                                </a>
+
+                            </h4>
+                        </div>
+                        <div id="collapse3" class="panel-collapse collapse" role="tabpanel"
+                            aria-labelledby="headingThree">
+                            <div class="panel-body">
+                                <ul> 
+									<li> SARS-CoV RNA (genetic material) <strong>is detectable in stool samples</strong> of laboratory-confirmed COVID-19 patients. * No viral RNA was detected in urine specimens.</li>
+									<li> Being tested positive for SARS-CoV-2 RNA in stool specimens is not associated with the presence of gastrointestinal symptoms and the severity of illness.</li>
+									<li> Viral RNA continues to be detected in patients for an average of 7 days (6-10 days range) following negative pharyngeal swabs suggesting that transmission may occur even after viral clearance in respiratory tract.</li>
+									<li> Fecal-oral route may serve as an alternative transmission route for SARS-CoV-2. </li>
+								</ul>
+								<p>Side Note: This study has significant impact on SOP’s concerning COVID-19 patient discharge. This, and other studies show that patients should not be discharged based purely on negative RT-PCR test results for viral RNA in pharyngeal swabs. Viral RNA detection via anal swabs/stool specimens in COVID-19 patients during hospitalization and recovery should be routinely performed and precautions must be taken until negative conversion of viral RNA in feces is seen.</p>
+								<p><b>Citation: </b> Chen Y, Chen L, Deng Q, et al. The presence of SARS-CoV-2 RNA in the feces of COVID-19 patients. J Med Virol. 2020;92(7):833‐840. doi: <a href="10.1002/jmv.25825" style="text-decoration: underline">10.1002/jmv.25825</a><a href="https://pubmed.ncbi.nlm.nih.gov/32243607/" style="text-decoration: underline">https://pubmed.ncbi.nlm.nih.gov/32243607/</a></p>
+                            </div>
+                        </div>
+                    </div>
+					<div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingSeven">
+                            <h4 class="panel-title">
+                                <a class="collapsed fact-false" role="button" data-toggle="collapse"
+                                    data-parent="#accordion2" href="#collapse7" aria-expanded="false"
+                                    aria-controls="collapse7">
+                                    <span style="width: 60%">COVID-19 antibodies in breastmilk may protect infants.</span>
+                                    <span class="fact-truth" style="text-transform: uppercase"> False </span>
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse7" class="panel-collapse collapse" role="tabpanel"
+                            aria-labelledby="headingSeven">
+                            <div class="panel-body">
+                                <ul> 
+									<li>Breastmilk samples from laboratory confirmed COVID-19 positive patients appear to be free of SARS-CoV-2.</li>
+									<li> There is <strong> no evidence </strong> of the viral infection present in breastmilk.</li>
+								</ul>
+								<p><b>Citation:</b> Chen, H., 2020. Clinical characteristics and intrauterine vertical transmission potential of COVID-19 infection in nine pregnant women: a retrospective review of medical records. The Lancet, 395(10226), pp. 809-815.</p>
+                            </div>
+                        </div>
+                    </div>
+					<div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingEight">
+                            <h4 class="panel-title">
+                                <a class="collapsed fact-unsure" role="button" data-toggle="collapse"
+                                    data-parent="#accordion2" href="#collapse8" aria-expanded="false"
+                                    aria-controls="collapse8">
+                                    <span style="width: 60%">There is a correlation between COVID-19 and ABO blood groups.</span>
+                                    <span class="fact-truth" style="text-transform: uppercase"> No concrete evidence present </span>
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse8" class="panel-collapse collapse" role="tabpanel"
+                            aria-labelledby="headingEight">
+                            <div class="panel-body">
+                                <ul> 
+									<li>In research conducted in Wuhan and Shenzhen, O blood groups were significantly less common while blood groups were common amongst COVID-19 patients.</li>
+									<li> Fewer AB blood groups reported amongst COVID-19 patients.</li>
+									<li> An association between COVID-19 and Rh-negative blood type was found.</li>
+									<p><strong>NOTE: The research on this subject is quite preliminary. Currently, there is a lack of evidence to make any conclusions. Extensive testing on larger sample sizes around the world while controlling for factors such as age, sex, and existing physical conditions are needed.</strong></p>
+								</ul>
+								<p><b>Citation:</b> Zietz, M. and Tatonetti, N., 2020. Testing the association between blood type and COVID-19 infection, intubation, and death. medRxiv, [online] Available at: [Accessed 9 July 2020].</p>
+                            </div>
+                        </div>
+                    </div>
+					<div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingNine">
+                            <h4 class="panel-title">
+                                <a class="collapsed fact-true" role="button" data-toggle="collapse"
+                                    data-parent="#accordion2" href="#collapse9" aria-expanded="false"
+                                    aria-controls="collapse9">
+                                    <span style="width: 60%">COVID-19 patients with the existing condition of diabetes are at increased risk of complications.</span>
+                                    <span class="fact-truth" style="text-transform: uppercase"> True </span>
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse9" class="panel-collapse collapse" role="tabpanel"
+                            aria-labelledby="headingNine">
+                            <div class="panel-body">
+                                <ul> 
+									<li>COVID-19 patients with diabetes have <strong> a threefold higher mortality rate </strong> compared to patients without diabetic conditions.</li>
+									<li> COVID-19 patients with diabetes more likely are admitted to ICU and in need for ventilators.</li>
+									<li> Diabetic patients could manifest similar symptoms as patients without diabetic conditions, however, it could result in more rapid deterioration in their case.</li>
+								</ul>
+								<p><b>Citation:</b> Katulanda, P., 2020. Prevention and management of COVID-19 among patients with diabetes: an appraisal of the literature. Diabetologia, [online] pp.1440-1442. Available at: [Accessed 11 July 2020]</p>
+                            </div>
+                        </div>
+                    </div>
+					<h3 class="fact-subheading"> Treatment </h3>
+					<div class="panel panel-default">
                         <div class="panel-heading" role="tab" id="headingTwo">
                             <h4 class="panel-title">
                                 <a class="collapsed fact-somewhat-true" role="button" data-toggle="collapse"
@@ -734,180 +926,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="headingThree">
-                            <h4 class="panel-title">
-                                <a class="collapsed fact-somewhat-true" role="button" data-toggle="collapse"
-                                    data-parent="#accordion2" href="#collapse3" aria-expanded="false"
-                                    aria-controls="collapse3">
-                                    <span style="width: 60%">Can COVID-19 be transmitted through the faeces of infected patients?</span>
-                                    <span class="fact-truth" style="text-transform: uppercase"> Somewhat true </span>
-                                </a>
-
-                            </h4>
-                        </div>
-                        <div id="collapse3" class="panel-collapse collapse" role="tabpanel"
-                            aria-labelledby="headingThree">
-                            <div class="panel-body">
-                                <ul> 
-									<li> SARS-CoV RNA (genetic material) <strong>is detectable in stool samples</strong> of laboratory-confirmed COVID-19 patients. * No viral RNA was detected in urine specimens.</li>
-									<li> Being tested positive for SARS-CoV-2 RNA in stool specimens is not associated with the presence of gastrointestinal symptoms and the severity of illness.</li>
-									<li> Viral RNA continues to be detected in patients for an average of 7 days (6-10 days range) following negative pharyngeal swabs suggesting that transmission may occur even after viral clearance in respiratory tract.</li>
-									<li> Fecal-oral route may serve as an alternative transmission route for SARS-CoV-2. </li>
-								</ul>
-								<p>Side Note: This study has significant impact on SOP’s concerning COVID-19 patient discharge. This, and other studies show that patients should not be discharged based purely on negative RT-PCR test results for viral RNA in pharyngeal swabs. Viral RNA detection via anal swabs/stool specimens in COVID-19 patients during hospitalization and recovery should be routinely performed and precautions must be taken until negative conversion of viral RNA in feces is seen.</p>
-								<p><b>Citation: </b> Chen Y, Chen L, Deng Q, et al. The presence of SARS-CoV-2 RNA in the feces of COVID-19 patients. J Med Virol. 2020;92(7):833‐840. doi: <a href="10.1002/jmv.25825" style="text-decoration: underline">10.1002/jmv.25825</a><a href="https://pubmed.ncbi.nlm.nih.gov/32243607/" style="text-decoration: underline">https://pubmed.ncbi.nlm.nih.gov/32243607/</a></p>
-                            </div>
-                        </div>
-                    </div>
-					<div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="headingFour">
-                            <h4 class="panel-title">
-                                <a class="collapsed fact-true" role="button" data-toggle="collapse"
-                                    data-parent="#accordion2" href="#collapse4" aria-expanded="false"
-                                    aria-controls="collapse4">
-                                    <span style="width: 60%">Does smoking make you more susceptible to COVID-19 infection?</span>
-                                    <span class="fact-truth" style="text-transform: uppercase"> True </span>
-                                </a>
-
-                            </h4>
-                        </div>
-                        <div id="collapse4" class="panel-collapse collapse" role="tabpanel"
-                            aria-labelledby="headingFour">
-                            <div class="panel-body">
-                                <ul> 
-									<li>Studies have presented extensive evidence which has highlighted the negative impact of tobacco use on lung health and its causal association with respiratory diseases.</li>
-									<li>Specifically, in terms of COVID-19, studies have shown that <strong>smokers are 1.4 times more likely</strong> to <strong>have severe symptoms of COVID-19</strong> and approx. 2.4 times more likely to be admitted to an ICU, need mechanical ventilation or die in comparison to non-smokers.</li>
-									<li>Overall, smoking <strong>is most likely associated with the negative progression</strong> of COVID-19.</li>
-								</ul>
-								<p><b>Citation:</b> Vardavas CI, Nikitara K. COVID-19 and smoking: A systematic review of the evidence. Tob Induc Dis. 2020;18:20. Published 2020 Mar 20. doi:<a href="10.18332/tid/119324" style="text-decoration: underline">10.18332/tid/119324</a> <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7083240/" style="text-decoration: underline">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7083240/</a></p>
-                            </div>
-                        </div>
-                    </div>
-					<div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="headingFive">
-                            <h4 class="panel-title">
-                                <a class="collapsed fact-false" role="button" data-toggle="collapse"
-                                    data-parent="#accordion2" href="#collapse5" aria-expanded="false"
-                                    aria-controls="collapse5">
-                                    <span style="width: 60%">Are children are less susceptible to Covid-19?</span>
-                                    <span class="fact-truth" style="text-transform: uppercase"> False </span>
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="collapse5" class="panel-collapse collapse" role="tabpanel"
-                            aria-labelledby="headingFive">
-                            <div class="panel-body">
-                                <ul> 
-									<li>All individuals, including children are susceptible to SARS-CoV-2. </li>
-									<li> Children having immature immune system are vulnerable to the severity of the illness. Children with preexisting conditions such as heart, lung, and airway disease, malnutrition, and tumors are also at a greater risk to infection and its severity.</li>
-									<li> The average incubation period for children (6.5 days) is slightly longer than that of adults (5.4 days). </li>
-								</ul>
-								<p><b>Citation:</b> She, J., 2020. COVID‐19 epidemic: Disease characteristics in children. Journal of Medical Virology, 92(7).</p>
-                            </div>
-                        </div>
-                    </div>
-					<div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="headingSix">
-                            <h4 class="panel-title">
-                                <a class="collapsed fact-somewhat-true" role="button" data-toggle="collapse"
-                                    data-parent="#accordion2" href="#collapse6" aria-expanded="false"
-                                    aria-controls="collapse6">
-                                    <span style="width: 60%">Does biological sex determine covid-19 susceptibility?</span>
-                                    <span class="fact-truth" style="text-transform: uppercase"> Somewhat true </span>
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="collapse6" class="panel-collapse collapse" role="tabpanel"
-                            aria-labelledby="headingSix">
-                            <div class="panel-body">
-                                <ul> 
-									<li>Descriptive and observational data from Wuhan, China notes that the majority of Covid-19 affected patients have been male.</li>
-									<li> Earlier studies have demonstrated that sex hormones (estrogen and testosterone) impact the immune system response and engagement in different ways, <strong> resulting in a less robust immunological response in males </strong> (leading to subsequent morbidity and mortality from viral respiratory illnesses). </li>
-									<li> Increased ACE2 (enzyme receptors serve as a main entry point for Covid-19) activity has been found in males than females, suggesting a sex hormone influence.</li>
-									<li> Behavioral and cultural variables also influence current COVID-19 epidemiology; for example smoking is more prevalent amongst men in most cultures causing men to be more susceptible to infection.</li>
-									<li> Gender-specifc factors such as women being traditional caregivers and coordinators of care for their loved ones, particularly working mothers, result in women spending more time than men focused on medical issues related to both their own healthcare and that of their families. These factors have a significant effect on disease outcome among women vs men.</li>
-								</ul>
-								<p><b>Citation:</b> Walter, L. A. & McGregor, A. J., 2020. Sex- and Gender-specific Observations and Implications for COVID-19. West J Emerg Med, May.pp. 507-509.</p>
-                            </div>
-                        </div>
-                    </div>
-					<div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="headingSeven">
-                            <h4 class="panel-title">
-                                <a class="collapsed fact-false" role="button" data-toggle="collapse"
-                                    data-parent="#accordion2" href="#collapse7" aria-expanded="false"
-                                    aria-controls="collapse7">
-                                    <span style="width: 60%">Covid-19 antibodies in breastmilk may protect infants.</span>
-                                    <span class="fact-truth" style="text-transform: uppercase"> False </span>
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="collapse7" class="panel-collapse collapse" role="tabpanel"
-                            aria-labelledby="headingSeven">
-                            <div class="panel-body">
-                                <ul> 
-									<li>Breastmilk samples from laboratory confirmed Covid-19 positive patients appear to be free of SARS-CoV-2.</li>
-									<li> There is <strong> no evidence </strong> of the viral infection present in breastmilk.</li>
-								</ul>
-								<p><b>Citation:</b> Chen, H., 2020. Clinical characteristics and intrauterine vertical transmission potential of COVID-19 infection in nine pregnant women: a retrospective review of medical records. The Lancet, 395(10226), pp. 809-815.</p>
-                            </div>
-                        </div>
-                    </div>
-					<div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="headingEight">
-                            <h4 class="panel-title">
-                                <a class="collapsed fact-false" role="button" data-toggle="collapse"
-                                    data-parent="#accordion2" href="#collapse8" aria-expanded="false"
-                                    aria-controls="collapse8">
-                                    <span style="width: 60%">There is a correlation between Covid-19 and ABO blood groups.</span>
-                                    <span class="fact-truth" style="text-transform: uppercase"> No concrete evidence present </span>
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="collapse8" class="panel-collapse collapse" role="tabpanel"
-                            aria-labelledby="headingEight">
-                            <div class="panel-body">
-                                <ul> 
-									<li>In research conducted in Wuhan and Shenzhen, O blood groups were significantly less common while blood groups were common amongst Covid-19 patients.</li>
-									<li> Fewer AB blood groups reported amongst Covid-19 patients.</li>
-									<li> An association between Covid-19 and Rh-negative blood type was found.</li>
-									<p><strong>NOTE: The research on this subject is quite preliminary. Currently, there is a lack of evidence to make any conclusions. Extensive testing on larger sample sizes around the world while controlling for factors such as age, sex, and existing physical conditions are needed.</strong></p>
-								</ul>
-								<p><b>Citation:</b> Zietz, M. and Tatonetti, N., 2020. Testing the association between blood type and COVID-19 infection, intubation, and death. medRxiv, [online] Available at: [Accessed 9 July 2020].</p>
-                            </div>
-                        </div>
-                    </div>
-					<div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="headingNine">
-                            <h4 class="panel-title">
-                                <a class="collapsed fact-true" role="button" data-toggle="collapse"
-                                    data-parent="#accordion2" href="#collapse9" aria-expanded="false"
-                                    aria-controls="collapse9">
-                                    <span style="width: 60%">Covid-19 patients with the existing condition of diabetes are at increased risk of complications.</span>
-                                    <span class="fact-truth" style="text-transform: uppercase"> True </span>
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="collapse9" class="panel-collapse collapse" role="tabpanel"
-                            aria-labelledby="headingNine">
-                            <div class="panel-body">
-                                <ul> 
-									<li>Covid-19 patients with diabetes have <strong> a threefold higher mortality rate </strong> compared to patients without diabetic conditions.</li>
-									<li> Covid-19 patients with diabetes more likely are admitted to ICU and in need for ventilators.</li>
-									<li> Diabetic patients could manifest similar symptoms as patients without diabetic conditions, however, it could result in more rapid deterioration in their case.</li>
-								</ul>
-								<p><b>Citation:</b> Katulanda, P., 2020. Prevention and management of COVID-19 among patients with diabetes: an appraisal of the literature. Diabetologia, [online] pp.1440-1442. Available at: [Accessed 11 July 2020]</p>
-                            </div>
-                        </div>
-                    </div>
 					<div class="panel panel-default">
                         <div class="panel-heading" role="tab" id="headingTen">
                             <h4 class="panel-title">
-                                <a class="collapsed fact-true" role="button" data-toggle="collapse"
+                                <a class="collapsed fact-unsure" role="button" data-toggle="collapse"
                                     data-parent="#accordion2" href="#collapse10" aria-expanded="false"
                                     aria-controls="collapse10">
-                                    <span style="width: 60%">Is Remdesivir an effective treatment for Covid-19?</span>
+                                    <span style="width: 60%">Is Remdesivir an effective treatment for COVID-19?</span>
                                     <span class="fact-truth" style="text-transform: uppercase"> Not proven as effective treatment </span>
                                 </a>
                             </h4>
@@ -916,8 +941,8 @@
                             aria-labelledby="headingTen">
                             <div class="panel-body">
                                 <ul> 
-									<li>First randomized, double-blind, placebo-controlled clinical trial assessing the effect of intravenous Remdesivir on patients admitted to hospital with severe Covid-19.</li>
-									<li> In adult patients admitted to hospital for severe Covid-19 infection, <strong> Remdesivir was not associated with statistically significant clinical benefits. </strong> </li>
+									<li>First randomized, double-blind, placebo-controlled clinical trial assessing the effect of intravenous Remdesivir on patients admitted to hospital with severe COVID-19.</li>
+									<li> In adult patients admitted to hospital for severe COVID-19 infection, <strong> Remdesivir was not associated with statistically significant clinical benefits. </strong> </li>
 									<li> No statistically significant benefits were observed for Remdesivir treatment beyond those of standard care treatment. </li>
 
 									<p><strong> Bottom line: more randomized placebo controlled clinical rails are needed before Remdesivir can be used for treatment.</strong></p>

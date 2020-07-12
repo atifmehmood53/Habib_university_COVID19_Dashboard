@@ -627,8 +627,8 @@ var cities_config = {
     data: {
         datasets: [{
                 label: 'Cases Per Million',
-                borderColor: '#d7aa00',
-                backgroundColor: '#d7aa00',
+                borderColor: '#538c72',
+                backgroundColor: '#538c72',
                 data: national_citywise_data[0],
                 borderWidth: 3
             }
@@ -1663,6 +1663,17 @@ function showCitiesTable(){
     }
 }
 
+function expandFactDetails(){
+	/*if (document.getElementById('susceptibility-details').style.display === "none") {
+        document.getElementById('susceptibility-details').style.display = "block";
+    }*/
+	if (document.getElementById('susceptibility-details').style.visibility === "hidden") {
+        document.getElementById('susceptibility-details').style.visibility = "visible";
+    } else if (document.getElementById('susceptibility-details').style.visibility === "visible") {
+        document.getElementById('susceptibility-details').style.visibility = "hidden";
+    }
+}
+
 
 $('#prediction-details').on('hidden.bs.collapse', function() {
     $('#viewmore-button').text('View More Details');
@@ -1682,5 +1693,15 @@ $('#cities-details').on('shown.bs.collapse', function() {
     $('#viewmore-cities-button').text('View Less Details');
     showCitiesTable();
 });
+
+$('#susceptibility-details').on('hidden.bs.collapse', function() {
+    $('#viewmore-susceptibility-button').text('View More Details');
+    expandFactDetails();
+});
+$('#susceptibility-details').on('shown.bs.collapse', function() {
+    $('#viewmore-susceptibility-button').text('View Less Details');
+    expandFactDetails();
+});
+
 
 $('#tutorial_modal').modal();
