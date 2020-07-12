@@ -97,3 +97,8 @@ class Dynamic_Data(models.Model):
 
     def __str__(self):
         return f"Record of {self.province} on {self.date}"
+
+
+
+class Test(models.Model):
+    entry_id = models.CharField(primary_key=True, max_length=100) 
