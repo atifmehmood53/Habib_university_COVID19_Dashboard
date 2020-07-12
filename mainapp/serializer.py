@@ -8,8 +8,10 @@ class dataSerializer(serializers.ModelSerializer):
         model = Daily_Cases
         exclude = ['province','entry_id']
 
-
-        
+class Dynamic(serializers.ModelSerializer):
+    class Meta:
+        model = Dynamic_Data
+        exclude = ['entry_id']       
 
 class predictionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -17,4 +19,23 @@ class predictionSerializer(serializers.ModelSerializer):
         exclude = ['entry_id']
 
 
+class BSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Balochistan_Data
+        exclude = ['id']
+
+class PSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Punjab_Data
+        exclude = ['id']
+
+class SSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Sindh_Data
+        exclude = ['id']
+
+class KPKSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = KPK_Data
+        exclude = ['id']
     

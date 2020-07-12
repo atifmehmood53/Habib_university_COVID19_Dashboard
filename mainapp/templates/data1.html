@@ -1,0 +1,7 @@
+<form method="post">
+    {% csrf_token %}
+    <label>Upload a file</label>
+    {{form.as_table}}
+    <button type = "submit">Upload</button> 
+
+</form>

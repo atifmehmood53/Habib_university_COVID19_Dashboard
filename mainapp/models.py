@@ -43,3 +43,57 @@ class feedback(models.Model):
 
 
 
+class KPK_Data(models.Model):
+    id = models.IntegerField(default = 0 , primary_key = True)
+    date = models.DateField(auto_now_add=False)
+    district = models.CharField(max_length = 250)
+    total = models.IntegerField(default =None)
+    casePerMillionPopulation = models.FloatField(default = None)
+    Population = models.IntegerField(default = None)
+    
+
+class Balochistan_Data(models.Model):
+    id = models.IntegerField(default = 0 , primary_key = True)
+    date = models.DateField(auto_now_add=False)
+    district = models.CharField(max_length = 250)
+    total = models.IntegerField(default =None)
+    casePerMillionPopulation = models.FloatField(default = None)
+    Population = models.IntegerField(default = None)
+    
+
+class Sindh_Data(models.Model):
+    id = models.IntegerField(default = 0 , primary_key = True)
+    date = models.DateField(auto_now_add=False)
+    district = models.CharField(max_length = 250)
+    total = models.IntegerField(default =None)
+    casePerMillionPopulation = models.FloatField(default = None)
+    Population = models.IntegerField(default = None)
+    
+
+class Punjab_Data(models.Model):
+    id = models.IntegerField(default = 0 , primary_key = True)
+    date = models.DateField(auto_now_add=False)
+    district = models.CharField(max_length = 250)
+    total = models.IntegerField(default =None)
+    casePerMillionPopulation = models.FloatField(default = None)
+    Population = models.IntegerField(default = None)
+
+class Dynamic_Data(models.Model):
+    entry_id = models.CharField(primary_key=True, max_length=100) 
+    date = models.DateField(auto_now_add=True)
+    province = models.CharField(choices=province_choices, max_length=20)
+    confirmed_cases = models.IntegerField(default=0)
+    active_cases = models.IntegerField(default=0)
+    deaths = models.IntegerField(default=0)
+    recoveries = models.IntegerField(default=0)
+
+
+
+    class Meta:
+        verbose_name = "Daily Cases"
+        verbose_name_plural = "Daily Cases"
+        unique_together = ("date", "province")
+        
+
+    def __str__(self):
+        return f"Record of {self.province} on {self.date}"

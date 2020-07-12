@@ -8,7 +8,6 @@ pylint = "*"
 
 [packages]
 django = "*"
-django-tracking-analyzer = "*"
 djangorestframework = "*"
 python-dotenv = "*"
 gunicorn = "*"
@@ -16,6 +15,9 @@ dj-database-url = "*"
 django-user-agents = "*"
 whitenoise = "*"
 psycopg2 = "*"
+beautifulsoup4 = "==4.7.1"
+django-tracking-analyzer = "*"
+pytz = "*"
 
 [requires]
 python_version = "3.7"
