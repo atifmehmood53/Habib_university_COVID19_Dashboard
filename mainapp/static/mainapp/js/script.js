@@ -39,7 +39,7 @@ Object.freeze(hospital_zones);
 var last_selected_zone;
 var selected_expansion_button;
 var total_infected = document.getElementById("total-infected");
-var most_infected_city = document.getElementById("most-infected-city")
+//var most_infected_city = document.getElementById("most-infected-city")
 var center_1 = document.getElementById("center-1");
 var center_2 = document.getElementById("center-2");
 var center_3 = document.getElementById("center-3");
@@ -694,7 +694,7 @@ function national_donut_data() {
     document.getElementById('total-recoveries').innerHTML = recovered_sum;
     document.getElementById('total-deaths').innerHTML = deceased_sum;
     total_infected.textContent = confirmed_sum + " people have been infected in Pakistan till now.";
-    most_infected_city.textContent = "Lahore is the city with the most number of new cases.";
+    //most_infected_city.textContent = "Lahore is the city with the most number of new cases.";
 
     return new_data
 }
@@ -1057,7 +1057,7 @@ function popup(e) {
 			table_data = citywise_table_data('Punjab');
 			update_table_data();
             total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in Punjab till now.";
-            most_infected_city.innerHTML = province_data[province_data.length - 1].most_infected_city + " is the city with the most number of new cases.";
+            //most_infected_city.innerHTML = province_data[province_data.length - 1].most_infected_city + " is the city with the most number of new cases.";
             center_list.style.listStyleType = 'disc';
             center_list.innerHTML = '';
             var i;
@@ -1083,7 +1083,7 @@ function popup(e) {
 			table_data = citywise_table_data('Sindh')
 			update_table_data();
             total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in Sindh till now.";
-            most_infected_city.innerHTML = province_data[province_data.length - 1].most_infected_city + " is the city with the most number of new cases.";
+            //most_infected_city.innerHTML = province_data[province_data.length - 1].most_infected_city + " is the city with the most number of new cases.";
 
             center_list.style.listStyleType = 'disc';
             center_list.innerHTML = '';
@@ -1128,7 +1128,7 @@ function popup(e) {
 			table_data = citywise_table_data('KPK')
 			update_table_data();
             total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in KPK till now.";
-            most_infected_city.innerHTML = province_data[province_data.length - 1].most_infected_city + " is the city with the most number of new cases.";
+            //most_infected_city.innerHTML = province_data[province_data.length - 1].most_infected_city + " is the city with the most number of new cases.";
 
             center_list.style.listStyleType = 'disc';
             center_list.innerHTML = '';
@@ -1154,7 +1154,7 @@ function popup(e) {
 			table_data = citywise_table_data('default')
 			update_table_data();
             total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in Azad Kashmir till now.";
-            most_infected_city.innerHTML = province_data[province_data.length - 1].most_infected_city + " is the city with the most number of new cases.";
+            //most_infected_city.innerHTML = province_data[province_data.length - 1].most_infected_city + " is the city with the most number of new cases.";
 
             center_list.style.listStyleType = 'disc';
             center_list.innerHTML = '';
@@ -1181,7 +1181,7 @@ function popup(e) {
 			table_data = citywise_table_data('default')
 			update_table_data();
             total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in Islamabad till now.";
-            most_infected_city.innerHTML = province_data[province_data.length - 1].most_infected_city + " is the city with the most number of new cases.";
+            //most_infected_city.innerHTML = province_data[province_data.length - 1].most_infected_city + " is the city with the most number of new cases.";
 
             center_list.style.listStyleType = 'disc';
             center_list.innerHTML = '';
@@ -1208,7 +1208,7 @@ function popup(e) {
 			table_data = citywise_table_data('default')
 			update_table_data();
             total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in Gilgit-Baltistan till now.";
-            most_infected_city.innerHTML = province_data[province_data.length - 1].most_infected_city + " is the city with the most number of new cases.";
+            //most_infected_city.innerHTML = province_data[province_data.length - 1].most_infected_city + " is the city with the most number of new cases.";
 
             center_list.style.listStyleType = 'disc';
             center_list.innerHTML = '';
@@ -1235,7 +1235,7 @@ function popup(e) {
 			table_data = citywise_table_data('Balochistan')
 			update_table_data();
             total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in Balochistan till now.";
-            most_infected_city.innerHTML = province_data[province_data.length - 1].most_infected_city + " is the city with the most number of new cases.";
+            //most_infected_city.innerHTML = province_data[province_data.length - 1].most_infected_city + " is the city with the most number of new cases.";
 
             center_list.style.listStyleType = 'disc';
             center_list.innerHTML = '';
@@ -1257,12 +1257,12 @@ function popup(e) {
             update_citywise_data("Balochistan");
 			
         }
-        if (province_data[province_data.length - 1].most_infected_city === "None") {
+        /*if (province_data[province_data.length - 1].most_infected_city === "None") {
             most_infected_city.textContent = "";
             most_infected_city.style.display = "none";
         } else {
             most_infected_city.style.display = "block";
-        }
+        }*/
 
         var selected_province = document.getElementById(e.target.id);
 
@@ -1352,7 +1352,7 @@ function reset_to_default() {
 
     total_infected.textContent = a[0] + " people have been infected in Pakistan till now.";
 
-    most_infected_city.innerHTML = "Lahore is the city with the most number of new cases.";
+    //most_infected_city.innerHTML = "Lahore is the city with the most number of new cases.";
 
     center_list.style.listStyleType = 'none';
     center_list.innerHTML = '';
