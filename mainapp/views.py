@@ -30,36 +30,36 @@ province = ['Sindh','Punjab', 'Balochistan', 'KPK']
 
 #Data Scrapping
 
-tz = pytz.timezone('Asia/Karachi')
-time_now = datetime.datetime.now(tz).time()
+# tz = pytz.timezone('Asia/Karachi')
+# time_now = datetime.datetime.now(tz).time()
 
-#here we could apply any timezone according shop geo location
-time_open = datetime.time(19, 28, tzinfo=tz)
-time_close = datetime.time(10, 32, tzinfo=tz)
-print(time_open , time_now , time_close)
-if time_now >= time_open and time_now < time_close:
-    print('now')
-    main()
+# #here we could apply any timezone according shop geo location
+# time_open = datetime.time(19, 28, tzinfo=tz)
+# time_close = datetime.time(10, 32, tzinfo=tz)
+# print(time_open , time_now , time_close)
+# if time_now >= time_open and time_now < time_close:
+#     print('now')
+#     main()
 
-    csv_file = '.\\province-cumulative.csv' 
-    with open(csv_file, mode='r') as csv_file:
-        csv_reader = csv.reader(csv_file, delimiter =',')
-        line = 0
-        for row in csv_reader:
-            if line == 1:
-                id = row[0]
-            if line > 2:
-                _, created = Dynamic_Data.objects.update_or_create(
-                    entry_id = id+str(row[0]),
-                    province = row[0],
-                    confirmed_cases = int(row[1]),
-                    active_cases = int(row[2]),
-                    deaths = int(row[3]),
-                    recoveries = int(row[4])
+#     csv_file = '.\\province-cumulative.csv' 
+#     with open(csv_file, mode='r') as csv_file:
+#         csv_reader = csv.reader(csv_file, delimiter =',')
+#         line = 0
+#         for row in csv_reader:
+#             if line == 1:
+#                 id = row[0]
+#             if line > 2:
+#                 _, created = Dynamic_Data.objects.update_or_create(
+#                     entry_id = id+str(row[0]),
+#                     province = row[0],
+#                     confirmed_cases = int(row[1]),
+#                     active_cases = int(row[2]),
+#                     deaths = int(row[3]),
+#                     recoveries = int(row[4])
                 
-                )
+#                 )
             
-            line += 1
+#             line += 1
             
 
 import operator
