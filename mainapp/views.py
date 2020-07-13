@@ -194,7 +194,7 @@ def dashboard_data(request):
             total_admitted = int(col[6]),
             total_discharged = int(col[7]),            
             total_died = int(col[8]),
-            datetime_of_entry = datetime.now()
+            datetime_of_entry = datetime.date.today()
 
            
         )
