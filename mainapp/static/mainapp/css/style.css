@@ -91,7 +91,19 @@ fill: #585858;
 }
 /* End of Tabs Button Group */
 
+.common-symp-column {
+  padding-left: 5px !important;
+  padding-right: 5px !important;
+  padding-top: 15px;
+  padding-bottom: 10px;
+}
 
+.other-symp-column {
+  padding-left: 5px !important;
+  padding-right: 5px !important;
+  padding-top: 15px;
+  padding-bottom: 10px;
+}
 
 .buttons-heading {
   padding-top: 1%;

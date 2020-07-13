@@ -57,6 +57,11 @@ var tab_other_symp = document.getElementById("tab-other-symp");
 
 // Nested tabbed sections
 var general_stats_section = document.getElementById("nested-general-stats");
+var common_symp_section = document.getElementById("nested-common-symp");
+var other_symp_section = document.getElementById("nested-other-symp");
+
+// Setting default selected tab
+tab_general_stats.style.backgroundColor = "#8C0618";
 
 // Add link to webpage as a string in place of the empty string as "http://www.webpage.com".
 // Ensure the "http://"
@@ -1684,18 +1689,35 @@ function expandFactDetails(){
 
 function display_general_stats() {
     console.log("General Stats");
-    //general_stats_section.style.visibility = "visible";
     general_stats_section.style.display = "block";
+    common_symp_section.style.display = "none";
+    other_symp_section.style.display = "none";
+
+    tab_general_stats.style.backgroundColor = "#8C0618";
+    tab_common_symp.style.backgroundColor = "#59030E";
+    tab_other_symp.style.backgroundColor = "#59030E";
 }
 
 function display_common_symp() {
     console.log("Common Symptoms");
+    common_symp_section.style.display = "block";
     general_stats_section.style.display = "none";
+    other_symp_section.style.display = "none";
+
+    tab_common_symp.style.backgroundColor = "#8C0618";
+    tab_general_stats.style.backgroundColor = "#59030E";
+    tab_other_symp.style.backgroundColor = "#59030E";
 }
 
 function display_other_symp() {
     console.log("Other Symptoms");
+    other_symp_section.style.display = "block";
     general_stats_section.style.display = "none";
+    common_symp_section.style.display = "none";
+
+    tab_other_symp.style.backgroundColor = "#8C0618";
+    tab_common_symp.style.backgroundColor = "#59030E";
+    tab_general_stats.style.backgroundColor = "#59030E";
 }
 
 
