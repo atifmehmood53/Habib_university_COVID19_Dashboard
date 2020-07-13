@@ -749,7 +749,7 @@ function national_donut_data() {
   data = Object.assign(global_data); //copying global data for safety purposes, can be removed later
 
   new_data = [];
-  (confirmed_sum = 0), (active_sum = 0), (recovered_sum = 0), (deceased_sum = 0);
+  confirmed_sum = 0, active_sum = 0, recovered_sum = 0, deceased_sum = 0;
 
   for (var key in data) {
     if (
