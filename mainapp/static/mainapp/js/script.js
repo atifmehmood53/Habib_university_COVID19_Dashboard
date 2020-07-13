@@ -50,6 +50,14 @@ var week_slider = document.getElementById("week_slider");
 var cities_table = document.getElementById("cities-table");
 var contents = document.getElementById("tableContents");
 
+// Tab buttons
+var tab_general_stats = document.getElementById("tab-general-stat");
+var tab_common_symp = document.getElementById("tab-common-symp");
+var tab_other_symp = document.getElementById("tab-other-symp");
+
+// Nested tabbed sections
+var general_stats_section = document.getElementById("nested-general-stats");
+
 // Add link to webpage as a string in place of the empty string as "http://www.webpage.com".
 // Ensure the "http://"
 var hospital_info = [
@@ -1672,6 +1680,22 @@ function expandFactDetails(){
     } else if (document.getElementById('susceptibility-details').style.visibility === "visible") {
         document.getElementById('susceptibility-details').style.visibility = "hidden";
     }
+}
+
+function display_general_stats() {
+    console.log("General Stats");
+    //general_stats_section.style.visibility = "visible";
+    general_stats_section.style.display = "block";
+}
+
+function display_common_symp() {
+    console.log("Common Symptoms");
+    general_stats_section.style.display = "none";
+}
+
+function display_other_symp() {
+    console.log("Other Symptoms");
+    general_stats_section.style.display = "none";
 }
 
 

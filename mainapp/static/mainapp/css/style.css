@@ -53,6 +53,46 @@ path {
 fill: #585858;
 }
 
+
+/* Tab select buttons */
+.tabs-btn-group {
+  background-color: #c8a95f;
+  font-size: 16px;
+}
+.tabs-btn-group button {
+  background-color: #59030E; /* Green background */
+  border: none;
+  height: 30px;
+  color: white; /* White text */
+  padding: 0px 10px; /* Some padding */
+  cursor: pointer; /* Pointer/hand icon */
+  float: left; /* Float the buttons side by side */
+}
+
+.tabs-btn-group button:not(:last-child) {
+  border-right: none; /* Prevent double borders */
+}
+
+/* Clear floats (clearfix hack) */
+.tabs-btn-group:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Add a background color on hover */
+.tabs-btn-group button:hover {
+  color: #c8a95f;
+}
+
+.tabs-btn-group button:focus {
+  outline: none;
+  background-color: #8C0618;
+}
+/* End of Tabs Button Group */
+
+
+
 .buttons-heading {
   padding-top: 1%;
   padding-bottom: 1%;

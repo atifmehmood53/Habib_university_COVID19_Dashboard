@@ -276,34 +276,54 @@
             <div class="col col-md-6 col-sm-12">
                 <div class="container-fluid" style="padding-right: 0; padding-left: 0;" id="stat-section">
 
-
                     <div class="row no-gutters">
-                        <!--General Info Partition-->
-                        <div class="col-12 general-info-seg">
-                            <!--General Info-->
-                            <div class="general-info-heading">
-                                <span><b>General Statistics</b></span>
-                            </div>
-                            <ul id="general-stats">
-                                <li id="total-infected">people have been infected in Pakistan till now.</li>
-                                <!--<li id="most-infected-city">Lahore is the city with the most number of new cases.</li>-->
-                            </ul>
+                        <div class="tabs-btn-group" style="width:100%">
+                            <button style="width:33.4%" id="tab-general-stat" onclick="display_general_stats()">General Statistics</button>
+                            <button style="width:33.3%" id="tab-common-symp" onclick="display_common_symp()">Common Symptoms</button>
+                            <button style="width:33.3%" id="tab-other-symp" onclick="display_other_symp()">Other Symptoms</button>
                         </div>
                     </div>
 
-                    <div class="row no-gutters">
-                        <div class="col-lg-6 co-md-6 col-sm-12" >
-                            <!--Donut Chart-->
-							<div class="col-md-12 donut-chart" id="donut" style="background-color: #c8a95f">
-								<canvas id='donut-chart' height="280%" class="details-graph"></canvas>
-							</div>
+                    <div class="nested-general-stats" id="nested-general-stats">
+                        <div class="row no-gutters">
+                            <!--General Info Partition-->
+                            <div class="col-12 general-info-seg">
+                                <!--General Info-->
+                                <div class="general-info-heading">
+                                    <span><b>General Statistics</b></span>
+                                </div>
+                                <ul id="general-stats">
+                                    <li id="total-infected">people have been infected in Pakistan till now.</li>
+                                    <!--<li id="most-infected-city">Lahore is the city with the most number of new cases.</li>-->
+                                </ul>
+                            </div>
                         </div>
-                        <div class="col-lg-6 co-md-6 col-sm-12" >
-                            <!--Donut Chart-->
-							<div class="col-md-12 donut-chart" id="donut2" style="background-color: #c8a95f">
-								<canvas id='donut-chart2' height="280%" class="details-graph"></canvas>
-							</div>
+    
+                        <div class="row no-gutters">
+                            <div class="col-lg-6 co-md-6 col-sm-12" >
+                                <!--Donut Chart-->
+                                <div class="col-md-12 donut-chart" id="donut" style="background-color: #c8a95f">
+                                    <canvas id='donut-chart' height="280%" class="details-graph"></canvas>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 co-md-6 col-sm-12" >
+                                <!--Donut Chart-->
+                                <div class="col-md-12 donut-chart" id="donut2" style="background-color: #c8a95f">
+                                    <canvas id='donut-chart2' height="280%" class="details-graph"></canvas>
+                                </div>
+                            </div>
                         </div>
+                    </div>
+                    
+                    <div class="nested-common-symp" id="nested-common-symp">
+
+                        
+
+                    </div>
+
+                    
+                    <div class="nested-other-symp" id="nested-other-symp">
+
                     </div>
 
 
