@@ -57,7 +57,7 @@ fill: #585858;
 /* Tab select buttons */
 .tabs-btn-group {
   background-color: #c8a95f;
-  font-size: 16px;
+  font-size: 100%;
 }
 .tabs-btn-group button {
   background-color: #59030E; /* Green background */
