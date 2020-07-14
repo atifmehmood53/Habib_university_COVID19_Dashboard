@@ -626,7 +626,7 @@ a:hover,a:focus{
     padding: 15px 5px 15px 25px;
     margin: 0;
     background: #fff;
-    font-size: 18px;
+    font-size: 1rem;
     font-weight: 700;
     letter-spacing: 1px;
     color: #d11149;
@@ -696,45 +696,6 @@ a:hover,a:focus{
 	color: #36332D;
 	background: linear-gradient(to right, rgba(255,255,255,255) 69%,rgba(255,255,255,255) 20%,rgba(221,61,70, 1) 0%,rgba(154, 166, 46, 1) 100%);
 }
-
-
-/*fact checking heading */
-/*.heading-container{
-  text-align: center;
-  position: relative;
-  margin: 50px auto;
-}
-.fact-heading{
-  font-family: arial;
-  color: #333;
-  font-size: 40px;
-  text-align: center;
-  margin: 0 30px;
-}
-.span-class{
-  display: inline-block;
-  position: absolute;
-  background: #8C0618;
-  height: 3px;
-  left: 50%;
-}
-span.top {
-  width: 70px;
-  top: 20px;
-}
-span.bottom {
-  width: 120px;
-  top: 35px;
-}
-span.left {
-  transform: translateX(-300px);
-}
-span.bottom.left {
-  transform: translateX(-350px);
-}
-span.right {
-  transform: translateX(230px);
-}*/
 
 .new-div{
   display: flex;

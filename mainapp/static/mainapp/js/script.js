@@ -1676,18 +1676,30 @@ function showCitiesTable(){
     }
 }
 
-function expandFactDetails(){
+function expandFactDetails(mode){
 	/*if (document.getElementById('susceptibility-details').style.display === "none") {
         document.getElementById('susceptibility-details').style.display = "block";
     }*/
-	if (document.getElementById('susceptibility-details').style.visibility === "hidden") {
-        document.getElementById('susceptibility-details').style.visibility = "visible";
-		jQuery("div#susceptibility-details").slideDown("slow");
-		var h = $('#susceptibility-details').height() + 40;
-		$(this).parents('#susceptibility-details').animate({'top': h}, 600);
-    } else if (document.getElementById('susceptibility-details').style.visibility === "visible") {
-        document.getElementById('susceptibility-details').style.visibility = "hidden";
-    }
+	if (mode === 'susceptibility'){
+		if (document.getElementById('susceptibility-details').style.visibility === "hidden") {
+			document.getElementById('susceptibility-details').style.visibility = "visible";
+			jQuery("div#susceptibility-details").slideDown("slow");
+			var h = $('#susceptibility-details').height() + 40;
+			$(this).parents('#susceptibility-details').animate({'top': h}, 600);
+		} else if (document.getElementById('susceptibility-details').style.visibility === "visible") {
+			document.getElementById('susceptibility-details').style.visibility = "hidden";
+		}
+	}
+	else if (mode === 'transmission'){
+		if (document.getElementById('transmission-details').style.visibility === "hidden") {
+			document.getElementById('transmission-details').style.visibility = "visible";
+			jQuery("div#transmission-details").slideDown("slow");
+			var h = $('#transmission-details').height() + 40;
+			$(this).parents('#transmission-details').animate({'top': h}, 600);
+		} else if (document.getElementById('transmission-details').style.visibility === "visible") {
+			document.getElementById('transmission-details').style.visibility = "hidden";
+		}
+	}
 }
 
 function display_general_stats() {
@@ -1743,65 +1755,22 @@ $('#cities-details').on('shown.bs.collapse', function() {
     showCitiesTable();
 });
 
-/*$('#susceptibility-details').on('hidden.bs.collapse', function() {
+$('#susceptibility-details').on('hidden.bs.collapse', function() {
     $('#viewmore-susceptibility-button').text('View More Details');
-    expandFactDetails();
+    expandFactDetails('susceptibility');
 });
 $('#susceptibility-details').on('shown.bs.collapse', function() {
     $('#viewmore-susceptibility-button').text('View Less Details');
-    expandFactDetails();
-});*/
-
-var abierto = false;
-jQuery("#viewmore-susceptibility-button").click(function() {
-	console.log(abierto)
-	if (document.getElementById('susceptibility-details').style.display == "none"){
-		document.getElementById('susceptibility-details').style.display = "block";
-		
-	}
-		
-	if (!abierto) {
-		var h = $('#susceptibility-details').height() + 60;
-		jQuery("div#susceptibility-details").slideDown("fast");
-		$(this).html("View Less Details");
-		$(this).parents('.details').animate({'top': h}, 600);
-		document.getElementById('susceptibility-details').style.visibility = "visible";
-		document.getElementById('transmission').style.marginTop = "5%";
-		
-		abierto = true;
-	} else {
-		jQuery("div#susceptibility-details").slideUp("slow");
-		$(this).html("View More Details");
-		$(this).parents('.details').animate({'top': 0}, 700);
-		document.getElementById('susceptibility-details').style.display = "hidden";
-		abierto = false;
-	}
+    expandFactDetails('susceptibility');
 });
 
-var transmission_flag = false;
-jQuery("#viewmore-transmission-button").click(function() {
-	console.log(transmission_flag)
-	if (document.getElementById('transmission-details').style.display == "none"){
-		document.getElementById('transmission-details').style.display = "block";
-		
-	}
-		
-	if (!transmission_flag) {
-		var h = $('#transmission-details').height() + 60;
-		jQuery("div#transmission-details").slideDown("fast");
-		$(this).html("View Less Details");
-		$(this).parents('.details').animate({'top': h}, 600);
-		document.getElementById('transmission-details').style.visibility = "visible";
-		document.getElementById('treatment').style.marginTop = "5%";
-		
-		transmission_flag = true;
-	} else {
-		jQuery("div#transmission-details").slideUp("slow");
-		$(this).html("View More Details");
-		$(this).parents('.details').animate({'top': 0}, 700);
-		document.getElementById('transmission-details').style.display = "hidden";
-		transmission_flag = false;
-	}
+$('#transmission-details').on('hidden.bs.collapse', function() {
+    $('#viewmore-transmission-button').text('View More Details');
+    expandFactDetails('transmission');
+});
+$('#transmission-details').on('shown.bs.collapse', function() {
+    $('#viewmore-transmission-button').text('View Less Details');
+    expandFactDetails('transmission');
 });
 
 

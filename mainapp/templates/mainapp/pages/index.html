@@ -744,9 +744,6 @@
                             </div>
                         </div>
                     </div>
-					<div class="view-more text-center details">
-						<button class="btn" type="button" id="viewmore-susceptibility-button">View More Details</button>
-					</div>
                     <div id="susceptibility-details" style="display: none; visibility: hidden">
 						<div class="panel panel-default">
 							<div class="panel-heading" role="tab" id="headingFive">
@@ -797,6 +794,10 @@
 							</div>
 						</div>
 					</div>
+					<div class="view-more text-center">
+                    <button class="btn" type="button" id="viewmore-susceptibility-button" data-toggle="collapse"
+                        data-target="#susceptibility-details" aria-expanded="false" aria-controls="susceptibility-details">View More Details</button>
+					</div>
 					<h3 class="fact-subheading" id="transmission"> Transmission </h3>
 					<div class="panel panel-default">
                         <div class="panel-heading" role="tab" id="headingThree">
@@ -846,11 +847,8 @@
                             </div>
                         </div>
                     </div>
-					<div class="view-more text-center details">
-						<button class="btn" type="button" id="viewmore-transmission-button">View More Details</button>
-					</div>
 					<div id="transmission-details" style="display: none; visibility: hidden">
-					<div class="panel panel-default">
+					<div class="panel panel-default" id="fact-detail1">
                         <div class="panel-heading" role="tab" id="headingEight">
                             <h4 class="panel-title">
                                 <a class="collapsed fact-unsure" role="button" data-toggle="collapse"
@@ -897,6 +895,10 @@
                             </div>
                         </div>
                     </div>
+					</div>
+					<div class="view-more text-center">
+                    <button class="btn" type="button" id="viewmore-transmission-button" data-toggle="collapse"
+                        data-target="#transmission-details" aria-expanded="false" aria-controls="transmission-details">View More Details</button>
 					</div>
 					<h3 class="fact-subheading" id="treatment"> Treatment </h3>
 					<div class="panel panel-default">
