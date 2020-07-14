@@ -131,9 +131,14 @@ fill: #585858;
   color: black !important;
 }
 
-.custom:checked, .custom:active {
+
+#info-sec-buttons .active {
   background-color: #fcc149 !important;
   color: black !important;
+}
+
+#info-sec-buttons .focus {
+  box-shadow: none !important;
 }
 
 #emergency, #symptoms, #precautions {
