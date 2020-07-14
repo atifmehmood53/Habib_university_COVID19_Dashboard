@@ -748,8 +748,9 @@ function national_timeSeries_data() {
 
     for (var key in data) {
         j = 0;
+        var length_of_provincial_data = data[key].length;
         if (key === 'Sindh' || key === "Punjab" || key === "AJK" || key === "Balochistan" || key === "GB" || key === "KPTD" || key === "Taftan_mobile_lab" || key === "KP" || key === "ICT") {
-            for (var i = 0; i < data[key].length; i++) {
+            for (var i = 0; i < length_of_provincial_data; i++) {
                 d = new Date(data[key][j].date)
                 d_month = d.getMonth();
                 if (month_list.indexOf(d_month) < 0) {
@@ -769,6 +770,7 @@ function national_timeSeries_data() {
                         new_data[2][i].y += 0;
                         new_data[3][i].y += 0;
                         j--;
+                        length_of_provincial_data++;
                         //console.log("Mismatch for", key);
                         //console.log("Global Date:", d, "Local Date:", new_data[0][i].x);
                         /* for (var j = 0; j < data[key].length; j++) {
