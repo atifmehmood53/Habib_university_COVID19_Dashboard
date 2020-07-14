@@ -296,13 +296,13 @@
                             <div class="col-lg-6 co-md-6 col-sm-12" >
                                 <!--Donut Chart-->
                                 <div class="col-md-12 donut-chart" id="donut" style="background-color: #c8a95f">
-                                    <canvas id='donut-chart' height="280%" class="details-graph"></canvas>
+                                    <canvas id='donut-chart' height="280%" class="graph-shadow"></canvas>
                                 </div>
                             </div>
                             <div class="col-lg-6 co-md-6 col-sm-12" >
                                 <!--Donut Chart-->
                                 <div class="col-md-12 donut-chart" id="donut2" style="background-color: #c8a95f">
-                                    <canvas id='donut-chart2' height="280%" class="details-graph"></canvas>
+                                    <canvas id='donut-chart2' height="280%" class="graph-shadow"></canvas>
                                 </div>
                             </div>
                         </div>
@@ -570,12 +570,12 @@
                     <div class="col-12">
                         <div>
                             <!--DO NOT REMOVE THIS ADDITIONAL DIV. THIS FIXES A BUG IN CHARTJS-->
-                            <canvas id="time-series-graph-confirmed-cases" height="300" class="details-graph"></canvas>
+                            <canvas id="time-series-graph-confirmed-cases" height="300" class="graph-shadow"></canvas>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="slidecontainer">
-                            <input type="range" min="0" max="20" value="20" step="1" class="slider" id="trend_slider">
+                            <input type="range" min="0" max="20" value="20" step="1" class="slider slider-shadow" id="trend_slider">
                         </div>
                         <label for="" class="float-left slider-marker">Beginning</label>
                         <label for="" class="float-right slider-marker">Current Week</label>
@@ -586,10 +586,10 @@
             <div class="col-lg-6 col-md-6 col-sm-12" id="city-graph">
 				<div>
 					<!--DO NOT REMOVE THIS ADDITIONAL DIV. THIS FIXES A BUG IN CHARTJS-->
-					<canvas id="cities-graph" height="300" class="details-graph"></canvas>
+					<canvas id="cities-graph" height="300" class="graph-shadow"></canvas>
 				</div>
 				<div class="view-more text-center">
-                    <button class="btn" type="button" id="viewmore-cities-button" data-toggle="collapse"
+                    <button class="btn button-shadow" type="button" id="viewmore-cities-button" data-toggle="collapse"
                         data-target="#cities-details" aria-expanded="false" aria-controls="cities-details">View More Details</button>
                 </div>
             </div>
@@ -633,15 +633,15 @@
 			<div class="col-lg-6 col-md-6 col-sm-12" id="prediction-graph">
                 <div>
                     <!--DO NOT REMOVE THIS ADDITIONAL DIV. THIS FIXES A BUG IN CHARTJS-->
-                    <canvas id="time-series-graph-prediction" height="300" class="details-graph"></canvas>
+                    <canvas id="time-series-graph-prediction" height="300" class="graph-shadow"></canvas>
                 </div>
             </div>
 			<div class="col-lg-6 col-md-6 col-sm-12" id="prediction-accuracy-graph">
                 <div>
-                    <canvas id="prediction-accuracy" height="300" class="details-graph"></canvas>
+                    <canvas id="prediction-accuracy" height="300" class="graph-shadow"></canvas>
                 </div>
 				<div class="view-more text-center">
-                    <button class="btn" type="button" id="viewmore-button" data-toggle="collapse"
+                    <button class="btn button-shadow" type="button" id="viewmore-button" data-toggle="collapse"
                         data-target="#prediction-details" aria-expanded="false" aria-controls="prediction-details">View More Details</button>
                 </div>
             </div>
@@ -651,7 +651,7 @@
             <div class="col-lg-6 col-md-6 col-sm-12">
                 <div id="prediction-details-graph" style="margin-bottom: 2%;">
                     <!--The detailed prediction graph will go here-->
-                    <canvas id="time-series-prediction-details" height="300" class="details-graph"
+                    <canvas id="time-series-prediction-details" height="300" class="graph-shadow"
                         style="visibility:hidden"></canvas>
                 </div>
             </div>
@@ -795,7 +795,7 @@
 						</div>
 					</div>
 					<div class="view-more text-center">
-                    <button class="btn" type="button" id="viewmore-susceptibility-button" data-toggle="collapse"
+                    <button class="btn button-shadow" type="button" id="viewmore-susceptibility-button" data-toggle="collapse"
                         data-target="#susceptibility-details" aria-expanded="false" aria-controls="susceptibility-details">View More Details</button>
 					</div>
 					<h3 class="fact-subheading" id="transmission"> Transmission </h3>
@@ -897,7 +897,7 @@
                     </div>
 					</div>
 					<div class="view-more text-center">
-                    <button class="btn" type="button" id="viewmore-transmission-button" data-toggle="collapse"
+                    <button class="btn button-shadow" type="button" id="viewmore-transmission-button" data-toggle="collapse"
                         data-target="#transmission-details" aria-expanded="false" aria-controls="transmission-details">View More Details</button>
 					</div>
 					<h3 class="fact-subheading" id="treatment"> Treatment </h3>
