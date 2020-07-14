@@ -493,6 +493,10 @@ input[type=checkbox] {
 	border-color: #333;
 }
 
+/* Button Shadows */
+.button-shadow {
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.4);
+}
 
 /* Symptoms section */
 a:hover,a:focus{
@@ -507,6 +511,7 @@ a:hover,a:focus{
 #accordion .panel-heading{
     padding: 0;
     position: relative;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
 }
 #accordion .panel-heading:before{
     content: "";
@@ -575,7 +580,7 @@ a:hover,a:focus{
 #accordion .panel-body{
     padding: 10px 20px;
     border: none;
-    background: #c8a95f;
+    background: white;
     font-size: 15px;
     color: #36332D;
     line-height: 28px;
