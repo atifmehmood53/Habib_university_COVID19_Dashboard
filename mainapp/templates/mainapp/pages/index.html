@@ -562,17 +562,9 @@
 
         <!--Details section-->
         <div class="row details-section margin-row" id="trend-section">
-
-            <div class="col-lg-9 mx-auto">
-                <div class="heading-container">
-                    <span class="span-class top right"></span>
-                    <span class="span-class top left"></span>
-                    <h2 class="fact-heading">Data</h2>
-                    <span class="span-class bottom right"></span>
-                    <span class="span-class bottom left"></span>
-                </div>
-            </div>
-
+			<div class="col-lg-12 col-md-12 col-sm-12 headings-container">
+				<div class="new-div"> <h2 id="data" class="fancy"><span>Data</span></h2> </div>
+			</div>
             <div class="col-lg-6 col-md-6 col-sm-12" id="trend-graph">
                 <div class="row">
                     <div class="col-12">
@@ -633,18 +625,11 @@
                 </div>
             </div>-->
         </div>
+		
 		<div class="row details-section margin-row" id="trend-section2">
-
-            <div class="col-lg-9 mx-auto">
-                <div class="heading-container">
-                    <span class="span-class top right"></span>
-                    <span class="span-class top left"></span>
-                    <h2 class="fact-heading">Predictions</h2>
-                    <span class="span-class bottom right"></span>
-                    <span class="span-class bottom left"></span>
-                </div>
-            </div>
-
+			<div class="col-lg-12 col-md-12 col-sm-12 headings-container">
+				<div class="new-div"> <h2 class="fancy"><span>Predictions</span></h2> </div>
+			</div>
 			<div class="col-lg-6 col-md-6 col-sm-12" id="prediction-graph">
                 <div>
                     <!--DO NOT REMOVE THIS ADDITIONAL DIV. THIS FIXES A BUG IN CHARTJS-->
@@ -692,14 +677,10 @@
 
         <div class="row details-section justify-content-center" id="factchecking-section"
             style="background-color: #c8a95f">
-            <div class="col-md-9">
-                <div class="heading-container">
-                    <span class="span-class top right"></span>
-                    <span class="span-class top left"></span>
-                    <h2 class="fact-heading">Fact Checking</h2>
-                    <span class="span-class bottom right"></span>
-                    <span class="span-class bottom left"></span>
-                </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 headings-container">
+				<div class="new-div"> <h2 class="fancy"><span>Fact Checking</span></h2> </div>
+			</div>
+				<div class="col-lg-9 col-md-9 col-sm-12">
                 <div class="panel-group" id="accordion2" role="tablist" aria-multiselectable="true">
 					<h3 class="fact-subheading"> Susceptibility </h3>
                     <div class="panel panel-default">
@@ -763,11 +744,10 @@
                             </div>
                         </div>
                     </div>
-					<div class="view-more text-center">
-						<button class="btn" type="button" id="viewmore-susceptibility-button" data-toggle="collapse"
-                        data-target="#susceptibility-details" aria-expanded="false" aria-controls="susceptibility-details">View More Details</button>
+					<div class="view-more text-center details">
+						<button class="btn" type="button" id="viewmore-susceptibility-button">View More Details</button>
 					</div>
-                    <div id="susceptibility-details" style="visibility: hidden;">
+                    <div id="susceptibility-details" style="display: none; visibility: hidden">
 						<div class="panel panel-default">
 							<div class="panel-heading" role="tab" id="headingFive">
 								<h4 class="panel-title">
@@ -817,7 +797,7 @@
 							</div>
 						</div>
 					</div>
-					<h3 class="fact-subheading"> Transmission </h3>
+					<h3 class="fact-subheading" id="transmission"> Transmission </h3>
 					<div class="panel panel-default">
                         <div class="panel-heading" role="tab" id="headingThree">
                             <h4 class="panel-title">
@@ -866,6 +846,10 @@
                             </div>
                         </div>
                     </div>
+					<div class="view-more text-center details">
+						<button class="btn" type="button" id="viewmore-transmission-button">View More Details</button>
+					</div>
+					<div id="transmission-details" style="display: none; visibility: hidden">
 					<div class="panel panel-default">
                         <div class="panel-heading" role="tab" id="headingEight">
                             <h4 class="panel-title">
@@ -913,7 +897,8 @@
                             </div>
                         </div>
                     </div>
-					<h3 class="fact-subheading"> Treatment </h3>
+					</div>
+					<h3 class="fact-subheading" id="treatment"> Treatment </h3>
 					<div class="panel panel-default">
                         <div class="panel-heading" role="tab" id="headingTwo">
                             <h4 class="panel-title">
@@ -1059,9 +1044,7 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
