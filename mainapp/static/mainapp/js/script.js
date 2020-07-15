@@ -1480,7 +1480,7 @@ function startIntro() {
                 position: 'right'
             },
             {
-                element: '#stat-section',
+                element: '#nested-general-stats',
                 intro: 'This is the general statistics section. When you click on a province on the map, the data will be shown here.',
                 position: 'left'
             },
@@ -1505,6 +1505,26 @@ function startIntro() {
                 position: 'right'
             },
             {
+                element: '#tab-row',
+                intro: 'Click on any of the tabs to show the corresponding section.',
+                position: 'left'
+            },
+            {
+                element: '#nested-common-symp',
+                intro: 'This section lists some of the most common symptoms for COVID-19.',
+                position: 'left'
+            },
+            {
+                element: '#headingOne',
+                intro: 'Click on each symptom to read more about it.',
+                position: 'top'
+            },
+            {
+                element: '#nested-other-symp',
+                intro: 'This section lists other symptoms for COVID-19.',
+                position: 'left'
+            },
+            {
                 element: '#info-sec',
                 intro: 'This section has contact information for different hospitals/health centers in the province you selected.',
                 position: 'right'
@@ -1515,9 +1535,9 @@ function startIntro() {
                 position: 'right'
             },
             {
-                element: '#trend-section',
-                intro: 'This is where you can see the trends for each type of case as well a prediction for the next two weeks!',
-                position: 'bottom'
+                element: '#trend-section-header',
+                intro: 'This is where you can see the trends for each type of case as well data for districts inside each province.',
+                position: 'right'
             },
             {
                 element: '#trend-graph',
@@ -1530,14 +1550,29 @@ function startIntro() {
                 position: 'top'
             },
             {
-                element: '#prediction-graph',
-                intro: 'This graph shows a prediction for the number of cases for the next 14 days. Keep in mind that this is only a prediction.',
+                element: '#cities-graph',
+                intro: "This graph shows number of cases for the top 12 districts (by population) for each province. If a province is not selected or the data for the selected province doesn't exist, data for provincial captials will be shown.",
                 position: 'top'
             },
             {
-                element: '#viewmore-button',
-                intro: 'Click this to view more details about the predictions.',
+                element: '#viewmore-cities-button',
+                intro: 'Click this to view all the available data for each district of the chosen province.',
                 position: 'bottom'
+            },
+            {
+                element: '#prediction-graph',
+                intro: 'This graph shows a prediction for the number of cases for the next 14 days. Keep in mind that this is only a prediction.',
+                position: 'right'
+            },
+            {
+                element: '#prediction-accuracy',
+                intro: 'This graph shows a comparison between the predictions alongwith the data for the days that have already elapsed so you can see how accurate the predictions were!',
+                position: 'left'
+            },
+            {
+                element: '#viewmore-button',
+                intro: 'Click this to see a more detailed prediction graph!',
+                position: 'left'
             },
             {
                 element: '#time-series-prediction-details',
@@ -1545,22 +1580,7 @@ function startIntro() {
                 position: 'right'
             },
             {
-                element: '#prediction-accuracy',
-                intro: 'This graph shows a comparison between the predictions alongwith the data for the days that have already elapsed so you can see how accurate the predictions were!',
-                position: 'right'
-            },
-            {
-                element: '#symptoms-section',
-                intro: 'This section lists some of the most common as well as other symptoms for COVID-19.',
-                position: 'bottom'
-            },
-            {
-                element: '#headingOne',
-                intro: 'Click on each symptom to read more about it.',
-                position: 'top'
-            },
-            {
-                element: '#factchecking-section',
+                element: '#factchecking-section-header',
                 intro: 'This section shows some of the prevailing myths, misconceptions as well as facts regarding COVID-19 and to what extent they are true.',
                 position: 'bottom'
             },
@@ -1568,6 +1588,11 @@ function startIntro() {
                 element: '#factheadingOne',
                 intro: 'Click on each fact to learn more about it and view the source of information as well.',
                 position: 'bottom'
+            },
+            {
+                element: '#contributors-row',
+                intro: 'These are the people who built this dashboard for you and are working very hard to maintain it everyday! 👏',
+                position: 'top'
             },
             {
                 element: '#feedback-button',
@@ -1587,9 +1612,39 @@ function startIntro() {
         ]
     });
     intro.setOption('showProgress', true);
-    intro.onchange(function(targetElement) {
-        if (targetElement.id === 'viewmore-button') {
-            if ($('#viewmore-button').hasClass('collapsed')) {
+    intro.setOption('showBullets', false);
+    intro.setOption("exitOnOverlayClick", "false");
+
+    intro.onbeforechange(function(nextElement) {
+        // console.log("Next step: " + nextElement.id);
+        if (nextElement.id === 'nested-common-symp') {
+            $('#tab-common-symp').click();
+        }
+        if (nextElement.id === 'nested-other-symp') {
+            $('#tab-other-symp').click();
+        }
+        if (nextElement.id === 'precautions-button') {
+            $('#precautions-button').click();
+        }
+        if (nextElement.id === 'viewmore-cities-button') {
+            if ($('#viewmore-cities-button').text() === 'View More Details') {
+                $('#viewmore-cities-button').click();
+            }
+        }
+        if (nextElement.id === 'time-series-prediction-details') {
+            if ($('#viewmore-button').text() === 'View More Details') {
+                $('#viewmore-button').click();
+            }
+        }
+        if (nextElement.id === 'feedback-button') {
+            $('#tab-general-stat').click();
+            $('#emergency').click();
+            
+            if ($('#viewmore-cities-button').text() === 'View Less Details') {
+                $('#viewmore-cities-button').click();
+            }
+            
+            if ($('#viewmore-button').text() === 'View Less Details') {
                 $('#viewmore-button').click();
             }
         }
