@@ -1686,30 +1686,16 @@ function expandFactDetails(mode){
 		
 		if (document.getElementById('susceptibility-details').style.visibility === "hidden") {
 			document.getElementById('susceptibility-details').style.visibility = "visible";
-			jQuery("div#susceptibility-details").slideDown("slow");
-			var h = $('#susceptibility-details').height() + 40;
-			$(this).parents('#susceptibility-details').animate({'top': h}, 600);
-			if (document.getElementById('susceptibility-details').style.display === "none") {
-				document.getElementById('susceptibility-details').style.display = "block";
-			}
 		} else if (document.getElementById('susceptibility-details').style.visibility === "visible") {
 			document.getElementById('susceptibility-details').style.visibility = "hidden";
-			document.getElementById('susceptibility-details').style.display = "none"
 		}
 	}
 	else if (mode === 'transmission'){
 		
 		if (document.getElementById('transmission-details').style.visibility === "hidden") {
 			document.getElementById('transmission-details').style.visibility = "visible";
-			jQuery("div#transmission-details").slideDown("slow");
-			var h = $('#transmission-details').height() + 40;
-			$(this).parents('#transmission-details').animate({'top': h}, 600);
-			if (document.getElementById('transmission-details').style.display === "none") {
-				document.getElementById('transmission-details').style.display = "block";
-			}
 		} else if (document.getElementById('transmission-details').style.visibility === "visible") {
 			document.getElementById('transmission-details').style.visibility = "hidden";
-			document.getElementById('transmission-details').style.display = "none"
 		}
 	}
 }
