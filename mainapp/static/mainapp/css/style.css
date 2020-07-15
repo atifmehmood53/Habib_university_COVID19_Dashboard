@@ -478,10 +478,12 @@ input[type=checkbox] {
 .tutorial-modal-button {
   background-color: #8C0618;
   color: white;
+  border-color: #8C0618;
 }
 
 .tutorial-modal-button:hover {
-  background-color: #fcc149;
+  color: #fcc149;
+  background-color: #8C0618;
 }
 
 .margin-row{
