@@ -560,7 +560,6 @@ var prediction_details_config = {
 };
 //var prediction_details = new Chart(prediction_details_canvas, prediction_details_config);
 
-
 var prediction_accuracy_canvas = document.getElementById('prediction-accuracy').getContext('2d');
 var prediction_accuracy_config = {
     type: 'line',
@@ -1669,36 +1668,9 @@ function showPredictionGraph() {
 }
 
 function showCitiesTable(){
-	if (document.getElementById('cities-details').style.visibility === "hidden") {
-        document.getElementById('cities-details').style.visibility = "visible";
-		//console.log(table_data)
-		update_table_data();
-    } else if (document.getElementById('cities-details').style.visibility === "visible") {
-        document.getElementById('cities-details').style.visibility = "hidden";
-    }
+	update_table_data();
 }
 
-function expandFactDetails(mode){
-	/*if (document.getElementById('susceptibility-details').style.display === "none") {
-        document.getElementById('susceptibility-details').style.display = "block";
-    }*/
-	if (mode === 'susceptibility'){
-		
-		if (document.getElementById('susceptibility-details').style.visibility === "hidden") {
-			document.getElementById('susceptibility-details').style.visibility = "visible";
-		} else if (document.getElementById('susceptibility-details').style.visibility === "visible") {
-			document.getElementById('susceptibility-details').style.visibility = "hidden";
-		}
-	}
-	else if (mode === 'transmission'){
-		
-		if (document.getElementById('transmission-details').style.visibility === "hidden") {
-			document.getElementById('transmission-details').style.visibility = "visible";
-		} else if (document.getElementById('transmission-details').style.visibility === "visible") {
-			document.getElementById('transmission-details').style.visibility = "hidden";
-		}
-	}
-}
 
 function display_general_stats() {
     console.log("General Stats");
@@ -1753,14 +1725,6 @@ $('#cities-details').on('shown.bs.collapse', function() {
     showCitiesTable();
 });
 
-$('#susceptibility-details').on('hidden.bs.collapse', function() {
-    $('#viewmore-susceptibility-button').text('View More Details');
-    expandFactDetails('susceptibility');
-});
-$('#susceptibility-details').on('shown.bs.collapse', function() {
-    $('#viewmore-susceptibility-button').text('View Less Details');
-    expandFactDetails('susceptibility');
-});
 
 $('#collapse5').on('shown.bs.collapse', function(event) {
 	event.stopPropagation();
@@ -1792,15 +1756,6 @@ $('#collapse9').on('shown.bs.collapse', function(event) {
 
 $('#collapse9').on('hidden.bs.collapse', function(event) {
 	event.stopPropagation();
-});
-
-$('#transmission-details').on('hidden.bs.collapse', function() {
-    $('#viewmore-transmission-button').text('View More Details');
-    expandFactDetails('transmission');
-});
-$('#transmission-details').on('shown.bs.collapse', function() {
-    $('#viewmore-transmission-button').text('View Less Details');
-    expandFactDetails('transmission');
 });
 
 
