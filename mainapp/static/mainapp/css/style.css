@@ -24,6 +24,13 @@ canvas {
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 }
 
+.nav-item:hover {
+  background-color: #59030E;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.25s ease-in-out;
+  transition: background-color 0.25s ease-in-out;
+}
+
 .donut-chart {
   background-color: white;
   min-height: 100%;
@@ -65,7 +72,7 @@ fill: #585858;
   font-size: 16px;
 }
 .tabs-btn-group button {
-  background-color: #59030E; /* Green background */
+  background-color: #59030E;
   border: none;
   height: 3em;
   color: white; /* White text */
@@ -484,6 +491,11 @@ input[type=checkbox] {
 .tutorial-modal-button:hover {
   color: #fcc149;
   background-color: #8C0618;
+}
+
+.tutorial-modal-button:active {
+  color: #fcc149 !important;
+  background-color: #8C0618 !important;
 }
 
 .margin-row{
