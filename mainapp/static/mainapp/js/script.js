@@ -161,9 +161,11 @@ var top_12_citywise_data = [
         [],
         [],
         [],
+        [],
         []
     ],
     [
+        [],
         [],
         [],
         [],
@@ -181,6 +183,11 @@ for (var i=0; i<3; i++) {
 // it needs to processed seperately to avoid undefined values in the arrays.
 top_12_citywise_data[0][3] = complete_citywise_data[0][3];
 top_12_citywise_data[1][3] = complete_citywise_data[1][3];
+
+// ICT only has one district in it (Islamabad) so
+// it needs to be added manually.
+top_12_citywise_data[0][4] = complete_citywise_data[0][4];
+top_12_citywise_data[1][4] = complete_citywise_data[1][4];
 
 console.log("Top 12 Citywise Data:")
 console.log(top_12_citywise_data)
@@ -232,6 +239,16 @@ for (var district in global_data["City Wise"]["KPK"]) {
 		default_table_data[1].push(global_data["City Wise"]["KPK"][district].Population)
         default_table_data[2].push(global_data["City Wise"]["KPK"][district].casePerMillionPopulation);
 		default_table_data[3].push(global_data["City Wise"]["KPK"][district].total);
+	}
+}
+for (var district in global_data["City Wise"]["ICT"]) {
+    if (global_data["City Wise"]["ICT"][district].district == "Islamabad") {
+        national_citywise_data[0].push(global_data["City Wise"]["ICT"][district].casePerMillionPopulation);
+        national_citywise_data[1].push(global_data["City Wise"]["ICT"][district].district);
+		default_table_data[0].push(global_data["City Wise"]["ICT"][district].district)
+		default_table_data[1].push(global_data["City Wise"]["ICT"][district].Population)
+        default_table_data[2].push(global_data["City Wise"]["ICT"][district].casePerMillionPopulation);
+		default_table_data[3].push(global_data["City Wise"]["ICT"][district].total);
 	}
 }
 
@@ -805,13 +822,15 @@ function provincial_cities_data() {
         [], // Balochistan
         [], // Punjab
         [], // Sindh
-        []  // KPK
+        [], // KPK
+        []  // ICT
     ],
 	[
         [], // Balochistan
         [], // Punjab
         [], // Sindh
-        []  // KPK
+        [], // KPK
+        []  // ICT
     ]];
     for (var district in data["City Wise"]["Balochistan"]) {
         city_data[0][0].push(data["City Wise"]["Balochistan"][district].casePerMillionPopulation)
@@ -828,6 +847,10 @@ function provincial_cities_data() {
     for (var district in data["City Wise"]["KPK"]) {
         city_data[0][3].push(data["City Wise"]["KPK"][district].casePerMillionPopulation)
         city_data[1][3].push(data["City Wise"]["KPK"][district].district);
+    }
+    for (var district in data["City Wise"]["ICT"]) {
+        city_data[0][4].push(data["City Wise"]["ICT"][district].casePerMillionPopulation)
+        city_data[1][4].push(data["City Wise"]["ICT"][district].district);
     }
     return city_data
 }
@@ -1035,6 +1058,10 @@ function update_citywise_data(province) {
         cities_graph.data.datasets[0].data = top_12_citywise_data[0][3];
         cities_graph.options.scales.xAxes[0].labels = top_12_citywise_data[1][3]
     }
+    else if (province == "ICT") {
+        cities_graph.data.datasets[0].data = top_12_citywise_data[0][3];
+        cities_graph.options.scales.xAxes[0].labels = top_12_citywise_data[1][3]
+    }
     else if (province == "National") {
         cities_graph.data.datasets[0].data = national_citywise_data[0];
         cities_graph.options.scales.xAxes[0].labels = national_citywise_data[1];
@@ -1214,7 +1241,7 @@ function popup(e) {
             updateData(myChart, updated_data, 'time series')
 
             // Update citywise data
-            update_citywise_data("National");
+            update_citywise_data("ICT");
 			
         } else if (e.target.id === "PK-GB") {
             //province = "Gilgit-Baltistan";
