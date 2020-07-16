@@ -1780,6 +1780,24 @@ $('#cities-details').on('shown.bs.collapse', function() {
     showCitiesTable();
 });
 
+$('#viewmore-susceptibility-button').click(function(event) {
+    if ($('#viewmore-susceptibility-button').text() === 'View More Details') {
+        $('#viewmore-susceptibility-button').text('View Less Details');
+    }
+    else if ($('#viewmore-susceptibility-button').text() === 'View Less Details') {
+        $('#viewmore-susceptibility-button').text('View More Details');
+    }
+});
+
+$('#viewmore-transmission-button').click(function(event) {
+    if ($('#viewmore-transmission-button').text() === 'View More Details') {
+        $('#viewmore-transmission-button').text('View Less Details');
+    }
+    else if ($('#viewmore-transmission-button').text() === 'View Less Details') {
+        $('#viewmore-transmission-button').text('View More Details');
+    }
+});
+
 
 $('#collapse5').on('shown.bs.collapse', function(event) {
 	event.stopPropagation();
