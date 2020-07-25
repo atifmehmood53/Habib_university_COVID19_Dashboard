@@ -67,6 +67,12 @@ fill: #585858;
 }
 
 
+.notification-div {
+  text-align: center;
+  display: none;
+  margin-bottom: 2%;
+}
+
 /* Tab select buttons */
 .tabs-btn-group {
   background-color: #c8a95f;

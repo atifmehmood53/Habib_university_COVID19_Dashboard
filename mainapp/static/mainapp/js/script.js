@@ -173,7 +173,7 @@ var top_12_citywise_data = [
     ]
 ];
 // Extracting top 12 districts (by population) from each province
-for (var i=0; i<3; i++) {
+for (var i=1; i<3; i++) {
     for (var j=0; j<12; j++) {
         top_12_citywise_data[0][i].push(complete_citywise_data[0][i][j]);
         top_12_citywise_data[1][i].push(complete_citywise_data[1][i][j]);
@@ -181,8 +181,8 @@ for (var i=0; i<3; i++) {
 }
 // KPK has less than 12 districts as of now so
 // it needs to processed seperately to avoid undefined values in the arrays.
-top_12_citywise_data[0][3] = complete_citywise_data[0][3];
-top_12_citywise_data[1][3] = complete_citywise_data[1][3];
+// top_12_citywise_data[0][3] = complete_citywise_data[0][3];
+// top_12_citywise_data[1][3] = complete_citywise_data[1][3];
 
 // ICT only has one district in it (Islamabad) so
 // it needs to be added manually.
@@ -201,16 +201,16 @@ var national_citywise_data = [
     []
 ];
 
-for (var district in global_data["City Wise"]["Balochistan"]) {
-    if (global_data["City Wise"]["Balochistan"][district].district == "Quetta") {
-        national_citywise_data[0].push(global_data["City Wise"]["Balochistan"][district].casePerMillionPopulation);
-        national_citywise_data[1].push(global_data["City Wise"]["Balochistan"][district].district);
-		default_table_data[0].push(global_data["City Wise"]["Balochistan"][district].district)
-		default_table_data[1].push(global_data["City Wise"]["Balochistan"][district].Population)
-        default_table_data[2].push(global_data["City Wise"]["Balochistan"][district].casePerMillionPopulation);
-		default_table_data[3].push(global_data["City Wise"]["Balochistan"][district].total);
-	}
-}
+// for (var district in global_data["City Wise"]["Balochistan"]) {
+//     if (global_data["City Wise"]["Balochistan"][district].district == "Quetta") {
+//         national_citywise_data[0].push(global_data["City Wise"]["Balochistan"][district].casePerMillionPopulation);
+//         national_citywise_data[1].push(global_data["City Wise"]["Balochistan"][district].district);
+// 		default_table_data[0].push(global_data["City Wise"]["Balochistan"][district].district)
+// 		default_table_data[1].push(global_data["City Wise"]["Balochistan"][district].Population)
+//         default_table_data[2].push(global_data["City Wise"]["Balochistan"][district].casePerMillionPopulation);
+// 		default_table_data[3].push(global_data["City Wise"]["Balochistan"][district].total);
+// 	}
+// }
 for (var district in global_data["City Wise"]["Punjab"]) {
     if (global_data["City Wise"]["Punjab"][district].district == "Lahore") {
         national_citywise_data[0].push(global_data["City Wise"]["Punjab"][district].casePerMillionPopulation);
@@ -231,16 +231,16 @@ for (var district in global_data["City Wise"]["Sindh"]) {
 		default_table_data[3].push(global_data["City Wise"]["Sindh"][district].total);
 	}
 }
-for (var district in global_data["City Wise"]["KPK"]) {
-    if (global_data["City Wise"]["KPK"][district].district == "Peshawar") {
-        national_citywise_data[0].push(global_data["City Wise"]["KPK"][district].casePerMillionPopulation);
-        national_citywise_data[1].push(global_data["City Wise"]["KPK"][district].district);
-		default_table_data[0].push(global_data["City Wise"]["KPK"][district].district)
-		default_table_data[1].push(global_data["City Wise"]["KPK"][district].Population)
-        default_table_data[2].push(global_data["City Wise"]["KPK"][district].casePerMillionPopulation);
-		default_table_data[3].push(global_data["City Wise"]["KPK"][district].total);
-	}
-}
+// for (var district in global_data["City Wise"]["KPK"]) {
+//     if (global_data["City Wise"]["KPK"][district].district == "Peshawar") {
+//         national_citywise_data[0].push(global_data["City Wise"]["KPK"][district].casePerMillionPopulation);
+//         national_citywise_data[1].push(global_data["City Wise"]["KPK"][district].district);
+// 		default_table_data[0].push(global_data["City Wise"]["KPK"][district].district)
+// 		default_table_data[1].push(global_data["City Wise"]["KPK"][district].Population)
+//         default_table_data[2].push(global_data["City Wise"]["KPK"][district].casePerMillionPopulation);
+// 		default_table_data[3].push(global_data["City Wise"]["KPK"][district].total);
+// 	}
+// }
 for (var district in global_data["City Wise"]["ICT"]) {
     if (global_data["City Wise"]["ICT"][district].district == "Islamabad") {
         national_citywise_data[0].push(global_data["City Wise"]["ICT"][district].casePerMillionPopulation);
@@ -832,10 +832,10 @@ function provincial_cities_data() {
         [], // KPK
         []  // ICT
     ]];
-    for (var district in data["City Wise"]["Balochistan"]) {
-        city_data[0][0].push(data["City Wise"]["Balochistan"][district].casePerMillionPopulation)
-        city_data[1][0].push(data["City Wise"]["Balochistan"][district].district);
-    }
+    // for (var district in data["City Wise"]["Balochistan"]) {
+    //     city_data[0][0].push(data["City Wise"]["Balochistan"][district].casePerMillionPopulation)
+    //     city_data[1][0].push(data["City Wise"]["Balochistan"][district].district);
+    // }
     for (var district in data["City Wise"]["Punjab"]) {
         city_data[0][1].push(data["City Wise"]["Punjab"][district].casePerMillionPopulation)
         city_data[1][1].push(data["City Wise"]["Punjab"][district].district);
@@ -844,10 +844,10 @@ function provincial_cities_data() {
         city_data[0][2].push(data["City Wise"]["Sindh"][district].casePerMillionPopulation)
         city_data[1][2].push(data["City Wise"]["Sindh"][district].district);
     }
-    for (var district in data["City Wise"]["KPK"]) {
-        city_data[0][3].push(data["City Wise"]["KPK"][district].casePerMillionPopulation)
-        city_data[1][3].push(data["City Wise"]["KPK"][district].district);
-    }
+    // for (var district in data["City Wise"]["KPK"]) {
+    //     city_data[0][3].push(data["City Wise"]["KPK"][district].casePerMillionPopulation)
+    //     city_data[1][3].push(data["City Wise"]["KPK"][district].district);
+    // }
     for (var district in data["City Wise"]["ICT"]) {
         city_data[0][4].push(data["City Wise"]["ICT"][district].casePerMillionPopulation)
         city_data[1][4].push(data["City Wise"]["ICT"][district].district);
@@ -1049,10 +1049,12 @@ function update_citywise_data(province) {
     else if (province == "Punjab") {
         cities_graph.data.datasets[0].data = top_12_citywise_data[0][1];
         cities_graph.options.scales.xAxes[0].labels = top_12_citywise_data[1][1]
+        document.getElementById('notification-div').style.display = 'none';
     }
     else if (province == "Sindh") {
         cities_graph.data.datasets[0].data = top_12_citywise_data[0][2];
         cities_graph.options.scales.xAxes[0].labels = top_12_citywise_data[1][2]
+        document.getElementById('notification-div').style.display = 'none';
     }
     else if (province == "KPK") {
         cities_graph.data.datasets[0].data = top_12_citywise_data[0][3];
@@ -1061,10 +1063,17 @@ function update_citywise_data(province) {
     else if (province == "ICT") {
         cities_graph.data.datasets[0].data = top_12_citywise_data[0][3];
         cities_graph.options.scales.xAxes[0].labels = top_12_citywise_data[1][3]
+        document.getElementById('notification-div').style.display = 'none';
     }
     else if (province == "National") {
         cities_graph.data.datasets[0].data = national_citywise_data[0];
         cities_graph.options.scales.xAxes[0].labels = national_citywise_data[1];
+        document.getElementById('notification-div').style.display = 'block';
+    }
+    else if (province == "National Reset") {
+        cities_graph.data.datasets[0].data = national_citywise_data[0];
+        cities_graph.options.scales.xAxes[0].labels = national_citywise_data[1];
+        document.getElementById('notification-div').style.display = 'none';
     }
     cities_graph.update();
 }
@@ -1166,7 +1175,7 @@ function popup(e) {
                     }
                 }
             }
-			table_data = citywise_table_data('KPK')
+			table_data = citywise_table_data('default')
 			update_table_data();
             total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in KPK till now.";
             //most_infected_city.innerHTML = province_data[province_data.length - 1].most_infected_city + " is the city with the most number of new cases.";
@@ -1187,7 +1196,7 @@ function popup(e) {
             updateData(myChart, updated_data, 'time series')
 
             // Update citywise data
-            update_citywise_data("KPK");
+            update_citywise_data("National");
 			
         } else if (e.target.id === "PK-AK") {
             //province = "Azad Kashmir";
@@ -1273,7 +1282,7 @@ function popup(e) {
         } else if (e.target.id === "PK-BA") {
             //province = "Balochistan";
             province_data = global_data.Balochistan;
-			table_data = citywise_table_data('Balochistan')
+			table_data = citywise_table_data('default')
 			update_table_data();
             total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in Balochistan till now.";
             //most_infected_city.innerHTML = province_data[province_data.length - 1].most_infected_city + " is the city with the most number of new cases.";
@@ -1295,7 +1304,7 @@ function popup(e) {
             updateData(myChart, updated_data, 'time series')
 
             // Update citywise data
-            update_citywise_data("Balochistan");
+            update_citywise_data("National");
 			
         }
         /*if (province_data[province_data.length - 1].most_infected_city === "None") {
@@ -1409,7 +1418,7 @@ function reset_to_default() {
     updateData(myChart, updated_data, 'time series');
 
     // Reset citywise chart to National Data
-    update_citywise_data("National");
+    update_citywise_data("National Reset");
 	table_data = citywise_table_data('default');
 	update_table_data();
 	
