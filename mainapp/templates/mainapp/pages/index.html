@@ -517,157 +517,12 @@
                     <div class="col-lg-12 col-md-12 col-sm-12 headings-container" id="trend-section-header">
                         <div class="new-div"> <h2 id="data" class="fancy"><span>Data</span></h2> </div>
                     </div>
-<<<<<<< HEAD
                     <div class="col-lg-6 col-md-6 col-sm-12" id="trend-graph">
                         <div class="row">
                             <div class="col-12">
                                 <div>
                                     <canvas id="time-series-graph-confirmed-cases" height="300" class="graph-shadow"></canvas>
                                 </div>
-=======
-                </div>
-            </div>
-
-            <div class="col-lg-6 col-md-6 col-sm-12" id="city-graph">
-                <div class="notification-div" id="notification-div">
-                    <span>Unfortunately, city-wise data for the selected province isn't available.</span>
-                </div>
-				<div>
-					<!--DO NOT REMOVE THIS ADDITIONAL DIV. THIS FIXES A BUG IN CHARTJS-->
-					<canvas id="cities-graph" height="300" class="graph-shadow"></canvas>
-				</div>
-				<div class="view-more text-center">
-                    <button class="btn button-shadow" type="button" id="viewmore-cities-button" data-toggle="collapse"
-                        data-target="#cities-details" aria-expanded="false" aria-controls="cities-details">View More Details</button>
-                </div>
-            </div>
-			<div class="row collapse col-12" id="cities-details">
-			<!--<div class="col-lg-12 col-md-12 col-sm-12">-->
-                <div style="overflow-x: auto;">
-                    <table class="table table-hover table-sm" id="cities-table" style="table-layout: fixed">
-                        <thead>
-                            <tr>
-                                <!--<th scope="col">#</th>-->
-                                <th scope="col">City</th>
-                                <th scope="col">Total Confirmed Cases</th>
-                                <th scope="col">Population</th>
-                                <th scope="col">Cases per Million</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tableContents">
-                        </tbody>
-                    </table>
-                </div>
-			</div>
-			<!--<div class="col-lg-6 col-md-6 col-sm-12" id="prediction-graph">
-                <div>
-                    <!--DO NOT REMOVE THIS ADDITIONAL DIV. THIS FIXES A BUG IN CHARTJS-->
-                    <!--<canvas id="time-series-graph-prediction" height="300" class="details-graph"></canvas>
-                </div>
-            </div>
-			<div class="col-lg-6 col-md-6 col-sm-12" id="prediction-accuracy-graph">
-                <div>
-                    <canvas id="prediction-accuracy" height="300" class="details-graph"></canvas>
-                </div>
-				<div class="view-more text-center">
-                    <button class="btn" type="button" id="viewmore-button" data-toggle="collapse"
-                        data-target="#prediction-details" aria-expanded="false" aria-controls="prediction-details">View More Details</button>
-                </div>
-            </div>-->
-        </div>
-		
-		<div class="row details-section margin-row" id="trend-section2">
-			<div class="col-lg-12 col-md-12 col-sm-12 headings-container">
-				<div class="new-div"> <h2 class="fancy"><span>Predictions</span></h2> </div>
-			</div>
-			<div class="col-lg-6 col-md-6 col-sm-12" id="prediction-graph">
-                <div>
-                    <!--DO NOT REMOVE THIS ADDITIONAL DIV. THIS FIXES A BUG IN CHARTJS-->
-                    <canvas id="time-series-graph-prediction" height="300" class="graph-shadow"></canvas>
-                </div>
-            </div>
-			<div class="col-lg-6 col-md-6 col-sm-12" id="prediction-accuracy-graph">
-                <div>
-                    <canvas id="prediction-accuracy" height="300" class="graph-shadow"></canvas>
-                </div>
-				<div class="view-more text-center">
-                    <button class="btn button-shadow" type="button" id="viewmore-button" data-toggle="collapse"
-                        data-target="#prediction-details" aria-expanded="false" aria-controls="prediction-details">View More Details</button>
-                </div>
-            </div>
-		</div>
-
-        <div class="row collapse" id="prediction-details">
-            <div class="col-lg-6 col-md-6 col-sm-12">
-                <div id="prediction-details-graph" style="margin-bottom: 2%;">
-                    <!--The detailed prediction graph will go here-->
-                    <canvas id="time-series-prediction-details" height="300" class="graph-shadow"
-                        style="visibility:hidden"></canvas>
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-6 col-sm-12">
-                <div id="detail-description">
-                    <h6 class="text-center" id="description-heading">Description</h6>
-                    <p> Forecasts for number of cumulative COVID-19 cases at the national and provincial level are
-                        determined using statistical time series models with Holt's linear trend method. The best fit
-                        model is determined by fitting models with three broad categories of trends: linear, exponential
-                        and damped exponential, where the exponent is down weighted. If the trend exhibited nationally
-                        or provincially is clearly non-linear, only exponential or damped exponential models are used.
-                        For damped exponential models, multiple models are created using dampening factors between 0.8
-                        and 1.0, where possible. </p>
-                    <p> To ensure as accurate forecasts as possible, all models are validated by removing two weeks
-                        worth of data and then forecasting for this time period. Prediction error is estimated by
-                        calculating the Root Mean Squared Error (RMSE) and the Mean Absolute Percentage Error (MAPE).
-                        The model with the smallest RMSE and MAPE error is chosen for forecasting. Forecast models are
-                        updated as more data becomes available.</p>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="row details-section justify-content-center" id="factchecking-section"
-            style="background-color: #c8a95f">
-            <div class="col-lg-12 col-md-12 col-sm-12 headings-container" id="factchecking-section-header">
-				<div class="new-div"> <h2 class="fancy"><span>Fact Checking</span></h2> </div>
-			</div>
-				<div class="col-lg-9 col-md-9 col-sm-12">
-                <div class="panel-group" id="accordion2" role="tablist" aria-multiselectable="true">
-					<h3 class="fact-subheading"> Susceptibility </h3>
-                    <div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="factheadingOne">
-                            <h4 class="panel-title">
-                                <a class="collapsed fact-true" role="button" data-toggle="collapse"
-                                    data-parent="#accordion2" href="#collapse1" aria-expanded="false"
-                                    aria-controls="collapse1">
-
-                                    <span style="width: 60%">Loss of smell and taste is a symptom of COVID-19.</span>
-                                    <span class="fact-truth" style="text-transform: uppercase;"> True </span>
-                                </a>
-
-                            </h4>
-                        </div>
-                        <div id="collapse1" class="panel-collapse collapse in" role="tabpanel"
-                            aria-labelledby="headingOne">
-                            <div class="panel-body">
-                                <ul>
-                                    <li>Along with other classical symptoms such fatigue, headache and fever, loss of
-                                        smell and taste (chemosensory dysfuction) has been shown to be <strong> strongly
-                                            associated </strong> with COVID-19 infection.</li>
-                                    <li>Chemosensory impairments are at least 10-fold more common in COVID-19 positive
-                                        patients. </li>
-                                    <li>Chemosensory dysfunction <strong> should be used as a symptom </strong> for
-                                        heightening screening of COVID-19 infections to decrease the risk of
-                                        transmission.</li>
-                                </ul>
-                                <p><b>Citation:</b> Yan, C.H., Faraji, F., Prajapati, D.P., Boone, C.E. and DeConde,
-                                    A.S. (2020), Association of chemosensory dysfunction and COVID‐19 in patients
-                                    presenting with influenza‐like symptoms. Int Forum Allergy Rhinol.. Accepted Author
-                                    Manuscript. doi:<a href="10.1002/alr.22579"
-                                        style="text-decoration: underline">10.1002/alr.22579</a>
-                                    <a href="https://onlinelibrary.wiley.com/doi/abs/10.1002/alr.22579"
-                                        style="text-decoration: underline">
-                                        https://onlinelibrary.wiley.com/doi/abs/10.1002/alr.22579 </a></p>
->>>>>>> front_endv2
                             </div>
                             <div class="col-12">
                                 <div class="slidecontainer">
@@ -680,6 +535,9 @@
                     </div>
 
                     <div class="col-lg-6 col-md-6 col-sm-12" id="city-graph">
+                        <div class="notification-div" id="notification-div">
+                            <span>Unfortunately, city-wise data for the selected province isn't available.</span>
+                        </div>
                         <div>
                             <canvas id="cities-graph" height="300" class="graph-shadow"></canvas>
                         </div>
