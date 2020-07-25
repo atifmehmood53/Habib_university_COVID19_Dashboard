@@ -155,7 +155,7 @@ var d = monthly_data(n);
 
 
 var complete_citywise_data = provincial_cities_data();
-console.log(complete_citywise_data);
+
 var top_12_citywise_data = [
     [
         [],
@@ -189,8 +189,7 @@ for (var i=1; i<3; i++) {
 top_12_citywise_data[0][4] = complete_citywise_data[0][4];
 top_12_citywise_data[1][4] = complete_citywise_data[1][4];
 
-console.log("Top 12 Citywise Data:")
-console.log(top_12_citywise_data)
+
 
 // Extracting city data for provincial capitals to display when the user
 // hasn't selected any province on the map or the user has selected a
@@ -1764,7 +1763,7 @@ function showCitiesTable(){
 
 
 function display_general_stats() {
-    console.log("General Stats");
+    
     general_stats_section.style.display = "block";
     common_symp_section.style.display = "none";
     other_symp_section.style.display = "none";
@@ -1775,7 +1774,7 @@ function display_general_stats() {
 }
 
 function display_common_symp() {
-    console.log("Common Symptoms");
+    
     common_symp_section.style.display = "block";
     general_stats_section.style.display = "none";
     other_symp_section.style.display = "none";
@@ -1786,7 +1785,7 @@ function display_common_symp() {
 }
 
 function display_other_symp() {
-    console.log("Other Symptoms");
+    
     other_symp_section.style.display = "block";
     general_stats_section.style.display = "none";
     common_symp_section.style.display = "none";
