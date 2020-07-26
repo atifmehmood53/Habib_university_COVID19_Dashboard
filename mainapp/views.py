@@ -110,7 +110,7 @@ def index(request):
         latest_date_sindh = SSerializer(data_sindh).data['date']
 
     if data_punjab != None:
-        latest_date_punjab = PSerializer().data['date']
+        latest_date_punjab = PSerializer(data_punjab).data['date']
 
     if data_kpk != None:
         latest_date_kpk = KPKSerializer(data_kpk).data['date']   
