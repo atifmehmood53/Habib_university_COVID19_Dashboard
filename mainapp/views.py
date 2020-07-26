@@ -126,7 +126,7 @@ def index(request):
     if data_punjab != None:
         cities_punjab = list(sorted(Punjab_Data.objects.filter(date= latest_date_punjab).values('district','Population'), key = operator.itemgetter('Population') , reverse = True ) )
         for city in cities_punjab:
-            data1['City Wise']["Punjab"].append(BSerializer(Punjab_Data.objects.filter(date= latest_date_punjab ,district= city['district']), many=True).data[0])
+            data1['City Wise']["Punjab"].append(PSerializer(Punjab_Data.objects.filter(date= latest_date_punjab ,district= city['district']), many=True).data[0])
     if data_sindh != None:
         cities_sindh= list(sorted(Sindh_Data.objects.filter(date= latest_date_sindh).values('district' , 'Population'), key = operator.itemgetter('Population') , reverse =True ))
         for city in cities_sindh:
