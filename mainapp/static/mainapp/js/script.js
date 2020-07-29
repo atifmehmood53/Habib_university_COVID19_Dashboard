@@ -50,6 +50,19 @@ var week_slider = document.getElementById("week_slider");
 var cities_table = document.getElementById("cities-table");
 var contents = document.getElementById("tableContents");
 
+// Tab buttons
+var tab_general_stats = document.getElementById("tab-general-stat");
+var tab_common_symp = document.getElementById("tab-common-symp");
+var tab_other_symp = document.getElementById("tab-other-symp");
+
+// Nested tabbed sections
+var general_stats_section = document.getElementById("nested-general-stats");
+var common_symp_section = document.getElementById("nested-common-symp");
+var other_symp_section = document.getElementById("nested-other-symp");
+
+// Setting default selected tab
+tab_general_stats.style.backgroundColor = "#8C0618";
+
 // Add link to webpage as a string in place of the empty string as "http://www.webpage.com".
 // Ensure the "http://"
 var hospital_info = [
@@ -150,22 +163,41 @@ var predictions = prediction_data();
 var d = monthly_data(n);
 
 var complete_citywise_data = provincial_cities_data();
-//console.log(complete_citywise_data);
-var top_12_citywise_data = [[[], [], [], []], [[], [], [], []]];
+
+var top_12_citywise_data = [
+    [
+        [],
+        [],
+        [],
+        [],
+        []
+    ],
+    [
+        [],
+        [],
+        [],
+        [],
+        []
+    ]
+];
 // Extracting top 12 districts (by population) from each province
-for (var i = 0; i < 3; i++) {
-  for (var j = 0; j < 12; j++) {
-    top_12_citywise_data[0][i].push(complete_citywise_data[0][i][j]);
-    top_12_citywise_data[1][i].push(complete_citywise_data[1][i][j]);
-  }
+for (var i=1; i<3; i++) {
+    for (var j=0; j<12; j++) {
+        top_12_citywise_data[0][i].push(complete_citywise_data[0][i][j]);
+        top_12_citywise_data[1][i].push(complete_citywise_data[1][i][j]);
+    }
 }
 // KPK has less than 12 districts as of now so
 // it needs to processed seperately to avoid undefined values in the arrays.
-top_12_citywise_data[0][3] = complete_citywise_data[0][3];
-top_12_citywise_data[1][3] = complete_citywise_data[1][3];
+// top_12_citywise_data[0][3] = complete_citywise_data[0][3];
+// top_12_citywise_data[1][3] = complete_citywise_data[1][3];
 
-//console.log("Top 12 Citywise Data:");
-//console.log(top_12_citywise_data);
+// ICT only has one district in it (Islamabad) so
+// it needs to be added manually.
+top_12_citywise_data[0][4] = complete_citywise_data[0][4];
+top_12_citywise_data[1][4] = complete_citywise_data[1][4];
+
+
 
 // Extracting city data for provincial capitals to display when the user
 // hasn't selected any province on the map or the user has selected a
@@ -173,28 +205,16 @@ top_12_citywise_data[1][3] = complete_citywise_data[1][3];
 var default_table_data = [[], [], [], []];
 var national_citywise_data = [[], []];
 
-for (var district in global_data["City Wise"]["Balochistan"]) {
-  if (global_data["City Wise"]["Balochistan"][district].district == "Quetta") {
-    national_citywise_data[0].push(
-      global_data["City Wise"]["Balochistan"][district].casePerMillionPopulation
-    );
-    national_citywise_data[1].push(
-      global_data["City Wise"]["Balochistan"][district].district
-    );
-    default_table_data[0].push(
-      global_data["City Wise"]["Balochistan"][district].district
-    );
-    default_table_data[1].push(
-      global_data["City Wise"]["Balochistan"][district].Population
-    );
-    default_table_data[2].push(
-      global_data["City Wise"]["Balochistan"][district].casePerMillionPopulation
-    );
-    default_table_data[3].push(
-      global_data["City Wise"]["Balochistan"][district].total
-    );
-  }
-}
+// for (var district in global_data["City Wise"]["Balochistan"]) {
+//     if (global_data["City Wise"]["Balochistan"][district].district == "Quetta") {
+//         national_citywise_data[0].push(global_data["City Wise"]["Balochistan"][district].casePerMillionPopulation);
+//         national_citywise_data[1].push(global_data["City Wise"]["Balochistan"][district].district);
+// 		default_table_data[0].push(global_data["City Wise"]["Balochistan"][district].district)
+// 		default_table_data[1].push(global_data["City Wise"]["Balochistan"][district].Population)
+//         default_table_data[2].push(global_data["City Wise"]["Balochistan"][district].casePerMillionPopulation);
+// 		default_table_data[3].push(global_data["City Wise"]["Balochistan"][district].total);
+// 	}
+// }
 for (var district in global_data["City Wise"]["Punjab"]) {
   if (global_data["City Wise"]["Punjab"][district].district == "Lahore") {
     national_citywise_data[0].push(
@@ -239,25 +259,25 @@ for (var district in global_data["City Wise"]["Sindh"]) {
     );
   }
 }
-for (var district in global_data["City Wise"]["KPK"]) {
-  if (global_data["City Wise"]["KPK"][district].district == "Peshawar") {
-    national_citywise_data[0].push(
-      global_data["City Wise"]["KPK"][district].casePerMillionPopulation
-    );
-    national_citywise_data[1].push(
-      global_data["City Wise"]["KPK"][district].district
-    );
-    default_table_data[0].push(
-      global_data["City Wise"]["KPK"][district].district
-    );
-    default_table_data[1].push(
-      global_data["City Wise"]["KPK"][district].Population
-    );
-    default_table_data[2].push(
-      global_data["City Wise"]["KPK"][district].casePerMillionPopulation
-    );
-    default_table_data[3].push(global_data["City Wise"]["KPK"][district].total);
-  }
+// for (var district in global_data["City Wise"]["KPK"]) {
+//     if (global_data["City Wise"]["KPK"][district].district == "Peshawar") {
+//         national_citywise_data[0].push(global_data["City Wise"]["KPK"][district].casePerMillionPopulation);
+//         national_citywise_data[1].push(global_data["City Wise"]["KPK"][district].district);
+// 		default_table_data[0].push(global_data["City Wise"]["KPK"][district].district)
+// 		default_table_data[1].push(global_data["City Wise"]["KPK"][district].Population)
+//         default_table_data[2].push(global_data["City Wise"]["KPK"][district].casePerMillionPopulation);
+// 		default_table_data[3].push(global_data["City Wise"]["KPK"][district].total);
+// 	}
+// }
+for (var district in global_data["City Wise"]["ICT"]) {
+    if (global_data["City Wise"]["ICT"][district].district == "Islamabad") {
+        national_citywise_data[0].push(global_data["City Wise"]["ICT"][district].casePerMillionPopulation);
+        national_citywise_data[1].push(global_data["City Wise"]["ICT"][district].district);
+		default_table_data[0].push(global_data["City Wise"]["ICT"][district].district)
+		default_table_data[1].push(global_data["City Wise"]["ICT"][district].Population)
+        default_table_data[2].push(global_data["City Wise"]["ICT"][district].casePerMillionPopulation);
+		default_table_data[3].push(global_data["City Wise"]["ICT"][district].total);
+	}
 }
 
 var today = new Date();
@@ -609,9 +629,7 @@ var prediction_details_config = {
 };
 //var prediction_details = new Chart(prediction_details_canvas, prediction_details_config);
 
-var prediction_accuracy_canvas = document
-  .getElementById("prediction-accuracy")
-  .getContext("2d");
+var prediction_accuracy_canvas = document.getElementById('prediction-accuracy').getContext('2d');
 var prediction_accuracy_config = {
   type: "line",
   data: {
@@ -695,29 +713,16 @@ var prediction_accuracy_graph = new Chart(
 
 var cities_canvas = document.getElementById("cities-graph").getContext("2d");
 var cities_config = {
-  type: "bar",
-  data: {
-    datasets: [
-      {
-        label: "Cases Per Million",
-        borderColor: "#d7aa00",
-        backgroundColor: "#d7aa00",
-        data: national_citywise_data[0],
-        borderWidth: 3
-      }
-    ]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    title: {
-      display: true,
-      text: "City-wise Data"
-    },
-    elements: {
-      point: {
-        radius: 0
-      }
+    type: 'bar',
+    data: {
+        datasets: [{
+                label: 'Cases Per Million',
+                borderColor: '#538c72',
+                backgroundColor: '#538c72',
+                data: national_citywise_data[0],
+                borderWidth: 3
+            }
+        ]
     },
     scales: {
       xAxes: [
@@ -821,38 +826,42 @@ function national_timeSeries_data() {
 
   for (var key in data) {
     var j = 0;
-    var length_of_provincial_data = data[key].length;
-    if (
-      key === "Sindh" ||
-      key === "Punjab" ||
-      key === "AJK" ||
-      key === "Balochistan" ||
-      key === "GB" ||
-      key === "KP" ||
-      key === "ICT"
-    ) {
-      for (var i = 0; i < length_of_provincial_data; i++) {
-        d = new Date(data[key][j].date);
-        d_month = d.getMonth();
-        if (month_list.indexOf(d_month) < 0) {
-          month_list.push(d_month);
-        }
-        if (new_data[0].length !== 0 && new_data[0][i] !== undefined) {
-          if (new_data[0][i].x.getTime() === d.getTime()) {
-            new_data[0][i].y += data[key][j].total_discharged;
-            new_data[1][i].y += data[key][j].total_admitted;
-            new_data[2][i].y += data[key][j].total_died;
-            new_data[3][i].y += data[key][j].total_tested_positive;
-          } else {
-            new_data[0][i].y += 0;
-            new_data[1][i].y += 0;
-            new_data[2][i].y += 0;
-            new_data[3][i].y += 0;
-            j--;
-            length_of_provincial_data++;
-            //console.log("Mismatch for", key);
-            //console.log("Global Date:", d, "Local Date:", new_data[0][i].x);
-            /* for (var j = 0; j < data[key].length; j++) {
+    new_data = [
+        [],
+        [],
+        [],
+        []
+    ];
+    confirmed_sum = 0, active_sum = 0, recovered_sum = 0, deceased_sum = 0;
+
+    for (var key in data) {
+        j = 0;
+        var length_of_provincial_data = data[key].length;
+        if (key === 'Sindh' || key === "Punjab" || key === "AJK" || key === "Balochistan" || key === "GB" || key === "KPTD" || key === "Taftan_mobile_lab" || key === "KP" || key === "ICT") {
+            for (var i = 0; i < length_of_provincial_data; i++) {
+                d = new Date(data[key][j].date)
+                d_month = d.getMonth();
+                if (month_list.indexOf(d_month) < 0) {
+                    month_list.push(d_month);
+                }
+                if (new_data[0].length !== 0 && new_data[0][i] !== undefined) {
+                    if (new_data[0][i].x.getTime() === d.getTime()) {
+						
+                        new_data[0][i].y += data[key][j].total_discharged;
+                        new_data[1][i].y += data[key][j].total_admitted;
+                        new_data[2][i].y += data[key][j].total_died;
+                        new_data[3][i].y += data[key][j].total_tested_positive;
+                    }
+                    else {
+                        new_data[0][i].y += 0;
+                        new_data[1][i].y += 0;
+                        new_data[2][i].y += 0;
+                        new_data[3][i].y += 0;
+                        j--;
+                        length_of_provincial_data++;
+                        //console.log("Mismatch for", key);
+                        //console.log("Global Date:", d, "Local Date:", new_data[0][i].x);
+                        /* for (var j = 0; j < data[key].length; j++) {
                             if (new_data[0][j].x.getTime() === d.getTime()) {
 						
                                 new_data[0][j].y += data[key][j].total_discharged;
@@ -891,46 +900,42 @@ function national_timeSeries_data() {
 }
 
 function provincial_cities_data() {
-  data = Object.assign(global_data); //copying global data for safety purposes, can be removed later
-  var city_data = [
-    [
-      [], // Balochistan
-      [], // Punjab
-      [], // Sindh
-      [] // KPK
+    data = Object.assign(global_data); //copying global data for safety purposes, can be removed later
+	var city_data = [[
+        [], // Balochistan
+        [], // Punjab
+        [], // Sindh
+        [], // KPK
+        []  // ICT
     ],
-    [
-      [], // Balochistan
-      [], // Punjab
-      [], // Sindh
-      [] // KPK
-    ]
-  ];
-  for (var district in data["City Wise"]["Balochistan"]) {
-    city_data[0][0].push(
-      data["City Wise"]["Balochistan"][district].casePerMillionPopulation
-    );
-    city_data[1][0].push(data["City Wise"]["Balochistan"][district].district);
-  }
-  for (var district in data["City Wise"]["Punjab"]) {
-    city_data[0][1].push(
-      data["City Wise"]["Punjab"][district].casePerMillionPopulation
-    );
-    city_data[1][1].push(data["City Wise"]["Punjab"][district].district);
-  }
-  for (var district in data["City Wise"]["Sindh"]) {
-    city_data[0][2].push(
-      data["City Wise"]["Sindh"][district].casePerMillionPopulation
-    );
-    city_data[1][2].push(data["City Wise"]["Sindh"][district].district);
-  }
-  for (var district in data["City Wise"]["KPK"]) {
-    city_data[0][3].push(
-      data["City Wise"]["KPK"][district].casePerMillionPopulation
-    );
-    city_data[1][3].push(data["City Wise"]["KPK"][district].district);
-  }
-  return city_data;
+	[
+        [], // Balochistan
+        [], // Punjab
+        [], // Sindh
+        [], // KPK
+        []  // ICT
+    ]];
+    // for (var district in data["City Wise"]["Balochistan"]) {
+    //     city_data[0][0].push(data["City Wise"]["Balochistan"][district].casePerMillionPopulation)
+    //     city_data[1][0].push(data["City Wise"]["Balochistan"][district].district);
+    // }
+    for (var district in data["City Wise"]["Punjab"]) {
+        city_data[0][1].push(data["City Wise"]["Punjab"][district].casePerMillionPopulation)
+        city_data[1][1].push(data["City Wise"]["Punjab"][district].district);
+    }
+    for (var district in data["City Wise"]["Sindh"]) {
+        city_data[0][2].push(data["City Wise"]["Sindh"][district].casePerMillionPopulation)
+        city_data[1][2].push(data["City Wise"]["Sindh"][district].district);
+    }
+    // for (var district in data["City Wise"]["KPK"]) {
+    //     city_data[0][3].push(data["City Wise"]["KPK"][district].casePerMillionPopulation)
+    //     city_data[1][3].push(data["City Wise"]["KPK"][district].district);
+    // }
+    for (var district in data["City Wise"]["ICT"]) {
+        city_data[0][4].push(data["City Wise"]["ICT"][district].casePerMillionPopulation)
+        city_data[1][4].push(data["City Wise"]["ICT"][district].district);
+    }
+    return city_data
 }
 
 function citywise_table_data(province) {
@@ -1172,23 +1177,40 @@ function update_provinceMonth(province, province_data) {
 }
 
 function update_citywise_data(province) {
-  if (province == "Balochistan") {
-    cities_graph.data.datasets[0].data = top_12_citywise_data[0][0];
-    cities_graph.options.scales.xAxes[0].labels = top_12_citywise_data[1][0];
-  } else if (province == "Punjab") {
-    cities_graph.data.datasets[0].data = top_12_citywise_data[0][1];
-    cities_graph.options.scales.xAxes[0].labels = top_12_citywise_data[1][1];
-  } else if (province == "Sindh") {
-    cities_graph.data.datasets[0].data = top_12_citywise_data[0][2];
-    cities_graph.options.scales.xAxes[0].labels = top_12_citywise_data[1][2];
-  } else if (province == "KPK") {
-    cities_graph.data.datasets[0].data = top_12_citywise_data[0][3];
-    cities_graph.options.scales.xAxes[0].labels = top_12_citywise_data[1][3];
-  } else if (province == "National") {
-    cities_graph.data.datasets[0].data = national_citywise_data[0];
-    cities_graph.options.scales.xAxes[0].labels = national_citywise_data[1];
-  }
-  cities_graph.update();
+    if (province == "Balochistan") {
+        cities_graph.data.datasets[0].data = top_12_citywise_data[0][0];
+        cities_graph.options.scales.xAxes[0].labels = top_12_citywise_data[1][0]
+    }
+    else if (province == "Punjab") {
+        cities_graph.data.datasets[0].data = top_12_citywise_data[0][1];
+        cities_graph.options.scales.xAxes[0].labels = top_12_citywise_data[1][1]
+        document.getElementById('notification-div').style.display = 'none';
+    }
+    else if (province == "Sindh") {
+        cities_graph.data.datasets[0].data = top_12_citywise_data[0][2];
+        cities_graph.options.scales.xAxes[0].labels = top_12_citywise_data[1][2]
+        document.getElementById('notification-div').style.display = 'none';
+    }
+    else if (province == "KPK") {
+        cities_graph.data.datasets[0].data = top_12_citywise_data[0][3];
+        cities_graph.options.scales.xAxes[0].labels = top_12_citywise_data[1][3]
+    }
+    else if (province == "ICT") {
+        cities_graph.data.datasets[0].data = top_12_citywise_data[0][3];
+        cities_graph.options.scales.xAxes[0].labels = top_12_citywise_data[1][3]
+        document.getElementById('notification-div').style.display = 'none';
+    }
+    else if (province == "National") {
+        cities_graph.data.datasets[0].data = national_citywise_data[0];
+        cities_graph.options.scales.xAxes[0].labels = national_citywise_data[1];
+        document.getElementById('notification-div').style.display = 'block';
+    }
+    else if (province == "National Reset") {
+        cities_graph.data.datasets[0].data = national_citywise_data[0];
+        cities_graph.options.scales.xAxes[0].labels = national_citywise_data[1];
+        document.getElementById('notification-div').style.display = 'none';
+    }
+    cities_graph.update();
 }
 
 function popup(e) {
@@ -1202,87 +1224,218 @@ function popup(e) {
     if (last_selected_zone == "PK-TA") {
       last_selected_zone = "PK-KP";
     }
-  } else if (e.target.id == "PK-TA") {
-    if (last_selected_zone == "PK-KP") {
-      last_selected_zone = "PK-TA";
-    }
-  }
 
-  if (last_selected_zone == e.target.id) {
-    //console.log("Deselecting " + last_selected_zone);
-    reset_to_default();
-  } else {
-    last_selected_zone = e.target.id;
-    if (e.target.id === "PK-PB") {
-      //province = "Punjab";
-      province_data = global_data.Punjab;
-      table_data = citywise_table_data("Punjab");
-      update_table_data();
-      total_infected.textContent =
-        province_data[province_data.length - 1].total_tested_positive +
-        " people have been infected in Punjab till now.";
-      //most_infected_city.innerHTML = province_data[province_data.length - 1].most_infected_city + " is the city with the most number of new cases.";
-      center_list.style.listStyleType = "disc";
-      center_list.innerHTML = "";
-      var i;
-      for (i = 0; i < hospital_links[hospital_zones.PB].length; i++) {
-        center_list.appendChild(hospital_links[hospital_zones.PB][i]);
-      }
+    if (last_selected_zone == e.target.id) {
+        //console.log("Deselecting " + last_selected_zone);
+        reset_to_default();
+    } else {
 
-      weekly_data_list = weekly_data(province_data, "province");
-      var updated_data = [];
-      for (var i = 0; i < weekly_data_list.length; i++) {
-        updated_data.push(weekly_data_list[i][weekly_data_list[i].length - 1]);
-      }
+        last_selected_zone = e.target.id;
+        if (e.target.id === "PK-PB") {
+            //province = "Punjab";
+            province_data = global_data.Punjab;
+			table_data = citywise_table_data('Punjab');
+			update_table_data();
+            total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in Punjab till now.";
+            //most_infected_city.innerHTML = province_data[province_data.length - 1].most_infected_city + " is the city with the most number of new cases.";
+            center_list.style.listStyleType = 'disc';
+            center_list.innerHTML = '';
+            var i;
+            for (i = 0; i < hospital_links[hospital_zones.PB].length; i++) {
+                center_list.appendChild(hospital_links[hospital_zones.PB][i]);
+            }
+			
+			weekly_data_list = weekly_data(province_data, 'province')
+			var updated_data = []
+			for (var i = 0; i < weekly_data_list.length; i++) {
+				updated_data.push(weekly_data_list[i][weekly_data_list[i].length - 1])
+			}
+			
+            update_donutData(donut_chart, province_data);
+            updateData(myChart, updated_data, 'time series')
+            
+            // Update citywise data
+            update_citywise_data("Punjab");
+			
+        } else if (e.target.id === "PK-SD") {
+            //province = "Sindh";
+            province_data = global_data.Sindh;
+			table_data = citywise_table_data('Sindh')
+			update_table_data();
+            total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in Sindh till now.";
+            //most_infected_city.innerHTML = province_data[province_data.length - 1].most_infected_city + " is the city with the most number of new cases.";
 
-      update_donutData(donut_chart, province_data);
-      updateData(myChart, updated_data, "time series");
+            center_list.style.listStyleType = 'disc';
+            center_list.innerHTML = '';
+            var i;
+            for (i = 0; i < hospital_links[hospital_zones.SD].length; i++) {
+                center_list.appendChild(hospital_links[hospital_zones.SD][i]);
+            }
 
-      // Update citywise data
-      update_citywise_data("Punjab");
-    } else if (e.target.id === "PK-SD") {
-      //province = "Sindh";
-      province_data = global_data.Sindh;
-      table_data = citywise_table_data("Sindh");
-      update_table_data();
-      total_infected.textContent =
-        province_data[province_data.length - 1].total_tested_positive +
-        " people have been infected in Sindh till now.";
-      //most_infected_city.innerHTML = province_data[province_data.length - 1].most_infected_city + " is the city with the most number of new cases.";
+			weekly_data_list = weekly_data(province_data, 'province')
+			var updated_data = []
+			for (var i = 0; i < weekly_data_list.length; i++) {
+				updated_data.push(weekly_data_list[i][weekly_data_list[i].length - 1])
+			}
+			
+            update_donutData(donut_chart, province_data);
+            updateData(myChart, updated_data, 'time series')
 
-      center_list.style.listStyleType = "disc";
-      center_list.innerHTML = "";
-      var i;
-      for (i = 0; i < hospital_links[hospital_zones.SD].length; i++) {
-        center_list.appendChild(hospital_links[hospital_zones.SD][i]);
-      }
+            // Update citywise data
+            update_citywise_data("Sindh");
+			
+        } else if (e.target.id === "PK-KP" || e.target.id == "PK-TA") {
+            new_data = [
+                [],
+                [],
+                [],
+                []
+            ];
+            //province = "Khyber Pakhtunkhwa";
+            province_data = global_data.KP;
+            province_data2 = global_data.KPTD;
+            for (var key in province_data) {
+                for (var i = 0; i < province_data[key].length; i++) {
+                    d = new Date(province_data[key][i].date)
+                    if (province_data[0][i].x.getTime() === d.getTime()) {
+                        province_data[0][i].y += province_data2[key][i].total_discharged;
+                        province_data[1][i].y += province_data2[key][i].total_admitted;
+                        province_data[2][i].y += province_data2[key][i].total_died;
+                        province_data[3][i].y += province_data2[key][i].total_tested_positive;
+                    }
+                }
+            }
+			table_data = citywise_table_data('default')
+			update_table_data();
+            total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in KPK till now.";
+            //most_infected_city.innerHTML = province_data[province_data.length - 1].most_infected_city + " is the city with the most number of new cases.";
 
-      weekly_data_list = weekly_data(province_data, "province");
-      var updated_data = [];
-      for (var i = 0; i < weekly_data_list.length; i++) {
-        updated_data.push(weekly_data_list[i][weekly_data_list[i].length - 1]);
-      }
+            center_list.style.listStyleType = 'disc';
+            center_list.innerHTML = '';
+            var i;
+            for (i = 0; i < hospital_links[hospital_zones.KP].length; i++) {
+                center_list.appendChild(hospital_links[hospital_zones.KP][i]);
+            }
+			weekly_data_list = weekly_data(province_data, 'province')
+			var updated_data = []
+			for (var i = 0; i < weekly_data_list.length; i++) {
+				updated_data.push(weekly_data_list[i][weekly_data_list[i].length - 1])
+			}
+			
+            update_donutData(donut_chart, province_data);
+            updateData(myChart, updated_data, 'time series')
 
-      update_donutData(donut_chart, province_data);
-      updateData(myChart, updated_data, "time series");
+            // Update citywise data
+            update_citywise_data("National");
+			
+        } else if (e.target.id === "PK-AK") {
+            //province = "Azad Kashmir";
+            province_data = global_data.AJK;
+			table_data = citywise_table_data('default')
+			update_table_data();
+            total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in Azad Kashmir till now.";
+            //most_infected_city.innerHTML = province_data[province_data.length - 1].most_infected_city + " is the city with the most number of new cases.";
 
-      // Update citywise data
-      update_citywise_data("Sindh");
-    } else if (e.target.id === "PK-KP" || e.target.id == "PK-TA") {
-      new_data = [[], [], [], []];
-      //province = "Khyber Pakhtunkhwa";
-      province_data = global_data.KP;
-      province_data2 = global_data.KPTD;
-      for (var key in province_data) {
-        for (var i = 0; i < province_data[key].length; i++) {
-          d = new Date(province_data[key][i].date);
-          if (province_data[0][i].x.getTime() === d.getTime()) {
-            province_data[0][i].y += province_data2[key][i].total_discharged;
-            province_data[1][i].y += province_data2[key][i].total_admitted;
-            province_data[2][i].y += province_data2[key][i].total_died;
-            province_data[3][i].y +=
-              province_data2[key][i].total_tested_positive;
-          }
+            center_list.style.listStyleType = 'disc';
+            center_list.innerHTML = '';
+            var i;
+            for (i = 0; i < hospital_links[hospital_zones.AK].length; i++) {
+                center_list.appendChild(hospital_links[hospital_zones.AK][i]);
+            }
+
+			weekly_data_list = weekly_data(province_data, 'province')
+			var updated_data = []
+			for (var i = 0; i < weekly_data_list.length; i++) {
+				updated_data.push(weekly_data_list[i][weekly_data_list[i].length - 1])
+			}
+			
+            update_donutData(donut_chart, province_data);
+            updateData(myChart, updated_data, 'time series')
+
+            // Update citywise data
+            update_citywise_data("National");
+			
+        } else if (e.target.id === "PK-IS") {
+            //province = "Islamabad";
+            province_data = global_data.ICT;
+			table_data = citywise_table_data('default')
+			update_table_data();
+            total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in Islamabad till now.";
+            //most_infected_city.innerHTML = province_data[province_data.length - 1].most_infected_city + " is the city with the most number of new cases.";
+
+            center_list.style.listStyleType = 'disc';
+            center_list.innerHTML = '';
+            var i;
+            for (i = 0; i < hospital_links[hospital_zones.IS].length; i++) {
+                center_list.appendChild(hospital_links[hospital_zones.IS][i]);
+            }
+
+            weekly_data_list = weekly_data(province_data, 'province')
+			var updated_data = []
+			for (var i = 0; i < weekly_data_list.length; i++) {
+				updated_data.push(weekly_data_list[i][weekly_data_list[i].length - 1])
+			}
+			
+            update_donutData(donut_chart, province_data);
+            updateData(myChart, updated_data, 'time series')
+
+            // Update citywise data
+            update_citywise_data("ICT");
+			
+        } else if (e.target.id === "PK-GB") {
+            //province = "Gilgit-Baltistan";
+            province_data = global_data.GB;
+			table_data = citywise_table_data('default')
+			update_table_data();
+            total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in Gilgit-Baltistan till now.";
+            //most_infected_city.innerHTML = province_data[province_data.length - 1].most_infected_city + " is the city with the most number of new cases.";
+
+            center_list.style.listStyleType = 'disc';
+            center_list.innerHTML = '';
+            var i;
+            for (i = 0; i < hospital_links[hospital_zones.GB].length; i++) {
+                center_list.appendChild(hospital_links[hospital_zones.GB][i]);
+            }
+
+            weekly_data_list = weekly_data(province_data, 'province')
+			var updated_data = []
+			for (var i = 0; i < weekly_data_list.length; i++) {
+				updated_data.push(weekly_data_list[i][weekly_data_list[i].length - 1])
+			}
+			
+            update_donutData(donut_chart, province_data);
+            updateData(myChart, updated_data, 'time series')
+
+            // Update citywise data
+            update_citywise_data("National");
+			
+        } else if (e.target.id === "PK-BA") {
+            //province = "Balochistan";
+            province_data = global_data.Balochistan;
+			table_data = citywise_table_data('default')
+			update_table_data();
+            total_infected.textContent = province_data[province_data.length - 1].total_tested_positive + " people have been infected in Balochistan till now.";
+            //most_infected_city.innerHTML = province_data[province_data.length - 1].most_infected_city + " is the city with the most number of new cases.";
+
+            center_list.style.listStyleType = 'disc';
+            center_list.innerHTML = '';
+            var i;
+            for (i = 0; i < hospital_links[hospital_zones.BA].length; i++) {
+                center_list.appendChild(hospital_links[hospital_zones.BA][i]);
+            }
+
+            weekly_data_list = weekly_data(province_data, 'province')
+			var updated_data = []
+			for (var i = 0; i < weekly_data_list.length; i++) {
+				updated_data.push(weekly_data_list[i][weekly_data_list[i].length - 1])
+			}
+			
+            update_donutData(donut_chart, province_data);
+            updateData(myChart, updated_data, 'time series')
+
+            // Update citywise data
+            update_citywise_data("National");
+			
         }
       }
       table_data = citywise_table_data("KPK");
@@ -1518,29 +1671,34 @@ function updateData(chart, data, type) {
 }
 
 function reset_to_default() {
-  //console.log("resetting...")
+    //console.log("resetting...")
 
-  total_infected.textContent =
-    a[0] + " people have been infected in Pakistan till now.";
+    total_infected.textContent = a[0] + " people have been infected in Pakistan till now.";
 
-  //most_infected_city.innerHTML = "Lahore is the city with the most number of new cases.";
+    //most_infected_city.innerHTML = "Lahore is the city with the most number of new cases.";
 
-  center_list.style.listStyleType = "none";
-  center_list.innerHTML = "";
+    center_list.style.listStyleType = 'none';
+    center_list.innerHTML = '';
+    
+	
+	weekly_data_list = weekly_data(n, 'national');
+	var updated_data = []
+	for (var i = 0; i < weekly_data_list.length; i++) {
+		updated_data.push(weekly_data_list[i][weekly_data_list[i].length - 1])
+	}
 
-  weekly_data_list = weekly_data(n, "national");
-  var updated_data = [];
-  for (var i = 0; i < weekly_data_list.length; i++) {
-    updated_data.push(weekly_data_list[i][weekly_data_list[i].length - 1]);
-  }
+    updateData(donut_chart, a, 'donut');
+    updateData(myChart, updated_data, 'time series');
 
-  updateData(donut_chart, a, "donut");
-  updateData(myChart, updated_data, "time series");
-
-  // Reset citywise chart to National Data
-  update_citywise_data("National");
-  table_data = citywise_table_data("default");
-  update_table_data();
+    // Reset citywise chart to National Data
+    update_citywise_data("National Reset");
+	table_data = citywise_table_data('default');
+	update_table_data();
+	
+    var x;
+    for (x of all_provinces) {
+        x.style.fill = '#000000';
+    }
 
   var x;
   for (x of all_provinces) {
@@ -1617,157 +1775,192 @@ center_3.textContent = "";
 //setInterval(update_tip_text, 5000);
 
 function startIntro() {
-  var intro = introJs();
-  intro.setOptions({
-    steps: [
-      {
-        element: "#navbar",
-        intro:
-          "Welcome to Pakistan COVID-19 Resource Center. Click on Next to start the tutorial."
-      },
-      {
-        element: "#navbar",
-        intro: "The dashboard is divided into 5 sections."
-      },
-      {
-        element: "#map",
-        intro:
-          "This is the map. You can click on any province to see its data.",
-        position: "right"
-      },
-      {
-        element: "#stat-section",
-        intro:
-          "This is the general statistics section. When you click on a province on the map, the data will be shown here.",
-        position: "left"
-      },
-      {
-        element: "#donut",
-        intro:
-          "This doughnut chart shows current numbers for active, recorvered, and deceased cases. Hover over any colored segment to see the exact number of cases.",
-        position: "left"
-      },
-      {
-        element: "#donut",
-        intro:
-          "You can also click on any of the names to remove them from the chart. Try clicking on Active Cases to remove it. You can always click on them again to bring them back!",
-        position: "left"
-      },
-      {
-        element: "#donut-chart2",
-        intro:
-          "This doughnut chart shows current number of confirmed cases for each province. Hover over any colored segment to see the exact number of cases.",
-        position: "right"
-      },
-      {
-        element: "#donut-chart2",
-        intro:
-          "You can also click on any of the names to remove them from the chart. Try clicking on Sindh to remove it. You can always click on them again to bring them back!",
-        position: "right"
-      },
-      {
-        element: "#info-sec",
-        intro:
-          "This section has contact information for different hospitals/health centers in the province you selected.",
-        position: "right"
-      },
-      {
-        element: "#precautions-button",
-        intro:
-          "In addition to contact info, you can use this button to view the necessary precautions for COVID-19 as well.",
-        position: "right"
-      },
-      {
-        element: "#trend-section",
-        intro:
-          "This is where you can see the trends for each type of case as well a prediction for the next two weeks!",
-        position: "bottom"
-      },
-      {
-        element: "#trend-graph",
-        intro:
-          "This graph shows the trends for the same cases as the doughnut chart. Just like the doughnut chart, you can click on any of the names to remove them from the graph. Click on them again to get them back!",
-        position: "top"
-      },
-      {
-        element: "#trend_slider",
-        intro:
-          "Use this slider to set how far back you want to see the trends from! You can go as far back as the beginning of the pandemic.",
-        position: "top"
-      },
-      {
-        element: "#prediction-graph",
-        intro:
-          "This graph shows a prediction for the number of cases for the next 14 days. Keep in mind that this is only a prediction.",
-        position: "top"
-      },
-      {
-        element: "#viewmore-button",
-        intro: "Click this to view more details about the predictions.",
-        position: "bottom"
-      },
-      {
-        element: "#time-series-prediction-details",
-        intro:
-          "This graph provides more details about the predictions. Between the Upper and Lower Confidence Interval is the range in which the predictions are most likely to lie.",
-        position: "right"
-      },
-      {
-        element: "#prediction-accuracy",
-        intro:
-          "This graph shows a comparison between the predictions alongwith the data for the days that have already elapsed so you can see how accurate the predictions were!",
-        position: "right"
-      },
-      {
-        element: "#symptoms-section",
-        intro:
-          "This section lists some of the most common as well as other symptoms for COVID-19.",
-        position: "bottom"
-      },
-      {
-        element: "#headingOne",
-        intro: "Click on each symptom to read more about it.",
-        position: "top"
-      },
-      {
-        element: "#factchecking-section",
-        intro:
-          "This section shows some of the prevailing myths, misconceptions as well as facts regarding COVID-19 and to what extent they are true.",
-        position: "bottom"
-      },
-      {
-        element: "#factheadingOne",
-        intro:
-          "Click on each fact to learn more about it and view the source of information as well.",
-        position: "bottom"
-      },
-      {
-        element: "#feedback-button",
-        intro: "You can give feedback about this dashboard by clicking here.",
-        position: "bottom"
-      },
-      {
-        element: "#tutorial-button",
-        intro: "Click here to start the tutorial again at any time!",
-        position: "bottom"
-      },
-      {
-        element: "#navbar",
-        intro:
-          "And that is all you need to know to use this dashboard. Stay safe, stay indoors! Click on Done to finish the tutorial.",
-        position: "bottom"
-      }
-    ]
-  });
-  intro.setOption("showProgress", true);
-  intro.onchange(function(targetElement) {
-    if (targetElement.id === "viewmore-button") {
-      if ($("#viewmore-button").hasClass("collapsed")) {
-        $("#viewmore-button").click();
-      }
-    }
-  });
-  intro.start();
+    var intro = introJs();
+    intro.setOptions({
+        steps: [{
+                element: '#navbar',
+                intro: "Welcome to Pakistan COVID-19 Resource Center. Click on Next to start the tutorial."
+            },
+            {
+                element: '#navbar',
+                intro: "The dashboard is divided into 5 sections."
+            },
+            {
+                element: '#map',
+                intro: "This is the map. You can click on any province to see its data.",
+                position: 'right'
+            },
+            {
+                element: '#nested-general-stats',
+                intro: 'This is the general statistics section. When you click on a province on the map, the data will be shown here.',
+                position: 'left'
+            },
+            {
+                element: '#donut',
+                intro: "This doughnut chart shows current numbers for active, recorvered, and deceased cases. Hover over any colored segment to see the exact number of cases.",
+                position: 'left'
+            },
+            {
+                element: '#donut',
+                intro: 'You can also click on any of the names to remove them from the chart. Try clicking on Active Cases to remove it. You can always click on them again to bring them back!',
+                position: 'left'
+            },
+            {
+                element: '#donut-chart2',
+                intro: "This doughnut chart shows current number of confirmed cases for each province. Hover over any colored segment to see the exact number of cases.",
+                position: 'right'
+            },
+            {
+                element: '#donut-chart2',
+                intro: 'You can also click on any of the names to remove them from the chart. Try clicking on Sindh to remove it. You can always click on them again to bring them back!',
+                position: 'right'
+            },
+            {
+                element: '#tab-row',
+                intro: 'Click on any of the tabs to show the corresponding section.',
+                position: 'left'
+            },
+            {
+                element: '#nested-common-symp',
+                intro: 'This section lists some of the most common symptoms for COVID-19.',
+                position: 'left'
+            },
+            {
+                element: '#headingOne',
+                intro: 'Click on each symptom to read more about it.',
+                position: 'top'
+            },
+            {
+                element: '#nested-other-symp',
+                intro: 'This section lists other symptoms for COVID-19.',
+                position: 'left'
+            },
+            {
+                element: '#info-sec',
+                intro: 'This section has contact information for different hospitals/health centers in the province you selected.',
+                position: 'right'
+            },
+            {
+                element: '#precautions-button',
+                intro: 'In addition to contact info, you can use this button to view the necessary precautions for COVID-19 as well.',
+                position: 'right'
+            },
+            {
+                element: '#trend-section-header',
+                intro: 'This is where you can see the trends for each type of case as well data for districts inside each province.',
+                position: 'right'
+            },
+            {
+                element: '#trend-graph',
+                intro: 'This graph shows the trends for the same cases as the doughnut chart. Just like the doughnut chart, you can click on any of the names to remove them from the graph. Click on them again to get them back!',
+                position: 'top'
+            },
+            {
+                element: '#trend_slider',
+                intro: 'Use this slider to set how far back you want to see the trends from! You can go as far back as the beginning of the pandemic.',
+                position: 'top'
+            },
+            {
+                element: '#cities-graph',
+                intro: "This graph shows number of cases for the top 12 districts (by population) for each province. If a province is not selected or the data for the selected province doesn't exist, data for provincial captials will be shown.",
+                position: 'top'
+            },
+            {
+                element: '#viewmore-cities-button',
+                intro: 'Click this to view all the available data for each district of the chosen province.',
+                position: 'bottom'
+            },
+            {
+                element: '#prediction-graph',
+                intro: 'This graph shows a prediction for the number of cases for the next 14 days. Keep in mind that this is only a prediction.',
+                position: 'right'
+            },
+            {
+                element: '#prediction-accuracy',
+                intro: 'This graph shows a comparison between the predictions alongwith the data for the days that have already elapsed so you can see how accurate the predictions were!',
+                position: 'left'
+            },
+            {
+                element: '#viewmore-button',
+                intro: 'Click this to see a more detailed prediction graph!',
+                position: 'left'
+            },
+            {
+                element: '#time-series-prediction-details',
+                intro: 'This graph provides more details about the predictions. Between the Upper and Lower Confidence Interval is the range in which the predictions are most likely to lie.',
+                position: 'right'
+            },
+            {
+                element: '#factchecking-section-header',
+                intro: 'This section shows some of the prevailing myths, misconceptions as well as facts regarding COVID-19 and to what extent they are true.',
+                position: 'bottom'
+            },
+            {
+                element: '#factheadingOne',
+                intro: 'Click on each fact to learn more about it and view the source of information as well.',
+                position: 'bottom'
+            },
+            {
+                element: '#contributors-row',
+                intro: 'These are the people who built this dashboard for you and are working very hard to maintain it everyday! 👏',
+                position: 'top'
+            },
+            {
+                element: '#feedback-button',
+                intro: 'You can give feedback about this dashboard by clicking here.',
+                position: 'bottom'
+            },
+            {
+                element: '#tutorial-button',
+                intro: 'Click here to start the tutorial again at any time!',
+                position: 'bottom'
+            },
+            {
+                element: '#navbar',
+                intro: 'And that is all you need to know to use this dashboard. Stay safe, stay indoors! Click on Done to finish the tutorial.',
+                position: 'bottom'
+            }
+        ]
+    });
+    intro.setOption('showProgress', true);
+    intro.setOption('showBullets', false);
+    intro.setOption("exitOnOverlayClick", "false");
+
+    intro.onbeforechange(function(nextElement) {
+        // console.log("Next step: " + nextElement.id);
+        if (nextElement.id === 'nested-common-symp') {
+            $('#tab-common-symp').click();
+        }
+        if (nextElement.id === 'nested-other-symp') {
+            $('#tab-other-symp').click();
+        }
+        if (nextElement.id === 'precautions-button') {
+            $('#precautions-button').click();
+        }
+        if (nextElement.id === 'viewmore-cities-button') {
+            if ($('#viewmore-cities-button').text() === 'View More Details') {
+                $('#viewmore-cities-button').click();
+            }
+        }
+        if (nextElement.id === 'time-series-prediction-details') {
+            if ($('#viewmore-button').text() === 'View More Details') {
+                $('#viewmore-button').click();
+            }
+        }
+        if (nextElement.id === 'feedback-button') {
+            $('#tab-general-stat').click();
+            $('#emergency').click();
+            
+            if ($('#viewmore-cities-button').text() === 'View Less Details') {
+                $('#viewmore-cities-button').click();
+            }
+            
+            if ($('#viewmore-button').text() === 'View Less Details') {
+                $('#viewmore-button').click();
+            }
+        }
+    });
+    intro.start();
 }
 
 var slider_data = [[], [], [], []];
@@ -1851,16 +2044,42 @@ function showPredictionGraph() {
   }
 }
 
-function showCitiesTable() {
-  if (document.getElementById("cities-details").style.visibility === "hidden") {
-    document.getElementById("cities-details").style.visibility = "visible";
-    //console.log(table_data)
-    update_table_data();
-  } else if (
-    document.getElementById("cities-details").style.visibility === "visible"
-  ) {
-    document.getElementById("cities-details").style.visibility = "hidden";
-  }
+function showCitiesTable(){
+	update_table_data();
+}
+
+
+function display_general_stats() {
+    
+    general_stats_section.style.display = "block";
+    common_symp_section.style.display = "none";
+    other_symp_section.style.display = "none";
+
+    tab_general_stats.style.backgroundColor = "#8C0618";
+    tab_common_symp.style.backgroundColor = "#59030E";
+    tab_other_symp.style.backgroundColor = "#59030E";
+}
+
+function display_common_symp() {
+    
+    common_symp_section.style.display = "block";
+    general_stats_section.style.display = "none";
+    other_symp_section.style.display = "none";
+
+    tab_common_symp.style.backgroundColor = "#8C0618";
+    tab_general_stats.style.backgroundColor = "#59030E";
+    tab_other_symp.style.backgroundColor = "#59030E";
+}
+
+function display_other_symp() {
+    
+    other_symp_section.style.display = "block";
+    general_stats_section.style.display = "none";
+    common_symp_section.style.display = "none";
+
+    tab_other_symp.style.backgroundColor = "#8C0618";
+    tab_common_symp.style.backgroundColor = "#59030E";
+    tab_general_stats.style.backgroundColor = "#59030E";
 }
 
 $("#prediction-details").on("hidden.bs.collapse", function() {
@@ -1881,4 +2100,56 @@ $("#cities-details").on("shown.bs.collapse", function() {
   showCitiesTable();
 });
 
-$("#tutorial_modal").modal();
+$('#viewmore-susceptibility-button').click(function(event) {
+    if ($('#viewmore-susceptibility-button').text() === 'View More Details') {
+        $('#viewmore-susceptibility-button').text('View Less Details');
+    }
+    else if ($('#viewmore-susceptibility-button').text() === 'View Less Details') {
+        $('#viewmore-susceptibility-button').text('View More Details');
+    }
+});
+
+$('#viewmore-transmission-button').click(function(event) {
+    if ($('#viewmore-transmission-button').text() === 'View More Details') {
+        $('#viewmore-transmission-button').text('View Less Details');
+    }
+    else if ($('#viewmore-transmission-button').text() === 'View Less Details') {
+        $('#viewmore-transmission-button').text('View More Details');
+    }
+});
+
+
+$('#collapse5').on('shown.bs.collapse', function(event) {
+	event.stopPropagation();
+});
+
+$('#collapse5').on('hidden.bs.collapse', function(event) {
+	event.stopPropagation();
+});
+
+$('#collapse6').on('shown.bs.collapse', function(event) {
+	event.stopPropagation();
+});
+
+$('#collapse6').on('hidden.bs.collapse', function(event) {
+	event.stopPropagation();
+});
+
+$('#collapse8').on('shown.bs.collapse', function(event) {
+	event.stopPropagation();
+});
+
+$('#collapse8').on('hidden.bs.collapse', function(event) {
+	event.stopPropagation();
+});
+
+$('#collapse9').on('shown.bs.collapse', function(event) {
+	event.stopPropagation();
+});
+
+$('#collapse9').on('hidden.bs.collapse', function(event) {
+	event.stopPropagation();
+});
+
+
+$('#tutorial_modal').modal();
