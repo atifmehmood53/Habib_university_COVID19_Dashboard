@@ -1,35 +1,16 @@
-# Habib_university_COVID19_Dashboard
- This repositiry is initialized for Habib University's COVID19 Dashboard project.
+# Pakistan COVID-19 Resource Centre
+ This repository is initialized for Habib University's COVID19 Dashboard project.
 
-## TO-DO
-### v1.0
-- ~~Basic tutorial~~
-- ~~Better colors~~
-- ~~Some city data~~
-- ~~Local deployement~~
-- ~~Feedback option~~
-- ~~nationwide cases, nationwide recoveries, nationwide deceased~~
+## Dashboard Link: https://hu-dashboard-covid19.herokuapp.com/
 
-### v1.5
-#### Major:
-- City-level data
-- Detailed description of symptoms
-- Add tabular data
-- Separate section for symptoms (Cross interpolation of symptoms and statistics to show something like "This symptom occurred in x% patients.")
-- Separate section for fact-checking
-- Separate section for city-wise data
-- Double-headed slider / week-wise slider
-- Separate advanced prediction graph with lower and upper probabilities
-#### Minor:
-- Make plot points smaller to avoid cluster
-- Donut Chart: Confirmed cases should be the 100% and not a segment of the chart
-- Change emergency contact info to hyperlinks to relevant hospital's website
-- Improved colors for plots
-- Improved color for map highlight (a darker shade of yellow)
-
-
-
-
+## Major Features:
+- General statistics section.
+- Common symptoms/other symptoms and precautions.
+- Emergency contact info corresponding to each province.
+- Province wide and city wise trends of the spread of disease.
+- National predictions of cases for next 14 days along with prediction accuracy graph.
+- Fact-checking section to examines the accuracy of information about susceptibility, transmission, and treatment of COVID19 infection.
+- Tutorial.
 
 ### v2.0
 - Urdu support
