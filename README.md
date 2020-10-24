@@ -11,6 +11,7 @@
 - National predictions of cases for next 14 days along with prediction accuracy graph.
 - Fact-checking section to examines the accuracy of information about susceptibility, transmission, and treatment of COVID19 infection.
 - Tutorial.
+- Chatbot to answer users queries.
 
 ### v2.0
 - Urdu support
